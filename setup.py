@@ -15,7 +15,7 @@ requires = [
 ]
 
 if sys.argv[-1] == 'publish':
-    os.system('python setup.py sdist --formats=gztar upload')
+    os.system('python setup.py sdist upload')
     sys.exit()
 
 entry_points = dict()
