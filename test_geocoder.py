@@ -2,17 +2,11 @@ import geocoder
 import pytest
 import unittest
 
-
 location = 'Canada'
 ip = '74.125.226.99'
 repeat = 3
 ottawa = (45.4215296, -75.6971930)
 toronto = (43.653226, -79.3831843)
-bing_key = 'AtnSnX1rEHr3yTUGC3EHkD6Qi3NNB-PABa_F9F8zvLxxvt8A7aYdiG3bGM_PorOq'
-tomtom_key = '95kjrqtpzv39ujcxfyr57wz3'
-app_id = '6QqTvc3kUWsMjYi7iGRb'
-app_code = 'q7R__C774SunvWJDEiWbcA'
-username = 'addxy'
 
 def test_entry_points():
     geocoder.ip
@@ -35,14 +29,14 @@ def test_google():
 
 def test_bing():
     for i in xrange(repeat):
-        g = geocoder.bing(location, key=bing_key)
+        g = geocoder.bing(location)
         if g.ok:
             return True
     return False
 
 def test_nokia():
     for i in xrange(repeat):
-        g = geocoder.nokia(location, app_code=app_code, app_id=app_id)
+        g = geocoder.nokia(location)
         if g.ok:
             return True
     return False
@@ -56,7 +50,7 @@ def test_osm():
 
 def test_tomtom():
     for i in xrange(repeat):
-        g = geocoder.tomtom(location, key=tomtom_key)
+        g = geocoder.tomtom(location)
         if g.ok:
             return True
     return False
@@ -77,7 +71,7 @@ def test_mapquest():
 
 def test_geonames():
     for i in xrange(repeat):
-        g = geocoder.geonames(location, username=username)
+        g = geocoder.geonames(location)
         if g.ok:
             return True
     return False
