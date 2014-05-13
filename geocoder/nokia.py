@@ -6,7 +6,7 @@ class Nokia(Base):
     name = 'Nokia'
     url = 'http://geocoder.api.here.com/6.2/geocode.json'
 
-    def __init__(self, location, app_id='6QqTvc3kUWsMjYi7iGRb', app_code='q7R__C774SunvWJDEiWbcA'):
+    def __init__(self, location, app_id, app_code):
         self.location = location
         self.json = dict()
         self.params = dict()

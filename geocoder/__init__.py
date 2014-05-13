@@ -20,13 +20,14 @@ Geocoder is an Apache2 Licensed Geocoding library, written in Python.
 """
 
 __title__ = 'geocoder'
-__version__ = '0.5.4'
+__version__ = '0.5.5'
 __author__ = 'Denis Carriere'
 __license__ = 'Apache 2.0'
 __copyright__ = 'Copyright 2014 Denis Carriere'
 
 
 import argparse
+from keys import *
 from ip import Ip
 from osm import Osm
 from bing import Bing
@@ -157,7 +158,7 @@ def mapquest(location, proxies='', timeout=5.0):
     return Geocoder(provider, proxies=proxies, timeout=timeout)
 
 
-def tomtom(location, key='', proxies='', timeout=5.0):
+def tomtom(location, key=tomtom_key, proxies='', timeout=5.0):
     """
     Retrieves geocoding data from TomTom's geocoding API.
 
@@ -177,7 +178,7 @@ def tomtom(location, key='', proxies='', timeout=5.0):
     return Geocoder(provider, proxies=proxies, timeout=timeout)
 
 
-def bing(location, key='', proxies='', timeout=5.0):
+def bing(location, key=bing_key, proxies='', timeout=5.0):
     """
     Retrieves geocoding data from Bing's REST location API.
 
@@ -197,7 +198,7 @@ def bing(location, key='', proxies='', timeout=5.0):
     return Geocoder(provider, proxies=proxies, timeout=timeout)
 
 
-def nokia(location, app_id='', app_code='', proxies='', timeout=5.0):
+def nokia(location, app_id=app_id, app_code=app_code, proxies='', timeout=5.0):
     """
     Retrieves geocoding data from Nokia's HERE geocoder API.
 
@@ -248,7 +249,7 @@ def distance(location1, location2):
     return Distance(location1, location2)
 
 
-def geonames(location, username='', proxies='', timeout=5.0):
+def geonames(location, username=username, proxies='', timeout=5.0):
     """
     Retrieves geocoding data from Geonames's Web Service API.
 
@@ -270,7 +271,7 @@ def geonames(location, username='', proxies='', timeout=5.0):
     return Geocoder(provider, proxies=proxies, timeout=timeout)
 
 
-def population(location, username='', proxies='', timeout=5.0):
+def population(location, username=username, proxies='', timeout=5.0):
     """
     Retrieves the population data from Geonames's Web Service API.
 

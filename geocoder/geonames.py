@@ -8,7 +8,7 @@ class Geonames(Base):
     name = 'GeoNames'
     url = 'http://api.geonames.org/searchJSON'
 
-    def __init__(self, location, username='addxy'):
+    def __init__(self, location, username):
         self.location = location
         self.json = dict()
         self.params = dict()
