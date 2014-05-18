@@ -1,6 +1,6 @@
 #Python Geocoder
 
-[![version][badge img]][badge url] [![travis-ci][travis-img]][travis url]
+[![version][badge img]][badge url] [![build][travis img]][travis url]
 
 [badge img]: https://badge.fury.io/py/geocoder.png
 [badge url]: http://badge.fury.io/py/geocoder
