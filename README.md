@@ -1,11 +1,13 @@
 #Python Geocoder
 
-![version](https://badge.fury.io/py/geocoder.png)(http://badge.fury.io/py/geocoder)
+[![version][badge img]][badge url] [![travis-ci][travis-img]][travis url]
 
-![travis-ci](https://travis-ci.org/DenisCarriere/geocoder.png?branch=master)(https://travis-ci.org/DenisCarriere/geocoder)
+[badge img]: https://badge.fury.io/py/geocoder.png
+[badge url]: http://badge.fury.io/py/geocoder
+[travis img]: https://travis-ci.org/DenisCarriere/geocoder.png?branch=master
+[travis url]: https://travis-ci.org/DenisCarriere/geocoder
 
-
-<i class="icon-file"></i>A simplistic Python Geocoder.
+A simplistic Python Geocoder.
 
 Geocoder is an Apache2 Licensed Geocoding library, written in Python.
 
@@ -293,7 +295,6 @@ Command Line
 
 
 More interaction with command line will soon follow.
-    
 
 Support this module
 -------------------
@@ -307,6 +308,4 @@ Please feel free to give any feedback on this module. If you find any bugs or an
 Twitter
 ```````
 Speak up on Twitter and tell us how you use this Python Geocoder module by using the following Twitter Hashtags `@Addxy <https://twitter.com/search?q=%40Addxy>`_ `#geocoder <https://twitter.com/search?q=%23geocoder>`_.
-
-
 
