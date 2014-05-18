@@ -5,7 +5,7 @@
 ![travis-ci](https://travis-ci.org/DenisCarriere/geocoder.png?branch=master)(https://travis-ci.org/DenisCarriere/geocoder)
 
 
-A simplistic Python Geocoder.
+<i class="icon-file"></i>A simplistic Python Geocoder.
 
 Geocoder is an Apache2 Licensed Geocoding library, written in Python.
 
