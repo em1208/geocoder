@@ -1,4 +1,4 @@
-#Python Geocoder
+# Python Geocoder
 
 [![version][version img]][version url] [![build][build img]][build url]
 
@@ -12,8 +12,7 @@ A simplistic Python Geocoder.
 Geocoder is an Apache2 Licensed Geocoding library, written in Python.
 
 
-.. code-block:: pycon
-
+```python
     >>> import geocoder
     >>> g = geocoder.google('Moscone Center')
     >>> g.latlng
@@ -21,30 +20,26 @@ Geocoder is an Apache2 Licensed Geocoding library, written in Python.
     >>> g.city
     'San Francisco'
     ...
+```
 
-Installation
-------------
+## Installation
 
 You can install, upgrade, uninstall Geocoder with these commands:
 
-.. code-block:: bash
-
+```bash
     $ pip install geocoder
     $ pip install --upgrade geocoder
-    $ pip uninstall geocoder 
+    $ pip uninstall geocoder
+```
 
+## Documentation
 
-Documentation
--------------
-
-Search with Google
-``````````````````
+### Search with Google
 
 Using the Geocoder API from Google, this is a simplistic approach
 to return you all the same results that Google would provide.
 
-.. code-block:: pycon
-
+```python
     >>> import geocoder
     >>> g = geocoder.google('1600 Amphitheatre Pkwy, Mountain View, CA')
     >>> g.latlng
@@ -56,34 +51,32 @@ to return you all the same results that Google would provide.
     >>> g.country
     'United States'
     ...
+```
 
 If you are using a **Google App for business**.
 Here is how you can enter your key client-id & secret keyd.
 
-.. code-block:: pycon
-
+```python
     >>> client = 'gme-XXXXXX'
     >>> secret = 'XXXXXXXXXX'
     >>> g = geocoder.google(<address>, client=client, secret=secret)
     ...
+```
 
 If you have a FREE account, you might only have an API key.
 This will still work using your Application's quota limits.
 
-.. code-block:: pycon
-
+```python
     >>> api_key = 'XXXXXXX'
     >>> g = geocoder.google(<address>, api_key=api_key)
     ...
+```
 
-
-Getting JSON
-````````````
+### Getting JSON
 
 The web uses JSON and GeoJSON, here is how to return your Geocoded address into this format.
 
-.. code-block:: pycon
-    
+```python
     >>> g = geocoder.google('1600 Amphitheatre Parkway, Mountain View, CA')
     >>> g.json
     {'address': '1600 Amphitheatre Parkway, Mountain View, CA 94043, USA',
@@ -100,11 +93,11 @@ The web uses JSON and GeoJSON, here is how to return your Geocoded address into 
     'quality': 'ROOFTOP',
     'status': 'OK'}
     ...
+```
 
-GeoJSON is a widely used, open format for encoding geographic data, and is supported by a number of popular applications. 
+GeoJSON is a widely used, open format for encoding geographic data, and is supported by a number of popular applications.
 
-.. code-block:: pycon
-
+```python
     >>> import simplejson as json
     >>> g = geocoder.google('Ottawa, ON')
     >>> json.dumps(g.geojson, indent=4)
@@ -129,65 +122,36 @@ GeoJSON is a widely used, open format for encoding geographic data, and is suppo
         "ok": true,
         "country": "Canada",
     ...
+```
 
+### Using Proxies & Timeout
 
-Using Proxies & Timeout
-```````````````````````
 There many obvious reasons why you would need to use proxies,
 here is the basic syntax on how to successfully use them.
 
 Timeouts are used to stop the connection if it reaches a certain time.
 
-.. code-block:: pycon
-
+```python
     >>> proxies = '111.161.126.84:80'
     >>> g = geocoder.google('Ottawa', proxies=proxies, timeout=5.0)
     <[OK] Geocoder Google [Ottawa, ON, Canada]>
     ...
+```
 
-Distance Calculator
-```````````````````
-Using the Great Circle distance by using the Harversine formula.
-
-.. code-block:: pycon
-
-    >>> d = geocoder.distance('Ottawa', 'Toronto')
-    >>> d.km
-    351.902264779
-    >>> d.miles
-    218.672067333
-    ...
-
-Different ways to use the Distance calculator, you can input the locations by using a tuple (lat, lng) or a dictionary with lat/lng keys.
-
-.. code-block:: pycon
-
-    >>> import geocoder
-    >>> ottawa = (45.4215296, -75.69719309999999)
-    >>> toronto = {'lat':43.653226, 'lng':-79.3831843}
-    >>> d = geocoder.distance(ottawa, toronto)
-    >>> d.meters
-    351902
-    ...
-
-Reverse Geocoding
-`````````````````
+### Reverse Geocoding
 
 Using Google's reverse geocoding API, you are able to input a set of coordinates and geocode its location.
 
-.. code-block:: pycon
-
+```python
     >>> latlng = (48.85837, 2.2944813)
     >>> g = geocoder.reverse(latlng)
     <[OK] Geocoder Google [Eiffel Tower, Paris, France]>
     ...
+```
 
+### Bounding Box (Extent)
 
-Bounding Box (Extent)
-`````````````````````
-
-.. code-block:: pycon
-    
+```python
     >>> g = geocoder.osm('1600 Amphitheatre Pkwy, Mountain View, CA')
     >>> g.bbox
     {'northeast': {'lat': 37.4233474802915, 'lng': -122.0826054197085},
@@ -197,46 +161,44 @@ Bounding Box (Extent)
     >>> g.south
     37.4206495197085
     ...
+```
 
-
-Geocoding IP Address
-````````````````````
+### Geocoding IP Address
 
 Retrieves geocoding data from MaxMind's GeoIP2 services
 
-.. code-block:: pycon
-
+```python
     >>> g = geocoder.ip('74.125.226.99')
     >>> g.address
     'Mountain View, California United States'
     >>> g.latlng
     (37.4192, -122.0574)
+```
 
 Geocoding your current IP address, simply use **me** as the input.
 
-.. code-block:: pycon
-
+```python
     >>> g = geocoder.ip('me')
     >>> g.address
     'Ottawa, Ontario Canada'
     >>> g.latlng
     (45.4805, -75.5237)
     ...
+```
 
-Population Data from City
-`````````````````````````
+### Population Data from City
 
 Retrieves population data from Geonames's Web Service API.
 
-.. code-block:: pycon
-
+```python
     >>> pop = geocoder.population('Springfield, Virginia')
     >>> pop
     30484
     ...
+```
 
-Geocoder Attributes
--------------------
+### Geocoder Attributes
+
 - address
 - location
 - city
@@ -256,19 +218,9 @@ Geocoder Attributes
 - south, west, north, east (float)
 
 
-Distance Attributes
--------------------
-- km (float)
-- miles (float)
-- meters (integer)
-- feet (integer)
+### Geocoding Providers
 
-
-Geocoding Providers
-```````````````````
-
-.. code-block:: pycon
-    
+```python
     ## Priority Geocoders
     >>> geocoder.google(<location>)
     >>> geocoder.reverse(<latlng>)
@@ -283,29 +235,17 @@ Geocoding Providers
     >>> geocoder.nokia(<location>, app_id='XXXXX', app_code='XXXXX')
     >>> geocoder.tomtom(<location>, key='XXXXX')
     ...
+```
 
-
-Command Line
-````````````
-
-.. code-block:: bash
-
-    $ geocoder Ottawa
-    45.4215296, -75.69719309999999
-
-
-More interaction with command line will soon follow.
-
-Support this module
--------------------
+## Support
 
 This project is free & open source, it would help greatly for you guys reading this to contribute, here are some of the ways that you can help make this Python Geocoder better.
 
-Feedback
-````````
-Please feel free to give any feedback on this module. If you find any bugs or any enhancements to recommend please send some of your comments/suggestions to the `Github Issues Page <https://github.com/DenisCarriere/geocoder/issues>`_.
+### Feedback
 
-Twitter
-```````
-Speak up on Twitter and tell us how you use this Python Geocoder module by using the following Twitter Hashtags `@Addxy <https://twitter.com/search?q=%40Addxy>`_ `#geocoder <https://twitter.com/search?q=%23geocoder>`_.
+Please feel free to give any feedback on this module. If you find any bugs or any enhancements to recommend please send some of your comments/suggestions to the [Github Issues Page](https://github.com/DenisCarriere/geocoder/issues).
+
+### Twitter
+
+Speak up on Twitter and tell us how you use this Python Geocoder module by using the following Twitter Hashtags [@Addxy](https://twitter.com/search?q=%40Addxy) [#geocoder](https://twitter.com/search?q=%23geocoder).
 
