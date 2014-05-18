@@ -21,7 +21,7 @@ if sys.argv[-1] == 'publish':
 entry_points = dict()
 entry_points['console_scripts'] = ['geocoder = geocoder:_main', ]
 
-with open('README.rst') as f:
+with open('README.md') as f:
     readme = f.read()
 with open('LICENSE') as f:
     license = f.read()

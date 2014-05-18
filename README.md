@@ -1,11 +1,11 @@
 #Python Geocoder
 
-[![version][badge img]][badge url] [![build][travis img]][travis url]
+[![version][version img]][version url] [![build][build img]][build url]
 
-[badge img]: https://badge.fury.io/py/geocoder.png
-[badge url]: http://badge.fury.io/py/geocoder
-[travis img]: https://travis-ci.org/DenisCarriere/geocoder.png?branch=master
-[travis url]: https://travis-ci.org/DenisCarriere/geocoder
+[version img]: https://badge.fury.io/py/geocoder.png
+[version url]: http://badge.fury.io/py/geocoder
+[build img]: https://travis-ci.org/DenisCarriere/geocoder.png?branch=master
+[build url]: https://travis-ci.org/DenisCarriere/geocoder
 
 A simplistic Python Geocoder.
 
