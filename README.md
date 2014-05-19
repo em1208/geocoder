@@ -1,11 +1,4 @@
-# Python Geocoder
-
-[![version][version img]][version url] [![build][build img]][build url]
-
-[version img]: https://badge.fury.io/py/geocoder.png
-[version url]: http://badge.fury.io/py/geocoder
-[build img]: https://travis-ci.org/DenisCarriere/geocoder.png?branch=master
-[build url]: https://travis-ci.org/DenisCarriere/geocoder
+# [Geocoder](https://github.com/DenisCarriere/geocoder) [![version](https://badge.fury.io/py/geocoder.png)](http://badge.fury.io/py/geocoder) [![build](https://travis-ci.org/DenisCarriere/geocoder.png?branch=master)](https://travis-ci.org/DenisCarriere/geocoder)
 
 A simplistic Python Geocoder.
 
@@ -22,7 +15,7 @@ Geocoder is an Apache2 Licensed Geocoding library, written in Python.
     ...
 ```
 
-## Installation
+# Installation
 
 You can install, upgrade, uninstall Geocoder with these commands:
 
@@ -32,9 +25,9 @@ You can install, upgrade, uninstall Geocoder with these commands:
     $ pip uninstall geocoder
 ```
 
-## Documentation
+# Documentation
 
-### Search with Google
+## Search with Google
 
 Using the Geocoder API from Google, this is a simplistic approach
 to return you all the same results that Google would provide.
@@ -72,7 +65,7 @@ This will still work using your Application's quota limits.
     ...
 ```
 
-### Getting JSON
+## Getting JSON
 
 The web uses JSON and GeoJSON, here is how to return your Geocoded address into this format.
 
@@ -124,7 +117,7 @@ GeoJSON is a widely used, open format for encoding geographic data, and is suppo
     ...
 ```
 
-### Using Proxies & Timeout
+## Using Proxies & Timeout
 
 There many obvious reasons why you would need to use proxies,
 here is the basic syntax on how to successfully use them.
@@ -138,7 +131,7 @@ Timeouts are used to stop the connection if it reaches a certain time.
     ...
 ```
 
-### Reverse Geocoding
+## Reverse Geocoding
 
 Using Google's reverse geocoding API, you are able to input a set of coordinates and geocode its location.
 
@@ -149,7 +142,7 @@ Using Google's reverse geocoding API, you are able to input a set of coordinates
     ...
 ```
 
-### Bounding Box (Extent)
+## Bounding Box (Extent)
 
 ```python
     >>> g = geocoder.osm('1600 Amphitheatre Pkwy, Mountain View, CA')
@@ -163,7 +156,7 @@ Using Google's reverse geocoding API, you are able to input a set of coordinates
     ...
 ```
 
-### Geocoding IP Address
+## Geocoding IP Address
 
 Retrieves geocoding data from MaxMind's GeoIP2 services
 
@@ -186,7 +179,7 @@ Geocoding your current IP address, simply use **me** as the input.
     ...
 ```
 
-### Population Data from City
+## Population Data from City
 
 Retrieves population data from Geonames's Web Service API.
 
@@ -197,7 +190,7 @@ Retrieves population data from Geonames's Web Service API.
     ...
 ```
 
-### Geocoder Attributes
+## Geocoder Attributes
 
 - address
 - location
@@ -218,7 +211,7 @@ Retrieves population data from Geonames's Web Service API.
 - south, west, north, east (float)
 
 
-### Geocoding Providers
+## Geocoding Providers
 
 ```python
     ## Priority Geocoders
@@ -241,11 +234,11 @@ Retrieves population data from Geonames's Web Service API.
 
 This project is free & open source, it would help greatly for you guys reading this to contribute, here are some of the ways that you can help make this Python Geocoder better.
 
-### Feedback
+## Feedback
 
 Please feel free to give any feedback on this module. If you find any bugs or any enhancements to recommend please send some of your comments/suggestions to the [Github Issues Page](https://github.com/DenisCarriere/geocoder/issues).
 
-### Twitter
+## Twitter
 
 Speak up on Twitter and tell us how you use this Python Geocoder module by using the following Twitter Hashtags [@Addxy](https://twitter.com/search?q=%40Addxy) [#geocoder](https://twitter.com/search?q=%23geocoder).
 
