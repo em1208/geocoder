@@ -17,7 +17,6 @@ def test_entry_points():
     geocoder.tomtom
     geocoder.reverse
     geocoder.geonames
-    geocoder.distance
     geocoder.mapquest
 
 def test_google():
@@ -73,13 +72,6 @@ def test_geonames():
     for i in xrange(repeat):
         g = geocoder.geonames(location)
         if g.ok:
-            return True
-    return False
-
-def test_distance():
-    for i in xrange(repeat):
-        d = geocoder.distance(ottawa, toronto)
-        if d.ok:
             return True
     return False
 
