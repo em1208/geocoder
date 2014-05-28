@@ -43,7 +43,8 @@ to return you all the same results that Google would provide.
     'Mountain View'
     >>> g.country
     'United States'
-    ..
+    ...
+```   
 
 ## Getting JSON
 
