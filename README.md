@@ -43,36 +43,9 @@ to return you all the same results that Google would provide.
     'Mountain View'
     >>> g.country
     'United States'
-    ...
-<<<<<<< HEAD:README.rst
-    
-
-Getting JSON
-````````````
-=======
-```
-
-If you are using a **Google App for business**.
-Here is how you can enter your key client-id & secret keyd.
-
-```python
-    >>> client = 'gme-XXXXXX'
-    >>> secret = 'XXXXXXXXXX'
-    >>> g = geocoder.google(<address>, client=client, secret=secret)
-    ...
-```
-
-If you have a FREE account, you might only have an API key.
-This will still work using your Application's quota limits.
-
-```python
-    >>> api_key = 'XXXXXXX'
-    >>> g = geocoder.google(<address>, api_key=api_key)
-    ...
-```
+    ..
 
 ## Getting JSON
->>>>>>> FETCH_HEAD:README.md
 
 The web uses JSON and GeoJSON, here is how to return your Geocoded address into this format.
 
