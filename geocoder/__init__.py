@@ -20,7 +20,7 @@ Geocoder is an Apache2 Licensed Geocoding library, written in Python.
 """
 
 __title__ = 'geocoder'
-__version__ = '0.5.5'
+__version__ = '0.5.7'
 __author__ = 'Denis Carriere'
 __license__ = 'Apache 2.0'
 __copyright__ = 'Copyright 2014 Denis Carriere'
@@ -38,7 +38,6 @@ from google import Google
 from reverse import Reverse
 from geonames import Geonames
 from mapquest import Mapquest
-from distance import Distance
 from geocoder import Geocoder
 
 
@@ -219,36 +218,6 @@ def nokia(location, app_id=app_id, app_code=app_code, proxies='', timeout=5.0):
     return Geocoder(provider, proxies=proxies, timeout=timeout)
 
 
-def distance(location1, location2):
-    """
-    Using the Great Circle distance by using the Harversine formula.
-
-        >>> import geocoder
-        >>> d = geocoder.distance('Ottawa', 'Toronto')
-        >>> d.km
-        351.902264779
-        >>> d.miles
-        218.672067333
-        ...
-
-    Different ways to use the Distance calculator, you can input the locations 
-    by using a tuple (lat, lng) or a dictionary with lat/lng keys.
-
-        >>> import geocoder
-        >>> ottawa = (45.4215296, -75.69719309999999)
-        >>> toronto = {'lat':43.653226, 'lng':-79.3831843}
-        >>> d = geocoder.distance(ottawa, toronto)
-        >>> d.meters
-        351902
-        ...
-
-    Wiki Docs
-    ---------
-    http://en.wikipedia.org/wiki/Haversine_formula
-    """
-    return Distance(location1, location2)
-
-
 def geonames(location, username=username, proxies='', timeout=5.0):
     """
     Retrieves geocoding data from Geonames's Web Service API.
@@ -287,19 +256,6 @@ def population(location, username=username, proxies='', timeout=5.0):
     """
     g = geonames(location, username=username, proxies=proxies, timeout=timeout)
     return g.pop
-
-def _main():
-    """
-    Command Line Interface documentaion.
-    More to follow...
-    """
-    description = "Google Geocoder Tool"
-    parser = argparse.ArgumentParser(description=description)
-    parser.add_argument('location', help="Google Address to Geocode")
-    args = parser.parse_args()
-
-    g = google(args.location)
-    print g.latlng
 
 if __name__ == '__main__':
     a = (45.4215296, -75.69719309999999)
