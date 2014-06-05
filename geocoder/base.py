@@ -126,7 +126,7 @@ class Base(object):
     def safe_format(self, item):
         item = self.json.get(item)
         if item:
-            item = item.encode('utf-8')
+            item = item
         return item
 
     def safe_coord(self, item):
