@@ -8,7 +8,7 @@ class Geonames(Base):
     name = 'GeoNames'
     url = 'http://api.geonames.org/searchJSON'
 
-    def __init__(self, location, username):
+    def __init__(self, location, username='addxy'):
         self.location = location
         self.json = dict()
         self.params = dict()
@@ -19,17 +19,21 @@ class Geonames(Base):
         if not username:
             self.help_username()
 
+    @property
     def lat(self):
         return self.safe_coord('geonames-lat')
 
+    @property
     def lng(self):
         return self.safe_coord('geonames-lng')
 
+    @property
     def address(self):
         return self.safe_format('geonames-name')
 
+    @property
     def status(self):
-        if self.lng():
+        if self.lng:
             return 'OK'
         else:
             msg = self.safe_format('status-message')
@@ -38,24 +42,19 @@ class Geonames(Base):
             else:
                 return 'ERROR - No Geometry'
 
+    @property
     def quality(self):
         return self.safe_format('geonames-fcodeName')
 
-    def postal(self):
-        return None
-
-    def bbox(self):
-        return None
-
-    def city(self):
-        return None
-
+    @property
     def state(self):
         return self.safe_format('geonames-adminName1')
 
+    @property
     def country(self):
         return self.safe_format('geonames-countryName')
 
+    @property
     def population(self):
         return self.json.get('geonames-population')
 
@@ -71,3 +70,7 @@ class Geonames(Base):
         print 'http://www.geonames.org/login'
         print 'Then, login into your account and enable the free webservices:'
         print 'http://www.geonames.org/enablefreewebservice'
+
+if __name__ =='__main__':
+    geonames = Geonames('Ottawa')
+    print geonames.bbox

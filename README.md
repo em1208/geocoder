@@ -6,23 +6,25 @@ Geocoder is an Apache2 Licensed Geocoding library, written in Python.
 
 
 ```python
-    >>> import geocoder
-    >>> g = geocoder.google('Moscone Center')
-    >>> g.latlng
-    (37.784173, -122.401557)
-    >>> g.city
-    'San Francisco'
-    ...
+>>> import geocoder
+>>> g = geocoder.google('Moscone Center')
+>>> g.latlng
+(37.784173, -122.401557)
+>>> g.city
+'San Francisco'
+...
 ```
+
+![Providers](https://raw.githubusercontent.com/DenisCarriere/geocoder/master/docs/img/providers.png)
 
 # Installation
 
 You can install, upgrade, uninstall Geocoder with these commands:
 
 ```bash
-    $ pip install geocoder
-    $ pip install --upgrade geocoder
-    $ pip uninstall geocoder
+$ pip install geocoder
+$ pip install --upgrade geocoder
+$ pip uninstall geocoder
 ```
 
 # Documentation
@@ -33,17 +35,17 @@ Using the Geocoder API from Google, this is a simplistic approach
 to return you all the same results that Google would provide.
 
 ```python
-    >>> import geocoder
-    >>> g = geocoder.google('1600 Amphitheatre Pkwy, Mountain View, CA')
-    >>> g.latlng
-    (37.784173, -122.401557)
-    >>> g.postal
-    '94043'
-    >>> g.city
-    'Mountain View'
-    >>> g.country
-    'United States'
-    ...
+>>> import geocoder
+>>> g = geocoder.google('1600 Amphitheatre Pkwy, Mountain View, CA')
+>>> g.latlng
+(37.784173, -122.401557)
+>>> g.postal
+'94043'
+>>> g.city
+'Mountain View'
+>>> g.country
+'United States'
+...
 ```
 
 ## Long names with Google
@@ -52,7 +54,7 @@ When using Google, the default results are using the short names, here is how yo
 retrieve the long names as the results.
 
 ```python
-    >>> g = geocoder.google(<address>, short_name=False)
+>>> g = geocoder.google(<address>, short_name=False)
 ```
 
 ## Getting JSON
@@ -60,51 +62,51 @@ retrieve the long names as the results.
 The web uses JSON and GeoJSON, here is how to return your Geocoded address into this format.
 
 ```python
-    >>> g = geocoder.google('1600 Amphitheatre Parkway, Mountain View, CA')
-    >>> g.json
-    {'address': '1600 Amphitheatre Parkway, Mountain View, CA 94043, USA',
-    'bbox': {'northeast': {'lat': 37.4233474802915, 'lng': -122.0826054197085},
-    'southwest': {'lat': 37.4206495197085, 'lng': -122.0853033802915}},
-    'city': 'Mountain View',
-    'country': 'United States',
-    'lat': 37.4219985,
-    'lng': -122.0839544,
-    'location': '1600 Amphitheatre Parkway, Mountain View, CA 94043, USA',
-    'ok': True,
-    'postal': '94043',
-    'provider': 'Google',
-    'quality': 'ROOFTOP',
-    'status': 'OK'}
-    ...
+>>> g = geocoder.google('1600 Amphitheatre Parkway, Mountain View, CA')
+>>> g.json
+{'address': '1600 Amphitheatre Parkway, Mountain View, CA 94043, USA',
+'bbox': {'northeast': {'lat': 37.4233474802915, 'lng': -122.0826054197085},
+'southwest': {'lat': 37.4206495197085, 'lng': -122.0853033802915}},
+'city': 'Mountain View',
+'country': 'United States',
+'lat': 37.4219985,
+'lng': -122.0839544,
+'location': '1600 Amphitheatre Parkway, Mountain View, CA 94043, USA',
+'ok': True,
+'postal': '94043',
+'provider': 'Google',
+'quality': 'ROOFTOP',
+'status': 'OK'}
+...
 ```
 
 GeoJSON is a widely used, open format for encoding geographic data, and is supported by a number of popular applications.
 
 ```python
-    >>> import simplejson as json
-    >>> g = geocoder.google('Ottawa, ON')
-    >>> json.dumps(g.geojson, indent=4)
-    {
-    "geometry": {
-        "type": "Point",
-        "coordinates": [
-            -75.69719309999999,
-            45.4215296
-        ]
-    },
-    "crs": {
-        "type": "name",
-        "properties": {
-            "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
-        }
-    },
-    "type": "Feature",
+>>> import simplejson as json
+>>> g = geocoder.google('Ottawa, ON')
+>>> json.dumps(g.geojson, indent=4)
+{
+"geometry": {
+    "type": "Point",
+    "coordinates": [
+        -75.69719309999999,
+        45.4215296
+    ]
+},
+"crs": {
+    "type": "name",
     "properties": {
-        "status": "OK",
-        "city": "Ottawa",
-        "ok": true,
-        "country": "Canada",
-    ...
+        "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+},
+"type": "Feature",
+"properties": {
+    "status": "OK",
+    "city": "Ottawa",
+    "ok": true,
+    "country": "Canada",
+...
 ```
 
 ## Using Proxies & Timeout
@@ -115,10 +117,10 @@ here is the basic syntax on how to successfully use them.
 Timeouts are used to stop the connection if it reaches a certain time.
 
 ```python
-    >>> proxies = '111.161.126.84:80'
-    >>> g = geocoder.google('Ottawa', proxies=proxies, timeout=5.0)
-    <[OK] Geocoder Google [Ottawa, ON, Canada]>
-    ...
+>>> proxies = '111.161.126.84:80'
+>>> g = geocoder.google('Ottawa', proxies=proxies, timeout=5.0)
+<[OK] Geocoder Google [Ottawa, ON, Canada]>
+...
 ```
 
 ## Reverse Geocoding
@@ -126,24 +128,24 @@ Timeouts are used to stop the connection if it reaches a certain time.
 Using Google's reverse geocoding API, you are able to input a set of coordinates and geocode its location.
 
 ```python
-    >>> latlng = (48.85837, 2.2944813)
-    >>> g = geocoder.reverse(latlng)
-    <[OK] Geocoder Google [Eiffel Tower, Paris, France]>
-    ...
+>>> latlng = (48.85837, 2.2944813)
+>>> g = geocoder.reverse(latlng)
+<[OK] Geocoder Google [Eiffel Tower, Paris, France]>
+...
 ```
 
 ## Bounding Box (Extent)
 
 ```python
-    >>> g = geocoder.osm('1600 Amphitheatre Pkwy, Mountain View, CA')
-    >>> g.bbox
-    {'northeast': {'lat': 37.4233474802915, 'lng': -122.0826054197085},
-    'southwest': {'lat': 37.4206495197085, 'lng': -122.0853033802915}}
-    >>> g.southwest
-    {'lat': 37.4206495197085, 'lng': -122.0853033802915}
-    >>> g.south
-    37.4206495197085
-    ...
+>>> g = geocoder.osm('1600 Amphitheatre Pkwy, Mountain View, CA')
+>>> g.bbox
+{'northeast': {'lat': 37.4233474802915, 'lng': -122.0826054197085},
+'southwest': {'lat': 37.4206495197085, 'lng': -122.0853033802915}}
+>>> g.southwest
+{'lat': 37.4206495197085, 'lng': -122.0853033802915}
+>>> g.south
+37.4206495197085
+...
 ```
 
 ## Geocoding IP Address
@@ -151,22 +153,22 @@ Using Google's reverse geocoding API, you are able to input a set of coordinates
 Retrieves geocoding data from MaxMind's GeoIP2 services
 
 ```python
-    >>> g = geocoder.ip('74.125.226.99')
-    >>> g.address
-    'Mountain View, California United States'
-    >>> g.latlng
-    (37.4192, -122.0574)
+>>> g = geocoder.ip('74.125.226.99')
+>>> g.address
+'Mountain View, California United States'
+>>> g.latlng
+(37.4192, -122.0574)
 ```
 
 Geocoding your current IP address, simply use **me** as the input.
 
 ```python
-    >>> g = geocoder.ip('me')
-    >>> g.address
-    'Ottawa, Ontario Canada'
-    >>> g.latlng
-    (45.4805, -75.5237)
-    ...
+>>> g = geocoder.ip('me')
+>>> g.address
+'Ottawa, Ontario Canada'
+>>> g.latlng
+(45.4805, -75.5237)
+...
 ```
 
 ## Population Data from City
@@ -174,10 +176,10 @@ Geocoding your current IP address, simply use **me** as the input.
 Retrieves population data from Geonames's Web Service API.
 
 ```python
-    >>> pop = geocoder.population('Springfield, Virginia')
-    >>> pop
-    30484
-    ...
+>>> pop = geocoder.population('Springfield, Virginia')
+>>> pop
+30484
+...
 ```
 
 ## Geocoder Attributes

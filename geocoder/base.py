@@ -6,10 +6,11 @@ import re
 
 class Base(object):
     """ Template for Providers """
-    json = dict()
-    headers = dict()
-    x = 0.0
-    y = 0.0
+    headers = None
+    params = None
+    bbox = None
+    x = None
+    y = None
     west = None
     north = None
     south = None
@@ -18,7 +19,24 @@ class Base(object):
     northwest = None
     southwest = None
     southeast = None
-    population = 0
+    population = None
+    bbox = None
+    quality = None
+    postal = None
+    neighborhood = None
+    country = None
+    city = None
+    route = None
+    street_number = None
+    locality = None
+    sublocality = None
+    county = None
+    state = None
+    ip = None
+
+    def __init__(self):
+        self.json = dict()
+        self.headers = dict()
 
     def __repr__(self):
         return "<{0} [{1}]>".format(self.name, self.location)
@@ -107,6 +125,8 @@ class Base(object):
 
     def safe_format(self, item):
         item = self.json.get(item)
+        if item:
+            item = item.encode('utf-8')
         return item
 
     def safe_coord(self, item):
@@ -141,53 +161,13 @@ class Base(object):
             return bbox
         return None
 
+    @property
     def ok(self):
-        return bool(self.lng() and self.lat())
+        return bool(self.lng and self.lat)
 
+    @property
     def status(self):
-        if self.lng():
+        if self.lng:
             return 'OK'
         else:
             return 'ERROR - No Geometry'
-
-    def bbox(self):
-        return None
-
-    def quality(self):
-        return None
-
-    def postal(self):
-        return None
-
-    def country(self):
-        return None
-
-    def city(self):
-        return None
-
-    def route(self):
-        return None
-
-    def street_number(self):
-        return None
-
-    def locality(self):
-        return None
-
-    def sublocality(self):
-        return None
-
-    def population(self):
-        return None
-
-    def url(self):
-        return self.url
-
-    def division(self):
-        return None
-
-    def state(self):
-        return None
-
-    def ip(self):
-        return None

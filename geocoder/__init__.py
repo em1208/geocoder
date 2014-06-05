@@ -20,7 +20,7 @@ Geocoder is an Apache2 Licensed Geocoding library, written in Python.
 """
 
 __title__ = 'geocoder'
-__version__ = '0.5.8'
+__version__ = '0.5.9'
 __author__ = 'Denis Carriere'
 __license__ = 'Apache 2.0'
 __copyright__ = 'Copyright 2014 Denis Carriere'
@@ -41,7 +41,7 @@ from mapquest import Mapquest
 from geocoder import Geocoder
 
 
-def google(location, short_name=True, client='', secret='', proxies='', api_key='', timeout=5.0):
+def google(location, short_name=True, timeout=5.0, proxies='', client='', secret='', api_key=''):
     """
     Retrieves geocoding data from Google's geocoding API V3
 

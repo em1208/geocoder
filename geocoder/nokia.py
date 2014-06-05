@@ -1,4 +1,6 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/python
+# coding: utf8
+
 from base import Base
 
 
@@ -18,21 +20,35 @@ class Nokia(Base):
         if not bool(app_id and app_code):
             self.help_key()
 
+    @property
     def lat(self):
         return self.safe_coord('NavigationPosition-Latitude')
 
+    @property
     def lng(self):
         return self.safe_coord('NavigationPosition-Longitude')
 
+    @property
     def address(self):
         return self.safe_format('Address-Label')
 
+    @property
+    def street_number(self):
+        return self.safe_format('Address-HouseNumber')
+
+    @property
+    def route(self):
+        return self.safe_format('Address-Street')
+
+    @property
     def quality(self):
         return self.safe_format('Result-MatchLevel')
 
+    @property
     def postal(self):
         return self.safe_format('Address-PostalCode')
 
+    @property
     def bbox(self):
         south = self.json.get('BottomRight-Latitude')
         west = self.json.get('TopLeft-Longitude')
@@ -40,12 +56,19 @@ class Nokia(Base):
         east = self.json.get('BottomRight-Longitude')
         return self.safe_bbox(south, west, north, east)
 
+    @property
+    def neighborhood(self):
+        return self.safe_format('Address-District')
+
+    @property
     def locality(self):
         return self.safe_format('Address-City')
 
+    @property
     def state(self):
         return self.safe_format('StateName')
 
+    @property
     def country(self):
         return self.safe_format('CountryName')
 

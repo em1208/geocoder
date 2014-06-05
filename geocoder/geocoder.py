@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/python
+# coding: utf8
 
 import requests
 import sys
@@ -14,7 +15,7 @@ class Geocoder(object):
     >>> g.country
     'United States'
     """
-    def __init__(self, provider, proxies, timeout):
+    def __init__(self, provider, proxies='', timeout=5.0):
         self.provider = provider
         self.proxies = proxies
         self.timeout = timeout
@@ -27,10 +28,7 @@ class Geocoder(object):
         self._add_data()
 
     def __repr__(self):
-        try:
-            return '<[{0}] Geocoder {1} [{2}]>'.format(self.status, self.name, self.address)
-        except UnicodeEncodeError:
-            return '<[{0}] Geocoder {1} [{2}]>'.format(self.status, self.name, self.location)
+        return '<[{0}] Geocoder {1} [{2}]>'.format(self.status, self.name, self.address)
 
     def _get_proxies(self):
         if self.proxies:
@@ -66,42 +64,51 @@ class Geocoder(object):
 
         if self.status == 200:
             self.provider.load(r.json())
-            self.status = self.provider.status()
+            self.status = self.provider.status
 
     def _add_data(self):
-        # Get Attributes
-        self.quality = self.provider.quality()
+        # Get Attributes from Provider
+        self.quality = self.provider.quality
+        self.ok = self.provider.ok
+        self.quality = self.provider.quality
         self.location = self.provider.location
-        self.x = self.provider.lng()
-        self.y = self.provider.lat()
-        self.ok = self.provider.ok()
-        self.postal = self.provider.postal()
-        self.address = self.provider.address()
-        self.quality = self.provider.quality()
 
-        # Street Address Fields
-        self.street_number = self.provider.street_number()
-        self.route = self.provider.route()
+        # Geometry
+        self.lng = self.provider.lng
+        self.lat = self.provider.lat
+        self.bbox = self.provider.bbox
+
+        # Address
+        self.address = self.provider.address
+        self.postal = self.provider.postal
+        self.street_number = self.provider.street_number
+        self.route = self.provider.route
+        self.neighborhood = self.provider.neighborhood
+        self.sublocality = self.provider.sublocality
+        self.locality = self.provider.locality
+        self.county = self.provider.county
+        self.state = self.provider.state
+        self.country = self.provider.country
+
+
+        # Alternate Names
         self.street_name = self.route
-
-        # Administrative Fields
-        self.locality = self.provider.locality()
-        self.sublocality = self.provider.sublocality()
+        self.street = self.route
+        self.district = self.neighborhood
         self.city = self.locality
-        self.state = self.provider.state()
-        self.division = self.provider.division()
+        self.admin2 = self.county
+        self.division = self.county
+        self.admin1 = self.state
         self.province = self.state
-        self.country = self.provider.country()
 
         # More ways to spell X.Y
-        x, y = self.x, self.y
-        self.lng, self.longitude = x, x
-        self.lat, self.latitude = y, y
-        self.latlng = self.lat, self.lng
-        self.xy = x, y
+        x, y = self.lng, self.lat
+        self.x, self.longitude = x, x
+        self.y, self.latitude = y, y
+        self.latlng = (self.lat, self.lng)
+        self.xy = (x, y)
 
         # Bounding Box - SouthWest, NorthEast - [y1, x1, y2, x2]
-        self.bbox = self.provider.bbox()
         self.south = self.provider.south
         self.west = self.provider.west
         self.southwest = self.provider.southwest
@@ -112,11 +119,11 @@ class Geocoder(object):
         self.northwest = self.provider.northwest
 
         # Population Field (integer)
-        self.population = self.provider.population()
+        self.population = self.provider.population
         self.pop = self.population
 
         # IP Address
-        self.ip = self.provider.ip()
+        self.ip = self.provider.ip
 
         # Build JSON
         self.json = self._build_json()
@@ -130,11 +137,6 @@ class Geocoder(object):
         json['status'] = self.status
 
 
-        if self.street_number:
-            json['street_number'] = self.street_number
-
-        if self.route:
-            json['route'] = self.route
 
         if self.postal:
             json['postal'] = self.postal
@@ -150,11 +152,14 @@ class Geocoder(object):
         if self.bbox:
             json['bbox'] = self.bbox
 
-        if self.country:
-            json['country'] = self.country
+        if self.street_number:
+            json['street_number'] = self.street_number
 
-        if self.state:
-            json['state'] = self.state
+        if self.route:
+            json['route'] = self.route
+
+        if self.neighborhood:
+            json['neighborhood'] = self.neighborhood
 
         if self.sublocality:
             json['sublocality'] = self.sublocality
@@ -162,8 +167,14 @@ class Geocoder(object):
         if self.locality:
             json['locality'] = self.locality
 
-        if self.division:
-            json['division'] = self.division
+        if self.county:
+            json['county'] = self.county
+
+        if self.state:
+            json['state'] = self.state
+
+        if self.country:
+            json['country'] = self.country
 
         if self.population:
             json['population'] = self.population
@@ -189,18 +200,28 @@ class Geocoder(object):
         print 'Debug Geocoder'
         print '-------------'
         print 'Provider:', self.name
-        print 'Address: ', self.address
         print 'Location:', self.location
         print 'Lat & Lng:', self.latlng
         print 'Bbox:', self.bbox
         print 'OK:', self.ok
         print 'Status:', self.status
         print 'Quality:', self.quality
-        print 'Postal:', self.postal
-        print 'Country:', self.country
-        print 'City:', self.city
         print 'Url:', self.url
         print 'Proxies:', self.proxies
+        print ''
+        print 'Address'
+        print '-------'
+        print 'Address: ', self.address
+        print 'Postal:', self.postal
+        print 'Street Number:', self.street_number
+        print 'Route:', self.route
+        print 'Neighborhood:', self.neighborhood
+        print 'SubLocality:', self.sublocality
+        print 'Locality:', self.locality
+        print 'City:', self.city
+        print 'County:', self.county
+        print 'State:', self.state
+        print 'Country:', self.country
         print '============'
         print 'JSON Objects'
         print '------------'
@@ -208,11 +229,13 @@ class Geocoder(object):
             print item
 
 if __name__ == '__main__':
-    from geonames import Geonames
-    from reverse import Reverse
-    location = 'Springfield, Virginia'
-    lat = 45.5375801
-    lng = -75.2465979
+    from google import Google
+    location = 'Olreans, Ottawa'
 
-    g = Geocoder(Reverse((lat, lng)))
+    provider = Google(location)
+    g = Geocoder(provider)
     print g
+    print g.url
+    
+    os
+    g.neighborhood

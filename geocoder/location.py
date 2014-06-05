@@ -1,4 +1,6 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/python
+# coding: utf8
+
 from geocoder import Geocoder
 from google import Google
 
@@ -16,7 +18,7 @@ class Location(object):
         # Functions
         self.lat, self.lng = self.check_input(location)
         self.other_format()
-        
+
     def __repr__(self):
         return '<Location [{0}]>'.format(self.name)
 
