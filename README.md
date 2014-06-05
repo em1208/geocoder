@@ -44,7 +44,16 @@ to return you all the same results that Google would provide.
     >>> g.country
     'United States'
     ...
-```   
+```
+
+## Long names with Google
+
+When using Google, the default results are using the short names, here is how you would
+retrieve the long names as the results.
+
+```python
+    >>> g = geocoder.google(<address>, short_name=False)
+```
 
 ## Getting JSON
 
@@ -174,9 +183,13 @@ Retrieves population data from Geonames's Web Service API.
 ## Geocoder Attributes
 
 - address
-- location
-- city
+- street_number
+- route
+- neighborhood
+- sublocality
+- locality
 - state
+- division
 - country
 - postal
 - quality
@@ -191,25 +204,6 @@ Retrieves population data from Geonames's Web Service API.
 - northeast {lat, lng}
 - south, west, north, east (float)
 
-
-## Geocoding Providers
-
-```python
-    ## Priority Geocoders
-    >>> geocoder.google(<location>)
-    >>> geocoder.reverse(<latlng>)
-    >>> geocoder.ip(<ip>)
-
-    ## Secondary Geocoders
-    >>> geocoder.osm(<location>)
-    >>> geocoder.mapquest(<location>)
-    >>> geocoder.arcgis(<location>)
-    >>> geocoder.geonames(<location>, username='XXXXX')
-    >>> geocoder.bing(<location>, key='XXXXX')
-    >>> geocoder.nokia(<location>, app_id='XXXXX', app_code='XXXXX')
-    >>> geocoder.tomtom(<location>, key='XXXXX')
-    ...
-```
 
 ## Support
 

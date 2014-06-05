@@ -47,10 +47,12 @@ class Base(object):
 
                 elif keys == 'address_components':
                     for item in values:
+                        short_name = item.get('short_name')
                         long_name = item.get('long_name')
                         all_types = item.get('types')
                         for types in all_types:
-                            self.json[types] = long_name
+                            self.json[types] = short_name
+                            self.json[types + '-long_name'] = long_name
 
                 elif keys == 'types':
                     for item in values:
@@ -105,10 +107,7 @@ class Base(object):
 
     def safe_format(self, item):
         item = self.json.get(item)
-        if item:
-            return item.encode('utf-8')
-        else:
-            return None
+        return item
 
     def safe_coord(self, item):
         item = self.json.get(item)
@@ -166,11 +165,26 @@ class Base(object):
     def city(self):
         return None
 
+    def route(self):
+        return None
+
+    def street_number(self):
+        return None
+
+    def locality(self):
+        return None
+
+    def sublocality(self):
+        return None
+
     def population(self):
         return None
 
     def url(self):
         return self.url
+
+    def division(self):
+        return None
 
     def state(self):
         return None

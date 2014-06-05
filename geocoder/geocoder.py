@@ -27,7 +27,10 @@ class Geocoder(object):
         self._add_data()
 
     def __repr__(self):
-        return '<[{0}] Geocoder {1} [{2}]>'.format(self.status, self.name, self.address)
+        try:
+            return '<[{0}] Geocoder {1} [{2}]>'.format(self.status, self.name, self.address)
+        except UnicodeEncodeError:
+            return '<[{0}] Geocoder {1} [{2}]>'.format(self.status, self.name, self.location)
 
     def _get_proxies(self):
         if self.proxies:
@@ -72,13 +75,21 @@ class Geocoder(object):
         self.x = self.provider.lng()
         self.y = self.provider.lat()
         self.ok = self.provider.ok()
-        self.address = self.provider.address()
         self.postal = self.provider.postal()
+        self.address = self.provider.address()
         self.quality = self.provider.quality()
 
+        # Street Address Fields
+        self.street_number = self.provider.street_number()
+        self.route = self.provider.route()
+        self.street_name = self.route
+
         # Administrative Fields
-        self.city = self.provider.city()
+        self.locality = self.provider.locality()
+        self.sublocality = self.provider.sublocality()
+        self.city = self.locality
         self.state = self.provider.state()
+        self.division = self.provider.division()
         self.province = self.state
         self.country = self.provider.country()
 
@@ -118,6 +129,13 @@ class Geocoder(object):
         json['ok'] = self.ok
         json['status'] = self.status
 
+
+        if self.street_number:
+            json['street_number'] = self.street_number
+
+        if self.route:
+            json['route'] = self.route
+
         if self.postal:
             json['postal'] = self.postal
 
@@ -138,8 +156,14 @@ class Geocoder(object):
         if self.state:
             json['state'] = self.state
 
-        if self.city:
-            json['city'] = self.city
+        if self.sublocality:
+            json['sublocality'] = self.sublocality
+
+        if self.locality:
+            json['locality'] = self.locality
+
+        if self.division:
+            json['division'] = self.division
 
         if self.population:
             json['population'] = self.population

@@ -13,8 +13,9 @@ class Google(Base):
     name = 'Google'
     url = 'https://maps.googleapis.com/maps/api/geocode/json'
 
-    def __init__(self, location, client='', secret='', api_key=''):
+    def __init__(self, location, short_name=True, client='', secret='', api_key=''):
         self.location = location
+        self.short_name = short_name
         self.json = dict()
         self.params = dict()
         self.params['sensor'] = 'false'
@@ -47,24 +48,18 @@ class Google(Base):
         # Encode the binary signature into base64 for use within a URL
         encodedSignature = base64.urlsafe_b64encode(signature.digest())
         return encodedSignature
-        
+
     def lat(self):
         return self.safe_coord('location-lat')
 
     def lng(self):
         return self.safe_coord('location-lng')
 
-    def address(self):
-        return self.safe_format('results-formatted_address')
-
     def status(self):
         return self.safe_format('status')
 
     def quality(self):
         return self.safe_format('geometry-location_type')
-
-    def postal(self):
-        return self.safe_format('postal_code')
 
     def bbox(self):
         south = self.json.get('southwest-lat')
@@ -73,14 +68,63 @@ class Google(Base):
         east = self.json.get('northeast-lng')
         return self.safe_bbox(south, west, north, east)
 
-    def city(self):
-        return self.safe_format('locality')
+    def address(self):
+        return self.safe_format('results-formatted_address')
+
+    def postal(self):
+        if self.short_name:
+            return self.safe_format('postal_code')
+        else:
+            return self.safe_format('postal_code-long_name')
+
+    def street_number(self):
+        if self.short_name:
+            return self.safe_format('street_number')
+        else:
+            return self.safe_format('street_number-long_name')
+
+    def route(self):
+        if self.short_name:
+            return self.safe_format('route')
+        else:
+            return self.safe_format('route-long_name')
+
+    def neighborhood(self):
+        if self.short_name:
+            return self.safe_format('neighborhood')
+        else:
+            return self.safe_format('neighborhood-long_name')
+
+    def sublocality(self):
+        if self.short_name:
+            return self.safe_format('sublocality')
+        else:
+            return self.safe_format('sublocality-long_name')
+
+    def locality(self):
+        if self.short_name:
+            return self.safe_format('locality')
+        else:
+            return self.safe_format('locality-long_name')
+
+    def division(self):
+        if self.short_name:
+            return self.safe_format('administrative_area_level_2')
+        else:
+            return self.safe_format('administrative_area_level_2-long_name')
 
     def state(self):
-        return self.safe_format('administrative_area_level_1')
+        if self.short_name:
+            return self.safe_format('administrative_area_level_1')
+        else:
+            return self.safe_format('administrative_area_level_1-long_name')
 
     def country(self):
-        return self.safe_format('country')
+        if self.short_name:
+            return self.safe_format('country')
+        else:
+            return self.safe_format('country-long_name')
+
 
 if __name__ == '__main__':
     pass
