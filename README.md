@@ -219,3 +219,6 @@ Please feel free to give any feedback on this module. If you find any bugs or an
 
 Speak up on Twitter and tell us how you use this Python Geocoder module by using the following Twitter Hashtags [@Addxy](https://twitter.com/search?q=%40Addxy) [#geocoder](https://twitter.com/search?q=%23geocoder).
 
+## Thanks to
+
+A big thanks to all the people that help contribute: @flebel @patrickyan
