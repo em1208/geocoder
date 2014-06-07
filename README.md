@@ -221,4 +221,4 @@ Speak up on Twitter and tell us how you use this Python Geocoder module by using
 
 ## Thanks to
 
-A big thanks to all the people that help contribute: @flebel @patrickyan
+A big thanks to all the people that help contribute: [@flebel](https://github.com/flebel) @[patrickyan](https://github.com/patrickyan)
