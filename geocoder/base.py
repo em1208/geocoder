@@ -33,6 +33,7 @@ class Base(object):
     county = None
     state = None
     ip = None
+    status = None
 
     def __init__(self):
         self.json = dict()

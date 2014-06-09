@@ -3,6 +3,11 @@
 
 import requests
 import sys
+import os
+try:
+    import simplejson as json
+except:
+    import json
 
 
 class Geocoder(object):
@@ -29,6 +34,26 @@ class Geocoder(object):
 
     def __repr__(self):
         return '<[{0}] Geocoder {1} [{2}]>'.format(self.status, self.name, self.address)
+
+    def save(self, filepath, ext='geojson'):
+        """
+        Saves Geocoded date to a local file.
+
+            >>> g = geocoder.google(<address>)
+            >>> g.save('GoogleResult.geojson')
+            ...
+        """
+        basename, ext = os.path.splitext(filepath)
+        if ext == '.geojson':
+            data = self.geojson
+        elif ext == '.json':
+            data = self.json
+        else:
+            data = self.geojson
+
+        with open(filepath, 'wb') as f:
+            dump = json.dumps(data, ensure_ascii=False, indent=4)
+            f.write(dump)
 
     def _get_proxies(self):
         if self.proxies:
@@ -63,8 +88,11 @@ class Geocoder(object):
             self.status = 'ERROR - URL Connection'
 
         if self.status == 200:
-            self.provider.load(r.json())
-            self.status = self.provider.status
+            try:
+                self.provider.load(r.json())
+                self.status = self.provider.status
+            except:
+                self.status = 'ERROR - JSON Corrupt'
 
     def _add_data(self):
         # Get Attributes from Provider
@@ -89,7 +117,6 @@ class Geocoder(object):
         self.county = self.provider.county
         self.state = self.provider.state
         self.country = self.provider.country
-
 
         # Alternate Names
         self.street_name = self.route
@@ -125,6 +152,9 @@ class Geocoder(object):
         # IP Address
         self.ip = self.provider.ip
 
+        # Geom for PostGIS
+        self.geom = "ST_GeomFromText('POINT({0} {1})', 4326)".format(self.lng, self.lat)
+
         # Build JSON
         self.json = self._build_json()
         self.geojson = self._build_geojson()
@@ -135,8 +165,7 @@ class Geocoder(object):
         json['location'] = self.location
         json['ok'] = self.ok
         json['status'] = self.status
-
-
+        json['url'] = self.url
 
         if self.postal:
             json['postal'] = self.postal
@@ -186,12 +215,12 @@ class Geocoder(object):
 
     def _build_geojson(self):
         geojson = dict()
+        if self.bbox:
+            geojson['bbox'] = [self.west, self.south, self.east, self.north]
         geojson['type'] = 'Feature'
         geojson['geometry'] = {'type':'Point', 'coordinates': [self.lng, self.lat]}
         geojson['properties'] = self.json
         geojson['crs'] = {'type': 'name', "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"}}
-        if self.bbox:
-            geojson['bbox'] = [self.west, self.south, self.east, self.north]
         return geojson
 
 

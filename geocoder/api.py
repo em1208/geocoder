@@ -46,9 +46,8 @@ def get(location, provider='google', proxies='', short_name=True, timeout=5.0):
         'United States'
         ...
     """
-    provider = utils.get_provider(location, provider)
+    provider = utils.get_provider(location, provider=provider, short_name=short_name)
     return Geocoder(provider, proxies=proxies, timeout=timeout)
-
 
 def ip(location, proxies='', timeout=5.0):
     """
