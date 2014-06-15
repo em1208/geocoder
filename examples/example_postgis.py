@@ -33,8 +33,6 @@ postal, quality, sublocality, url, geom)
 VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s, ST_GeomFromText('POINT({lng} {lat})', 4326))
 """
 
-print 'Total:', cur.execute("SELECT count(1) FROM geocoder").fetchone()
-
 cur.execute(sql_search)
 
 for item in cur.fetchall():
