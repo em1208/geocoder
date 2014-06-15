@@ -16,7 +16,7 @@ WHERE NOT EXISTS (
     SELECT location
     FROM geocoder
     WHERE kingston.location = geocoder.location AND
-    geocoder.provider = 'Bing')
+    geocoder.provider = 'Google')
 """
 
 sql_exists = """
@@ -33,13 +33,15 @@ postal, quality, sublocality, url, geom)
 VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s, ST_GeomFromText('POINT({lng} {lat})', 4326))
 """
 
+print 'Total:', cur.execeute("SELECT count(1) FROM geocoder").fetchone()
+
 cur.execute(sql_search)
 
 for item in cur.fetchall():
     
     location = item[0]
 
-    for provider in ['MapQuest', 'Bing', 'OSM', 'Nokia', 'TomTom']:
+    for provider in ['Google', 'MapQuest', 'Bing', 'OSM', 'Nokia', 'TomTom']:
         before = time.time()
         cur.execute(sql_exists, (provider, location))
         if not cur.fetchone():
