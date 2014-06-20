@@ -151,6 +151,7 @@ class Geocoder(object):
 
         # IP Address
         self.ip = self.provider.ip
+        self.isp = self.provider.isp
 
         # Geom for PostGIS
         self.geom = "ST_GeomFromText('POINT({0} {1})', 4326)".format(self.lng, self.lat)
@@ -182,6 +183,9 @@ class Geocoder(object):
             json['quality'] = self.quality
             json['lng'] = self.x
             json['lat'] = self.y
+
+        if self.isp:
+            json['isp'] = self.isp
 
         if self.bbox:
             json['bbox'] = self.bbox

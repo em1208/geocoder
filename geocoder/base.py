@@ -37,6 +37,7 @@ class Base(object):
     short_name = None
     elevation = None
     resolution = None
+    isp = None
 
     def __init__(self):
         self.json = dict()
