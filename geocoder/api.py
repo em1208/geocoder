@@ -14,7 +14,7 @@ from reverse import Reverse
 from geonames import Geonames
 from mapquest import Mapquest
 from geocoder import Geocoder
-
+from elevation import Elevation
 
 def google(location, short_name=True, timeout=5.0, proxies='', client='', secret='', api_key=''):
     """
@@ -68,7 +68,28 @@ def ip(location, proxies='', timeout=5.0):
     return Geocoder(provider, proxies=proxies, timeout=timeout)
 
 
-def reverse(latlng, proxies='', timeout=5.0):
+def elevation(latlng, proxies='', timeout=5.0):
+    """
+    Elevation tool will return the Mean Sea Level in meters based
+    on Lat & Lng inputs or an address using Google's elevation API.
+
+        >>> latlng = (37.4192, -122.0574)
+        >>> g = geocoder.elevation(latlng)
+        OR
+        >>> g = geocoder.elevation("Ottawa")
+        >>> g.elevation
+        '71.8073501587'
+        ...
+
+    Official Docs
+    -------------
+    https://developers.google.com/maps/documentation/geocoding/
+    """
+    provider = Elevation(latlng)
+    return Geocoder(provider, proxies=proxies, timeout=timeout)
+
+
+def reverse(latlng, short_name=True, proxies='', timeout=5.0):
     """
     Reverse geocodes a location based on Lat & Lng inputs
     using Google's reverse geocoding API V3.
@@ -85,8 +106,9 @@ def reverse(latlng, proxies='', timeout=5.0):
     -------------
     https://developers.google.com/maps/documentation/geocoding/
     """
-    provider = Reverse(latlng)
+    provider = Reverse(latlng, short_name=short_name)
     return Geocoder(provider, proxies=proxies, timeout=timeout)
+
 
 
 def osm(location, proxies='', timeout=5.0):

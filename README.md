@@ -57,6 +57,21 @@ retrieve the long names as the results.
 >>> g = geocoder.google(<address>, short_name=False)
 ```
 
+## Elevation (Mean Sea Level in meters)
+
+Elevation tool will return the Mean Sea Level in meters based
+on Lat & Lng inputs or an address using Google's elevation API.
+
+```python
+>>> latlng = (37.4192, -122.0574)
+>>> g = geocoder.elevation(latlng)
+OR
+>>> g = geocoder.elevation("Ottawa")
+>>> g.elevation
+'71.8073501587'
+...
+```
+
 ## Getting JSON
 
 The web uses JSON and GeoJSON, here is how to return your Geocoded address into this format.

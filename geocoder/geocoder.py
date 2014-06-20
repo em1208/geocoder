@@ -155,9 +155,14 @@ class Geocoder(object):
         # Geom for PostGIS
         self.geom = "ST_GeomFromText('POINT({0} {1})', 4326)".format(self.lng, self.lat)
 
+        # Build Elevation
+        self.elevation = self.provider.elevation
+        self.resolution = self.provider.resolution
+
         # Build JSON
         self.json = self._build_json()
         self.geojson = self._build_geojson()
+
 
     def _build_json(self):
         json = dict()
@@ -210,6 +215,11 @@ class Geocoder(object):
 
         if self.ip:
             json['ip'] = self.ip
+
+        if self.elevation:
+            json['elevation'] = self.elevation
+            json['resolution'] = self.resolution
+            self.address = self.elevation
 
         return json
 
