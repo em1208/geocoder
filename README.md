@@ -15,6 +15,8 @@ Geocoder is an Apache2 Licensed Geocoding library, written in Python.
 ...
 ```
 
+## Providers
+
 ![Providers](https://pbs.twimg.com/media/Bqi8kThCUAAboo0.png)
 
 # Installation
@@ -57,9 +59,9 @@ retrieve the long names as the results.
 >>> g = geocoder.google(<address>, short_name=False)
 ```
 
-## Elevation (Mean Sea Level in meters)
+## Elevation Tool (MSL)
 
-Elevation tool will return the Mean Sea Level in meters based
+Elevation tool will return the Mean elevation above Sea Level in meters based
 on Lat & Lng inputs or an address using Google's elevation API.
 
 ```python

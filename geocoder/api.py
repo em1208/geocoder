@@ -70,7 +70,7 @@ def ip(location, proxies='', timeout=5.0):
 
 def elevation(latlng, proxies='', timeout=5.0):
     """
-    Elevation tool will return the Mean Sea Level in meters based
+    Elevation tool will return the Mean elevation above Sea Level in meters based
     on Lat & Lng inputs or an address using Google's elevation API.
 
         >>> latlng = (37.4192, -122.0574)
