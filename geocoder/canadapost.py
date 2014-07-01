@@ -25,7 +25,7 @@ class Canadapost(Base):
         if self.api_key:
             return self.api_key
         else:
-            url = 'https://www.canadapost.ca/pca/LearnMore/Try-it-now/'
+            url = 'http://www.canadapost.ca/cpo/mc/personal/postalcode/fpc.jsf'
             r = requests.get(url)
 
             expression = r'key=(....-....-....-....)'

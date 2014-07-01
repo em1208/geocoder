@@ -63,20 +63,29 @@ retrieve the long names as the results.
 Retrieves geocoding data from Canada Post's data using Address Complete API.
 
 ```python
-    >>> g = geocoder.canadapost('453 Booth Street, Ottawa ON')
-    >>> g.postal
-    'K1R 7K9'
-    ...
+>>> import geocoder
+>>> g = geocoder.canadapost('453 Booth Street, Ottawa ON')
+>>> g.postal
+'K1R 7K9'
+>>> g.street_number
+'453'
+>>> g.street_name
+'Booth St'
+...
 ```
 
 USA address simply add the country field to the search request.
 
 ```python
-    >>> g = geocoder.canadapost('843 Burg St, Granville, OH', country='USA')
-    >>> g.postal
-    '43023-1079'
-    ...
+>>> import geocoder
+>>> g = geocoder.canadapost('843 Burg St, Granville, OH', country='USA')
+>>> g.postal
+'43023-1079'
+...
 ```
+
+**Warning** Canada Post data does not contain any coordinates (Lat/Lng).
+
 
 ## Elevation Tool (MSL)
 
