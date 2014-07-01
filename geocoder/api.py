@@ -15,6 +15,8 @@ from geonames import Geonames
 from mapquest import Mapquest
 from geocoder import Geocoder
 from elevation import Elevation
+from canadapost import Canadapost
+
 
 def google(location, short_name=True, timeout=5.0, proxies='', client='', secret='', api_key=''):
     """
@@ -110,6 +112,28 @@ def reverse(latlng, short_name=True, proxies='', timeout=5.0):
     return Geocoder(provider, proxies=proxies, timeout=timeout)
 
 
+
+def canadapost(location, country='CA', api_key=canadapost_key, proxies='', timeout=5.0):
+    """
+    Retrieves geocoding data from Canada Post's data using Address Complete API.
+
+        >>> g = geocoder.canadapost('453 Booth Street, Ottawa ON')
+        >>> g.postal
+        'K1R 7K9'
+        ...
+
+    USA address simply add the country field to the search request.
+        >>> g = geocoder.canadapost('843 Burg St, Granville, OH', country='USA')
+        >>> g.postal
+        '43023-1079'
+        ...
+
+    Official Docs
+    -------------
+    https://www.canadapost.ca/pca
+    """
+    provider = Canadapost(location, country=country, api_key=api_key)
+    return Geocoder(provider, proxies=proxies, timeout=timeout)
 
 def osm(location, proxies='', timeout=5.0):
     """

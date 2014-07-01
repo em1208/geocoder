@@ -59,6 +59,20 @@ retrieve the long names as the results.
 >>> g = geocoder.google(<address>, short_name=False)
 ```
 
+## Canada Post (NEW!)
+Retrieves geocoding data from Canada Post's data using Address Complete API.
+
+    >>> g = geocoder.canadapost('453 Booth Street, Ottawa ON')
+    >>> g.postal
+    'K1R 7K9'
+    ...
+
+USA address simply add the country field to the search request.
+    >>> g = geocoder.canadapost('843 Burg St, Granville, OH', country='USA')
+    >>> g.postal
+    '43023-1079'
+    ...
+
 ## Elevation Tool (MSL)
 
 Elevation tool will return the Mean elevation above Sea Level in meters based

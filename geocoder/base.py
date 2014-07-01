@@ -9,8 +9,8 @@ class Base(object):
     headers = None
     params = None
     bbox = None
-    x = None
-    y = None
+    x, y = 0.0, 0.0
+    lat, lng = 0.0, 0.0
     west = None
     north = None
     south = None
@@ -50,6 +50,12 @@ class Base(object):
         # DICTIONARY
         if isinstance(json, dict):
             for keys, values in json.items():
+                # Canada Post
+                if keys == 'Items':
+                    for key, value in values[0].items():
+                        if value:
+                            self.json[key] = value
+
                 # MAXMIND
                 if 'geoname_id' in json:
                     names = json.get('names')
