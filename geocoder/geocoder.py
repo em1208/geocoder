@@ -92,7 +92,8 @@ class Geocoder(object):
                 self.provider.load(r.json())
                 self.status = self.provider.status
             except:
-                self.status = 'ERROR - JSON Corrupt'
+                if not self.provider.json:
+                    self.status = 'ERROR - JSON Corrupt'
 
     def _add_data(self):
         # Get Attributes from Provider
@@ -261,7 +262,6 @@ class Geocoder(object):
         print 'Route:', self.route
         print 'Neighborhood:', self.neighborhood
         print 'SubLocality:', self.sublocality
-        print 'Locality:', self.locality
         print 'City:', self.city
         print 'County:', self.county
         print 'State:', self.state

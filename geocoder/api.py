@@ -15,6 +15,7 @@ from geonames import Geonames
 from mapquest import Mapquest
 from geocoder import Geocoder
 from elevation import Elevation
+from geolytica import Geolytica
 from canadapost import Canadapost
 
 
@@ -133,6 +134,24 @@ def canadapost(location, country='CA', api_key=canadapost_key, proxies='', timeo
     https://www.canadapost.ca/pca
     """
     provider = Canadapost(location, country=country, api_key=api_key)
+    return Geocoder(provider, proxies=proxies, timeout=timeout)
+
+def geolytica(location, proxies='', timeout=5.0):
+    """
+    Retrieves geocoding data from Geocoder.ca data.
+
+        >>> g = geocoder.geolytica('Tacloban City')
+        >>> g.latlng
+        (11.2430274, 125.0081402)
+        >>> g.country
+        'Philippines'
+        ...
+
+    Official Docs
+    -------------
+    http://geocoder.ca/?api=1
+    """
+    provider = Geolytica(location)
     return Geocoder(provider, proxies=proxies, timeout=timeout)
 
 def osm(location, proxies='', timeout=5.0):
