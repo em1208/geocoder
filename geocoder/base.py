@@ -40,6 +40,11 @@ class Base(object):
     isp = None
     feet = None
     meters = None
+    address = None
+    timezone = None
+    timezone_id = None
+    utc = None
+    dst = None
 
     def __init__(self):
         self.json = dict()

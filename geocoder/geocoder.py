@@ -163,6 +163,12 @@ class Geocoder(object):
         self.feet = self.provider.feet
         self.meters = self.provider.meters
 
+        # Build Timezone
+        self.timezone = self.provider.timezone
+        self.timezone_id = self.provider.timezone_id
+        self.utc = self.provider.utc
+        self.dst = self.provider.dst
+
         # Build JSON
         self.json = self._build_json()
         self.geojson = self._build_geojson()
@@ -181,10 +187,12 @@ class Geocoder(object):
         if self.address:
             json['address'] = self.address
 
-        if self.ok:
-            json['quality'] = self.quality
+        if bool(self.x and self.y):
             json['lng'] = self.x
             json['lat'] = self.y
+
+        if self.quality:
+            json['quality'] = self.quality
 
         if self.isp:
             json['isp'] = self.isp
@@ -222,11 +230,20 @@ class Geocoder(object):
         if self.ip:
             json['ip'] = self.ip
 
-        if self.elevation:
+        if self.provider.name == 'Time Zone Google':
+            del json['address']
+            json['timezone'] = self.timezone
+            json['timezone_id'] = self.timezone_id
+            json['utc'] = self.utc
+            json['dst'] = self.dst
+
+        elif self.provider.name == 'Elevation Google':
+            del json['address']
+            json['feet'] = self.feet
             json['meters'] = self.meters
             json['resolution'] = self.resolution
-            self.address = self.meters + 'm'
-
+            json['elevation'] = self.elevation
+        
         return json
 
     def _build_geojson(self):
@@ -273,13 +290,4 @@ class Geocoder(object):
             print item
 
 if __name__ == '__main__':
-    from google import Google
-    location = 'Olreans, Ottawa'
-
-    provider = Google(location)
-    g = Geocoder(provider)
-    print g
-    print g.url
-    
-    os
-    g.neighborhood
+    pass

@@ -2,6 +2,7 @@
 # coding: utf8
 
 import utils
+from geocoder import Geocoder
 from keys import *
 from ip import Ip
 from osm import Osm
@@ -13,7 +14,7 @@ from google import Google
 from reverse import Reverse
 from geonames import Geonames
 from mapquest import Mapquest
-from geocoder import Geocoder
+from timezone import Timezone
 from elevation import Elevation
 from geolytica import Geolytica
 from canadapost import Canadapost
@@ -71,6 +72,32 @@ def ip(location, proxies='', timeout=5.0):
     return Geocoder(provider, proxies=proxies, timeout=timeout)
 
 
+def timezone(latlng, timestamp='', proxies='', timeout=5.0):
+    """
+    Timezone tool will retrieve the zone & offset of a desired location
+    using Google's Time Zone API.
+
+    The UTC (Coordinated Universal Time) and the DST (Daylight Savings Time)
+    results are in seconds.
+
+        >>> g = geocoder.timezone("Ottawa")
+        >>> g.timezone
+        Eastern Daylight Time
+        >>> g.timezone_id
+        America/Toronto
+        >>> g.utc
+        -18000
+        >>> g.dst
+        3600
+        ...
+        
+    Official Docs
+    -------------
+    https://developers.google.com/maps/documentation/timezone/
+    """
+    provider = Timezone(latlng)
+    return Geocoder(provider, proxies=proxies, timeout=timeout)
+
 def elevation(latlng, proxies='', timeout=5.0):
     """
     Elevation tool will return the Mean elevation above Sea Level in meters based
@@ -80,13 +107,13 @@ def elevation(latlng, proxies='', timeout=5.0):
         >>> g = geocoder.elevation(latlng)
         OR
         >>> g = geocoder.elevation("Ottawa")
-        >>> g.elevation
-        '71.8073501587'
+        >>> g.meters
+        '71.8'
         ...
 
     Official Docs
     -------------
-    https://developers.google.com/maps/documentation/geocoding/
+    https://developers.google.com/maps/documentation/elevation/
     """
     provider = Elevation(latlng)
     return Geocoder(provider, proxies=proxies, timeout=timeout)

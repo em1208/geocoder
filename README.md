@@ -87,6 +87,27 @@ USA address simply add the country field to the search request.
 **Warning** Canada Post data does not contain any coordinates (Lat/Lng).
 
 
+## Time Zone Tool
+
+Timezone tool will retrieve the zone & offset of a desired location
+using Google's Time Zone API.
+
+The UTC (Coordinated Universal Time) and the DST (Daylight Savings Time)
+results are in seconds.
+
+```python
+>>> g = geocoder.timezone("Ottawa")
+>>> g.timezone
+Eastern Daylight Time
+>>> g.timezone_id
+America/Toronto
+>>> g.utc
+-18000
+>>> g.dst
+3600
+...
+```
+
 ## Elevation Tool (MSL)
 
 Elevation tool will return the Mean elevation above Sea Level in meters based
