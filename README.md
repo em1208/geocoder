@@ -96,6 +96,7 @@ You can retrieve the resolution (meters) of the DEM (Digital Elevation Model) th
 
 
 ```python
+>>> import geocoder
 >>> latlng = (37.4192, -122.0574)
 >>> g = geocoder.elevation(latlng)
 OR
@@ -233,6 +234,23 @@ Retrieves population data from Geonames's Web Service API.
 30484
 ...
 ```
+
+## PostGIS
+
+Due to the heavy use of PostGIS in the GIS world, I included a simple 
+attribute called **geom** to speed up the process of loading your geocoded
+data into PostGIS.
+
+```python
+>>> import geocoder
+>>> g = geocoder.google('Ottawa, ON')
+>>> g.geom
+'POINT(-75.6971931 45.4215296)'
+```
+
+If you have any more suggestions on PostGIS attributes that would be useful
+for this module, please comment in the [Github Issues Page](https://github.com/DenisCarriere/geocoder/issues) or send me an email.
+
 
 ## Geocoder Attributes
 

@@ -154,7 +154,7 @@ class Geocoder(object):
         self.isp = self.provider.isp
 
         # Geom for PostGIS
-        self.geom = "ST_GeomFromText('POINT({0} {1})', 4326)".format(self.lng, self.lat)
+        self.geom = "POINT({0} {1})".format(self.lng, self.lat)
 
         # Build Elevation
         self.elevation = self.provider.elevation
