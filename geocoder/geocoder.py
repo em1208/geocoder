@@ -159,11 +159,12 @@ class Geocoder(object):
         # Build Elevation
         self.elevation = self.provider.elevation
         self.resolution = self.provider.resolution
+        self.feet = self.provider.feet
+        self.meters = self.provider.meters
 
         # Build JSON
         self.json = self._build_json()
         self.geojson = self._build_geojson()
-
 
     def _build_json(self):
         json = dict()
@@ -221,9 +222,9 @@ class Geocoder(object):
             json['ip'] = self.ip
 
         if self.elevation:
-            json['elevation'] = self.elevation
+            json['meters'] = self.meters
             json['resolution'] = self.resolution
-            self.address = self.elevation
+            self.address = self.meters + 'm'
 
         return json
 

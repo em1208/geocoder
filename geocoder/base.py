@@ -38,6 +38,8 @@ class Base(object):
     elevation = None
     resolution = None
     isp = None
+    feet = None
+    meters = None
 
     def __init__(self):
         self.json = dict()

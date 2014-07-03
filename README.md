@@ -92,13 +92,20 @@ USA address simply add the country field to the search request.
 Elevation tool will return the Mean elevation above Sea Level in meters based
 on Lat & Lng inputs or an address using Google's elevation API.
 
+You can retrieve the resolution (meters) of the DEM (Digital Elevation Model) that the elevation value was extracted from.
+
+
 ```python
 >>> latlng = (37.4192, -122.0574)
 >>> g = geocoder.elevation(latlng)
 OR
 >>> g = geocoder.elevation("Ottawa")
->>> g.elevation
-'71.8073501587'
+>>> g.meters
+71
+>>> g.feet
+235
+>>> g.resolution
+1.2
 ...
 ```
 
@@ -266,4 +273,4 @@ Speak up on Twitter and tell us how you use this Python Geocoder module by using
 
 ## Thanks to
 
-A big thanks to all the people that help contribute: [@flebel](https://github.com/flebel) @[patrickyan](https://github.com/patrickyan)
+A big thanks to all the people that help contribute: [@flebel](https://github.com/flebel) [@patrickyan](https://github.com/patrickyan)
