@@ -2,77 +2,87 @@
 # coding: utf8
 
 from base import Base
+from keys import bing_key
 
 
 class Bing(Base):
-    name = 'Bing'
+    provider = 'Bing'
+    api = 'Bing Maps REST Services'
     url = 'http://dev.virtualearth.net/REST/v1/Locations'
+    api_references = ['[{0}](http://msdn.microsoft.com/en-us/library/ff701714.aspx)'.format(api)]
+    description = 'The Bing™ Maps REST Services Application Programming Interface (API)\n'
+    description += 'provides a Representational State Transfer (REST) interface to\n'
+    description += 'perform tasks such as creating a static map with pushpins, geocoding\n'
+    description += 'an address, retrieving imagery metadata, or creating a route.'
 
-    def __init__(self, location, key):
+    def __init__(self, location, key=bing_key):
         self.location = location
-        self.params = dict()
         self.json = dict()
+        self.parse = dict()
+        self.params = dict()
         self.params['maxResults'] = 1
         self.params['key'] = key
         self.params['q'] = location
-        if not key:
-            self.help_key()
+
+        # Initialize
+        self._connect()
+        self._parse(self.content)
+        self._test()
+        self._json()
+
+    @property
+    def status_description(self):
+        return self._get_json_str('statusDescription')
 
     @property
     def lat(self):
-        return self.safe_coord('coordinates-0')
+        return self._get_json_float('coordinates-0')
 
     @property
     def lng(self):
-        return self.safe_coord('coordinates-1')
+        return self._get_json_float('coordinates-1')
 
     @property
     def route(self):
-        return self.safe_format('address-addressLine')
+        return self._get_json_str('address-addressLine')
 
     @property
     def address(self):
-        return self.safe_format('address-formattedAddress')
-
-    @property
-    def status(self):
-        return self.safe_format('statusDescription')
+        return self._get_json_str('address-formattedAddress')
 
     @property
     def quality(self):
-        return self.safe_format('resources-entityType')
+        return self._get_json_str('resources-entityType')
+
+    @property
+    def accuracy(self):
+        return self._get_json_str('geocodePoints-calculationMethod')
 
     @property
     def postal(self):
-        return self.safe_format('address-postalCode')
+        return self._get_json_str('address-postalCode')
 
     @property
     def bbox(self):
-        south = self.json.get('bbox-0')
-        west = self.json.get('bbox-1')
-        north = self.json.get('bbox-2')
-        east = self.json.get('bbox-3')
-        return self.safe_bbox(south, west, north, east)
+        south = self._get_json_float('bbox-0')
+        north = self._get_json_float('bbox-2')
+        west = self._get_json_float('bbox-1')
+        east = self._get_json_float('bbox-3')
+        return self._get_bbox(south, west, north, east)
 
     @property
     def locality(self):
-        return self.safe_format('address-locality')
+        return self._get_json_str('address-locality')
 
     @property
     def state(self):
-        return self.safe_format('address-adminDistrict')
+        return self._get_json_str('address-adminDistrict')
 
     @property
     def country(self):
-        return self.safe_format('address-countryRegion')
+        return self._get_json_str('address-countryRegion')
 
-    def help_key(self):
-        print '<ERROR>'
-        print 'Please provide a <key> paramater when using Bing'
-        print '    >>> import geocoder'
-        print '    >>> key = "XXXX"'
-        print '    >>> g = geocoder.bing(<location>, key=key)'
-        print ''
-        print 'How to get a Key?'
-        print '-----------------'
-        print 'http://msdn.microsoft.com/en-us/library/ff428642.aspx'
+if __name__ == '__main__':
+    g = Bing('453 Booth street, Ottawa, ON')
+    g.help()
+    g.debug()

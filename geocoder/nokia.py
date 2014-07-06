@@ -2,83 +2,93 @@
 # coding: utf8
 
 from base import Base
+from keys import app_id, app_code
 
 
 class Nokia(Base):
-    name = 'Nokia'
+    provider = 'Nokia'
+    api = 'HERE Geocoding REST API'
     url = 'http://geocoder.api.here.com/6.2/geocode.json'
+    api_references = ['[{0}](https://developer.here.com/rest-apis/documentation/geocoder)'.format(api)]
+    description = 'Send a request to the geocode endpoint to find an address using a combination of\n'
+    description += 'country, state, county, city, postal code, district, street and house number.'
 
-    def __init__(self, location, app_id, app_code):
+    def __init__(self, location, app_id=app_id, app_code=app_code):
         self.location = location
         self.json = dict()
+        self.parse = dict()
         self.params = dict()
         self.params['searchtext'] = location
         self.params['app_id'] = app_id
         self.params['app_code'] = app_code
         self.params['gen'] = 4
 
-        if not bool(app_id and app_code):
-            self.help_key()
+        # Initialize
+        self._connect()
+        self._parse(self.content)
+        self._test()
+        self._json()
 
     @property
     def lat(self):
-        return self.safe_coord('NavigationPosition-Latitude')
+        return self._get_json_float('NavigationPosition-Latitude')
 
     @property
     def lng(self):
-        return self.safe_coord('NavigationPosition-Longitude')
+        return self._get_json_float('NavigationPosition-Longitude')
 
     @property
     def address(self):
-        return self.safe_format('Address-Label')
+        return self._get_json_str('Address-Label')
 
     @property
     def street_number(self):
-        return self.safe_format('Address-HouseNumber')
+        return self._get_json_str('Address-HouseNumber')
 
     @property
     def route(self):
-        return self.safe_format('Address-Street')
+        return self._get_json_str('Address-Street')
 
     @property
     def quality(self):
-        return self.safe_format('Result-MatchLevel')
+        return self._get_json_str('Result-MatchLevel')
+
+    @property
+    def accuracy(self):
+        return self._get_json_str('Result-MatchType')
 
     @property
     def postal(self):
-        return self.safe_format('Address-PostalCode')
+        return self._get_json_str('Address-PostalCode')
 
     @property
     def bbox(self):
-        south = self.json.get('BottomRight-Latitude')
-        west = self.json.get('TopLeft-Longitude')
-        north = self.json.get('TopLeft-Latitude')
-        east = self.json.get('BottomRight-Longitude')
-        return self.safe_bbox(south, west, north, east)
+        south = self._get_json_float('BottomRight-Latitude')
+        north = self._get_json_float('TopLeft-Latitude')
+        west = self._get_json_float('TopLeft-Longitude')
+        east = self._get_json_float('BottomRight-Longitude')
+        return self._get_bbox(south, west, north, east)
 
     @property
     def neighborhood(self):
-        return self.safe_format('Address-District')
+        return self._get_json_str('Address-District')
 
     @property
     def locality(self):
-        return self.safe_format('Address-City')
+        return self._get_json_str('Address-City')
+
+    @property
+    def county(self):
+        return self._get_json_str('Address-County')
 
     @property
     def state(self):
-        return self.safe_format('StateName')
+        return self._get_json_str('Address-StateName')
 
     @property
     def country(self):
-        return self.safe_format('CountryName')
+        return self._get_json_str('CountryName')
 
-    def help_key(self):
-        print '<ERROR> Please provide both (app_code & app_id) paramaters when using Nokia'
-        print '>>> import geocoder'
-        print '>>> app_code = "XXXX"'
-        print '>>> app_id = "XXXX"'
-        print '>>> g = geocoder.nokia(<location>, app_code=app_code, app_id=app_id)'
-        print ''
-        print 'How to get a Key?'
-        print '-----------------'
-        print 'http://developer.here.com/get-started'
+if __name__ == '__main__':
+    g = Nokia('Kingston Ontario')
+    g.help()

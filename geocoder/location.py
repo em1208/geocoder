@@ -1,7 +1,6 @@
 #!/usr/bin/python
 # coding: utf8
 
-from geocoder import Geocoder
 from google import Google
 
 

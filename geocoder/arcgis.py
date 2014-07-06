@@ -3,11 +3,17 @@
 
 from base import Base
 
-
 class Arcgis(Base):
-    name = 'ArcGIS'
+    provider = 'ArcGIS'
+    api = 'ArcGIS REST API'
     url = 'http://geocode.arcgis.com/arcgis/rest/'
     url += 'services/World/GeocodeServer/find'
+    api_references = ['[{0}](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-find.htm)'.format(api)]
+    description = 'The World Geocoding Service finds addresses and places in all supported countries\n'
+    description += 'from a single endpoint. The service can find point locations of addresses,\n'
+    description += 'business names, and so on.  The output points can be visualized on a map,\n'
+    description += 'inserted as stops for a route, or loaded as input for a spatial analysis.\n'
+    description += 'an address, retrieving imagery metadata, or creating a route.'
 
     def __init__(self, location):
         self.location = location
@@ -17,21 +23,32 @@ class Arcgis(Base):
         self.params['maxLocations'] = 1
         self.params['f'] = 'pjson'
 
+        # Initialize
+        self._connect()
+        self._parse(self.content)
+        self._test()
+        self._json()
+
     @property
     def lat(self):
-        return self.safe_coord('geometry-y')
+        return self._get_json_float('geometry-y')
 
     @property
     def lng(self):
-        return self.safe_coord('geometry-x')
+        return self._get_json_float('geometry-x')
 
     @property
     def address(self):
-        return self.safe_format('locations-name')
+        return self._get_json_str('locations-name')
 
     @property
     def quality(self):
-        return self.safe_format('attributes-Addr_Type')
+        return self._get_json_str('attributes-Addr_Type')
+
+    """
+    >>>>>>>>>>>>>>>>>>>>>>>>>>>
+    TO-DO
+    Regex on Postal Code
 
     @property
     def postal(self):
@@ -39,10 +56,18 @@ class Arcgis(Base):
         if self.address:
             return self.safe_postal(self.address)
 
+    >>>>>>>>>>>>>>>>>>>>>>>>>>>
+    """
+
     @property
     def bbox(self):
-        south = self.json.get('extent-ymin')
-        west = self.json.get('extent-xmin')
-        north = self.json.get('extent-ymax')
-        east = self.json.get('extent-xmax')
-        return self.safe_bbox(south, west, north, east)
+        south = self._get_json_float('extent-ymin')
+        west = self._get_json_float('extent-xmin')
+        north = self._get_json_float('extent-ymax')
+        east = self._get_json_float('extent-xmax')
+        return self._get_bbox(south, west, north, east)
+
+
+if __name__ == '__main__':
+    g = Arcgis('Ottawa, ON')
+    g.debug()

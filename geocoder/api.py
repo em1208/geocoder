@@ -1,8 +1,6 @@
 #!/usr/bin/python
 # coding: utf8
 
-import utils
-from geocoder import Geocoder
 from keys import *
 from ip import Ip
 from osm import Osm
@@ -19,6 +17,260 @@ from elevation import Elevation
 from geolytica import Geolytica
 from canadapost import Canadapost
 
+
+def geolytica(location):
+    """
+    # Geolytica
+
+    Geocoder.ca - A Canadian and US location geocoder.
+    Using Geocoder you can retrieve Geolytica's geocoded data from Geocoder.ca.
+
+    ## Python Example
+
+        >>> import geocoder
+        >>> g = geocoder.geolytica(<address>)
+        >>> g.lat, g.lng
+        45.413140 -75.656703
+        ...
+
+    ## Geocoder Attributes
+
+        * address
+        * lat
+        * lng
+        * locality
+        * location
+        * postal
+        * provider
+        * route
+        * state
+        * status
+        * street_number
+
+    ## References
+
+        * [GitHub Repo](https://github.com/DenisCarriere/geocoder)
+        * [GitHub Wiki](https://github.com/DenisCarriere/geocoder/wiki)
+        * [Geocoder.ca](http://geocoder.ca/?api=1)
+
+    """
+    return Geolytica(location)
+
+def bing(location, key=bing_key):
+    """
+    # Bing
+
+    The Bing Maps REST Services Application Programming Interface (API)
+    provides a Representational State Transfer (REST) interface to perform
+    tasks such as creating a static map with pushpins, geocoding an address,
+    retrieving imagery metadata, or creating a route.
+    Using Geocoder you can retrieve Bing's geocoded data from Bing Maps REST Services.
+
+    ## Python Example
+
+        >>> import geocoder
+        >>> g = geocoder.bing(<address>)
+        >>> g.lat, g.lng
+        45.413140 -75.656703
+        ...
+
+    ## Geocoder Attributes
+
+        * address
+        * country
+        * lat
+        * lng
+        * locality
+        * location
+        * postal
+        * provider
+        * quality
+        * route
+        * state
+        * status
+        * status_description
+
+    ## References
+
+        * [GitHub Repo](https://github.com/DenisCarriere/geocoder)
+        * [GitHub Wiki](https://github.com/DenisCarriere/geocoder/wiki)
+        * [Bing Maps REST Services](http://msdn.microsoft.com/en-us/library/ff701714.aspx)
+
+    """
+    return Bing(location, key=key)
+
+def nokia(location, app_id=app_id, app_code=app_code):
+    """
+    # Nokia
+
+    Send a request to the geocode endpoint to find an address using a combination of
+    country, state, county, city, postal code, district, street and house number.
+    Using Geocoder you can retrieve Nokia's geocoded data from HERE Geocoding REST API.
+
+    ## Python Example
+
+        >>> import geocoder
+        >>> g = geocoder.nokia(<address>)
+        >>> g.lat, g.lng
+        45.413140 -75.656703
+        ...
+
+    ## Geocoder Attributes
+
+        * accuracy
+        * address
+        * bbox
+        * country
+        * county
+        * lat
+        * lng
+        * locality
+        * location
+        * neighborhood
+        * postal
+        * provider
+        * quality
+        * route
+        * state
+        * status
+        * street_number
+
+    ## References
+
+        * [GitHub Repo](https://github.com/DenisCarriere/geocoder)
+        * [GitHub Wiki](https://github.com/DenisCarriere/geocoder/wiki)
+        * [HERE Geocoding REST API](https://developer.here.com/rest-apis/documentation/geocoder)
+
+    """
+    return Nokia(location, app_id=app_id, app_code=app_code)
+
+def tomtom(location, key=tomtom_key):
+    """
+    # TomTom
+
+    The Geocoding API gives developers access to TomTom’s first class geocoding service.
+    Developers may call this service through either a single or batch geocoding request.
+    This service supports global coverage, with house number level matching in over 50 countries,
+    and address point matching where available.
+    Using Geocoder you can retrieve TomTom's geocoded data from Geocoding API.
+
+    ## Python Example
+
+        >>> import geocoder
+        >>> g = geocoder.tomtom(<address>)
+        >>> g.lat, g.lng
+        45.413140 -75.656703
+        ...
+
+    ## Geocoder Attributes
+
+        * address
+        * country
+        * lat
+        * lng
+        * locality
+        * location
+        * postal
+        * provider
+        * quality
+        * route
+        * state
+        * status
+        * street_number
+
+    ## References
+
+        * [GitHub Repo](https://github.com/DenisCarriere/geocoder)
+        * [GitHub Wiki](https://github.com/DenisCarriere/geocoder/wiki)
+        * [Geocoding API](http://developer.tomtom.com/products/geocoding_api)
+
+    """
+    return Tomtom(location, key=key)
+
+def mapquest(location):
+    """
+    # MapQuest
+
+    The geocoding service enables you to take an address and get the
+    associated latitude and longitude. You can also use any latitude
+    and longitude pair and get the associated address. Three types of
+    geocoding are offered: address, reverse, and batch.
+    Using Geocoder you can retrieve MapQuest's geocoded data from Geocoding Service.
+
+    ## Python Example
+
+        >>> import geocoder
+        >>> g = geocoder.mapquest(<address>)
+        >>> g.lat, g.lng
+        45.413140 -75.656703
+        ...
+
+    ## Geocoder Attributes
+
+        * address
+        * country
+        * lat
+        * lng
+        * locality
+        * location
+        * postal
+        * provider
+        * quality
+        * state
+        * status
+
+    ## References
+
+        * [GitHub Repo](https://github.com/DenisCarriere/geocoder)
+        * [GitHub Wiki](https://github.com/DenisCarriere/geocoder/wiki)
+        * [Geocoding Service](http://www.mapquestapi.com/geocoding/)
+
+    """
+    return Mapquest(location)
+
+def osm(location):
+    """
+    # OSM
+
+    Nominatim (from the Latin, 'by name') is a tool to search OSM data by name
+    and address and to generate synthetic addresses of OSM points (reverse geocoding).
+    Using Geocoder you can retrieve OSM's geocoded data from Nominatim.
+
+    ## Python Example
+
+        >>> import geocoder
+        >>> g = geocoder.osm(<address>)
+        >>> g.lat, g.lng
+        45.413140 -75.656703
+        ...
+
+    ## Geocoder Attributes
+
+        * address
+        * bbox
+        * country
+        * lat
+        * lng
+        * locality
+        * location
+        * neighborhood
+        * postal
+        * provider
+        * quality
+        * route
+        * state
+        * status
+        * street_number
+        * suburb
+
+    ## References
+
+        * [GitHub Repo](https://github.com/DenisCarriere/geocoder)
+        * [GitHub Wiki](https://github.com/DenisCarriere/geocoder/wiki)
+        * [Nominatim](http://wiki.openstreetmap.org/wiki/Nominatim)
+
+    """
+    return Osm(location)
 
 def google(location, short_name=True, timeout=5.0, proxies='', client='', secret='', api_key=''):
     """
@@ -90,7 +342,7 @@ def timezone(latlng, timestamp='', proxies='', timeout=5.0):
         >>> g.dst
         3600
         ...
-        
+
     Official Docs
     -------------
     https://developers.google.com/maps/documentation/timezone/
@@ -163,140 +415,7 @@ def canadapost(location, country='CA', api_key=canadapost_key, proxies='', timeo
     provider = Canadapost(location, country=country, api_key=api_key)
     return Geocoder(provider, proxies=proxies, timeout=timeout)
 
-def geolytica(location, proxies='', timeout=5.0):
-    """
-    Retrieves geocoding data from Geocoder.ca data.
 
-        >>> g = geocoder.geolytica('Tacloban City')
-        >>> g.latlng
-        (11.2430274, 125.0081402)
-        >>> g.country
-        'Philippines'
-        ...
-
-    Official Docs
-    -------------
-    http://geocoder.ca/?api=1
-    """
-    provider = Geolytica(location)
-    return Geocoder(provider, proxies=proxies, timeout=timeout)
-
-def osm(location, proxies='', timeout=5.0):
-    """
-    Retrieves geocoding data from OSM's data using Nominatim's geocoding API.
-
-        >>> g = geocoder.osm('Tacloban City')
-        >>> g.latlng
-        (11.2430274, 125.0081402)
-        >>> g.country
-        'Philippines'
-        ...
-
-    Official Docs
-    -------------
-    http://wiki.openstreetmap.org/wiki/Nominatim
-    """
-    provider = Osm(location)
-    return Geocoder(provider, proxies=proxies, timeout=timeout)
-
-
-def arcgis(location, proxies='', timeout=5.0):
-    """
-    Retrieves geocoding data from ArcGIS's REST geocoding API.
-
-        >>> g = geocoder.arcgis('380 New York St, Redlands, California')
-        >>> g.latlng
-        (34.05649072776595, -117.19566584280369)
-        >>> g.postal
-        '92373'
-        ...
-
-    Official Docs
-    -------------
-    http://resources.arcgis.com/en/help/arcgis-rest-api/
-    """
-    provider = Arcgis(location)
-    return Geocoder(provider, proxies=proxies, timeout=timeout)
-
-
-def mapquest(location, proxies='', timeout=5.0):
-    """
-    Retrieves geocoding data from MapQuest's address geocoding API.
-
-        >>> g = geocoder.mapquest('1555 Blake street, Denver')
-        >>> g.latlng
-        (39.740009, -104.992264)
-        >>> g.quality
-        'CITY'
-        ...
-
-    Official Docs
-    -------------
-    http://www.mapquestapi.com/geocoding/
-    """
-    provider = Mapquest(location)
-    return Geocoder(provider, proxies=proxies, timeout=timeout)
-
-
-def tomtom(location, key=tomtom_key, proxies='', timeout=5.0):
-    """
-    Retrieves geocoding data from TomTom's geocoding API.
-
-        >>> key = 'XXXXX'
-        >>> g = geocoder.tomtom('Amsterdam, Netherlands', key=key)
-        >>> g.latlng
-        (52.373166, 4.89066)
-        >>> g.quality
-        'city'
-        ...
-
-    Official Docs
-    -------------
-    http://developer.tomtom.com/products/geocoding_api
-    """
-    provider = Tomtom(location, key=key)
-    return Geocoder(provider, proxies=proxies, timeout=timeout)
-
-
-def bing(location, key=bing_key, proxies='', timeout=5.0):
-    """
-    Retrieves geocoding data from Bing's REST location API.
-
-        >>> key = 'XXXXX'
-        >>> g = geocoder.bing('Medina, Washington', key=key)
-        >>> g.latlng
-        (47.615821838378906, -122.23892211914062)
-        >>> g.country
-        'United States'
-        ...
-
-    Official Docs
-    -------------
-    http://msdn.microsoft.com/en-us/library/ff701714.aspx
-    """
-    provider = Bing(location, key=key)
-    return Geocoder(provider, proxies=proxies, timeout=timeout)
-
-
-def nokia(location, app_id=app_id, app_code=app_code, proxies='', timeout=5.0):
-    """
-    Retrieves geocoding data from Nokia's HERE geocoder API.
-
-        >>> app_id = 'XXXXX'
-        >>> app_code = 'XXXXX'
-        >>> g = geocoder.nokia('Keilaniemi, Espoo')
-        >>> g.latlng
-        (60.1759338, 24.8327808)
-        >>> g.country
-        'FIN'
-        ...
-
-    Official Docs
-    -------------
-    https://developer.here.com/rest-apis/documentation/geocoder
-    """
-    provider = Nokia(location, app_id=app_id, app_code=app_code)
-    return Geocoder(provider, proxies=proxies, timeout=timeout)
 
 
 def geonames(location, username=username, proxies='', timeout=5.0):
@@ -337,8 +456,3 @@ def population(location, username=username, proxies='', timeout=5.0):
     """
     g = geonames(location, username=username, proxies=proxies, timeout=timeout)
     return g.pop
-
-if __name__ == '__main__':
-    a = (45.4215296, -75.69719309999999)
-    g = reverse(a)
-    print g

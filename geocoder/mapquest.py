@@ -5,12 +5,19 @@ from base import Base
 
 
 class Mapquest(Base):
-    name = 'MapQuest'
+    provider = 'MapQuest'
+    api = 'Geocoding Service'
     url = 'http://www.mapquest.ca/_svc/searchio'
+    api_references = ['[{0}](http://www.mapquestapi.com/geocoding/)'.format(api)]
+    description = 'The geocoding service enables you to take an address and get the \n'
+    description += 'associated latitude and longitude. You can also use any latitude \n'
+    description += 'and longitude pair and get the associated address. Three types of \n'
+    description += 'geocoding are offered: address, reverse, and batch.'
 
     def __init__(self, location):
         self.location = location
         self.json = dict()
+        self.parse = dict()
         self.params = dict()
         self.params['action'] = 'search'
         self.params['query0'] = location
@@ -18,34 +25,45 @@ class Mapquest(Base):
         self.params['page'] = 0
         self.params['thumbMaps'] = 'false'
 
+        # Initialize
+        self._connect()
+        self._parse(self.content)
+        self._test()
+        self._json()
+
     @property
     def lat(self):
-        return self.safe_coord('latLng-lat')
+        return self._get_json_float('latLng-lat')
 
     @property
     def lng(self):
-        return self.safe_coord('latLng-lng')
+        return self._get_json_float('latLng-lng')
 
     @property
     def address(self):
-        return self.safe_format('address-singleLineAddress')
+        return self._get_json_str('address-singleLineAddress')
 
     @property
     def quality(self):
-        return self.safe_format('address-quality')
+        return self._get_json_str('address-quality')
 
     @property
     def postal(self):
-        return self.safe_format('address-postalCode')
+        return self._get_json_str('address-postalCode')
 
     @property
     def locality(self):
-        return self.safe_format('address-locality')
+        return self._get_json_str('address-locality')
 
     @property
     def state(self):
-        return self.safe_format('address-regionLong')
+        return self._get_json_str('address-regionLong')
 
     @property
     def country(self):
-        return self.safe_format('address-countryLong')
+        return self._get_json_str('address-countryLong')
+
+if __name__ == '__main__':
+    g = Mapquest('453 Booth Street, Ottawa')
+    g.help()
+    g.debug()
