@@ -19,7 +19,7 @@ A place to get you started on how to use this module and set up your work statio
 
 **Install from PyPi**
 ```bash
-pip install geocoder
+$ pip install geocoder
 ```
 
 ### Visit the [Wiki](https://github.com/DenisCarriere/geocoder/wiki/)

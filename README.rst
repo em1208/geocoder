@@ -1,5 +1,5 @@
 `Geocoder`_ |version| |build|
-=============================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A pure Python Geocoding module made easy.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -16,7 +16,6 @@ Every task is made easy with tons of ``help`` & ``debug`` commands!
 .. figure:: https://pbs.twimg.com/media/Bqi8kThCUAAboo0.png
    :alt: Providers
 
-   Providers
 QuickStart
 ----------
 
@@ -27,7 +26,7 @@ work station.
 
 .. code:: bash
 
-    pip install geocoder
+    $ pip install geocoder
 
 Visit the `Wiki`_
 ~~~~~~~~~~~~~~~~~
@@ -41,21 +40,21 @@ Providers
 Here is a list of providers that are available for use with **FREE** or
 limited restrictions.
 
--  **`OSM`_**
+-  `OSM`_
 
--  **`Bing`_**
+-  `Bing`_
 
--  **`Nokia`_**
+-  `Nokia`_
 
--  **`Google`_**
+-  `Google`_
 
--  **`TomTom`_**
+-  `TomTom`_
 
--  **`Geonames`_**
+-  `Geonames`_
 
--  **`MapQuest`_**
+-  `MapQuest`_
 
--  **`Geocoder.ca`_**
+-  `Geocoder.ca`_
 
 Extras
 ~~~~~~
@@ -63,22 +62,21 @@ Extras
 The fun extra stuff I added to enjoy some cool features the web has to
 offer.
 
--  **`Reverse Geocoding`_**
+-  `Reverse Geocoding`_
 
--  **`IP Address`_**
+-  `IP Address`_
 
--  **`Elevation (Meters)`_**
+-  `Elevation (Meters)`_
 
--  **`Time Zone`_**
+-  `Time Zone`_
 
--  **`CanadaPost`_**
+-  `CanadaPost`_
 
 Topic not available?
 ~~~~~~~~~~~~~~~~~~~~
 
 If you cannot find a topic you are looking for, please feel free to ask
-me [@DenisCarriere](https://github.com/DenisCarriere) or post them on
-the `Github Issues Page`_.
+me `@DenisCarriere`_ or post them on the `Github Issues Page`_.
 
 Support
 -------
@@ -97,17 +95,19 @@ comments/suggestions to the `Github Issues Page`_.
 Twitter
 ~~~~~~~
 
-Speak up on Twitter [@Addxy](https://twitter.com/search?q=%40Addxy) and
-tell us how you use this Python Geocoder. New updates will be pushed to
-Twitter Hashtags `#geocoder`_.
+Speak up on Twitter `@Addxy`_ and tell us how you use this Python Geocoder. New updates will be pushed to Twitter Hashtags `#geocoder`_.
 
 Thanks to
 ~~~~~~~~~
 
 A big thanks to all the people that help contribute:
-[@flebel](https://github.com/flebel)
-[@patrickyan](https://github.com/patrickyan)
 
+`@flebel`_ `@patrickyan`_
+
+.. _@patrickyan: https://github.com/patrickyan
+.. _@flebel: https://github.com/flebel
+.. _@Addxy: https://twitter.com/search?q=%40Addxy
+.. _@DenisCarriere: https://github.com/DenisCarriere/
 .. _Geocoder: https://github.com/DenisCarriere/geocoder
 .. _Wiki: https://github.com/DenisCarriere/geocoder/wiki/
 .. _OSM: https://github.com/DenisCarriere/geocoder/wiki/OSM
