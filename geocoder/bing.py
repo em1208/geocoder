@@ -9,11 +9,12 @@ class Bing(Base):
     provider = 'Bing'
     api = 'Bing Maps REST Services'
     url = 'http://dev.virtualearth.net/REST/v1/Locations'
-    api_references = ['[{0}](http://msdn.microsoft.com/en-us/library/ff701714.aspx)'.format(api)]
-    description = 'The Bing™ Maps REST Services Application Programming Interface (API)\n'
-    description += 'provides a Representational State Transfer (REST) interface to\n'
-    description += 'perform tasks such as creating a static map with pushpins, geocoding\n'
-    description += 'an address, retrieving imagery metadata, or creating a route.'
+    _description = 'The Bing™ Maps REST Services Application Programming Interface (API)\n'
+    _description += 'provides a Representational State Transfer (REST) interface to\n'
+    _description += 'perform tasks such as creating a static map with pushpins, geocoding\n'
+    _description += 'an address, retrieving imagery metadata, or creating a route.'
+    _api_reference = ['[{0}](http://msdn.microsoft.com/en-us/library/ff701714.aspx)'.format(api)]
+    _api_parameter  = [':param ``key``: (optional) use your own API Key from Bing.']
 
     def __init__(self, location, key=bing_key):
         self.location = location

@@ -7,14 +7,15 @@ import json
 
 
 class Base(object):
-    base_references = [
-        '[GitHub Repo](https://github.com/DenisCarriere/geocoder)',
-        '[GitHub Wiki](https://github.com/DenisCarriere/geocoder/wiki)']
-
-    _exclude = ['parse', 'json', 'url', 'attributes', 'help', 'debug',
-                'api', 'description', 'content', 'params', 'status_code',
-                'references', 'api_references', 'base_references', 'status_description']
+    _base_parameter  = [':param ``location``: Your search location you want geocoded.']
+    _base_reference = ['[GitHub Repo](https://github.com/DenisCarriere/geocoder)',
+                       '[GitHub Wiki](https://github.com/DenisCarriere/geocoder/wiki)']
+    _exclude = ['parse', 'json', 'url', 'attributes', 'help', 'debug', 'short_name',
+                'api', 'description', 'content', 'params', 'status_code', 'headers',
+                'status_description', 'api_key', 'ok']
+    _example = []
     attributes = []
+    headers = {}
 
     def __repr__(self):
         return "<[{0}] {1} [{2}]>".format(self.status, self.provider, self.address)
@@ -38,27 +39,32 @@ class Base(object):
         print('## Provider\'s Attributes')
         if self.parse:
             for key, value in self.parse.items():
-                try:
-                    value = value.encode('utf-8')
-                except:
-                    pass
-                print('* {0}: {1}'.format(key, value))
+                if value:
+                    try:
+                        value = value.encode('utf-8')
+                    except:
+                        pass
+                    print('* {0}: {1}'.format(key, value))
         else:
             print(self.content)
 
     def help(self):
         print('# {0}'.format(self.provider))
         print('')
-        print(self.description)
+        print(self._description)
         print('Using Geocoder you can retrieve {0}\'s geocoded data from {1}.'.format(self.provider, self.api))
         print('')
         print('## Python Example')
         print('')
         print('```python')
         print('>>> import geocoder')
-        print('>>> g = geocoder.{0}(<address>)'.format(self.provider.lower()))
-        print('>>> g.lat, g.lng')
-        print('45.413140 -75.656703')
+        if self._example:
+            for line in self._example:
+                print(line)
+        else:
+            print('>>> g = geocoder.{0}(\'<address>\')'.format(self.provider.lower()))
+            print('>>> g.lat, g.lng')
+            print('45.413140 -75.656703')
         print('...')
         print('```')
         print('')
@@ -67,9 +73,15 @@ class Base(object):
         for attribute in self.attributes:
             print('* {0}'.format(attribute))
         print('')
+        print('## Parameters')
+        print('')
+        for parameter in self._base_parameter + self._api_parameter:
+            print('* {0}'.format(parameter))
+        print('')
+
         print('## References')
         print('')
-        for reference in self.base_references + self.api_references:
+        for reference in self._base_reference + self._api_reference:
             print('* {0}'.format(reference))
         print('')
 
@@ -85,7 +97,7 @@ class Base(object):
         self.status_code = 404
         self.status = 'Connecting...'
         try:
-            r = requests.get(self.url, params=self.params)
+            r = requests.get(self.url, params=self.params, headers=self.headers, timeout=5.0)
             self.status_code = r.status_code
             self.url = r.url
             self.status = 'OK'
@@ -96,26 +108,64 @@ class Base(object):
             self.status = 'ERROR - URL Connection'
 
         # Open JSON content from Request connection
-        try:
-            self.content = r.json()
-        except:
-            self.status = 'ERROR - JSON Corrupted'
-            self.content = r.content
+        if self.status == 'OK':
+            try:
+                self.content = r.json()
+            except:
+                self.status = 'ERROR - JSON Corrupted'
+                self.content = r.content
 
     def _parse(self, content, last=''):
         # DICTIONARY
         if isinstance(content, dict):
             for key, value in content.items():
-
                 # NOKIA EXCEPTION
-                if key in 'AdditionalData':
+                if key == 'AdditionalData':
                     for item in value:
                         key = item.get('key')
                         value = item.get('value')
                         self.parse[key] = value
 
+                # Only return the first result
+                elif key == 'Items':
+                    if value:
+                        self._parse(value[0])
+
+                # GOOGLE EXCEPTION 1 (For Reverse Geocoding)
+                # Only return the first result
+                elif key == 'results':
+                    if value:
+                        self._parse(value[0])
+
+                # GOOGLE EXCEPTION 2
+                elif key == 'address_components':
+                    for item in value:
+                        short_name = item.get('short_name')
+                        long_name = item.get('long_name')
+                        all_types = item.get('types')
+                        for types in all_types:
+                            self.parse[types] = short_name
+                            self.parse[types + '-long_name'] = long_name
+
+                # GOOGLE EXCEPTION 3
+                elif key == 'types':
+                    self.parse['types'] = value[0]
+                    for item in value:
+                        name = 'types_{0}'.format(item)
+                        self.parse[name] = True
+
+                # MAXMIND EXCEPTION
+                elif 'names' == key:
+                    if 'en' in value:
+                        name = value.get('en')
+                        self.parse[last] = name
+
+                # GEONAMES EXCEPTION
+                elif 'geonames' == key:
+                    self._parse(value)
+
                 # STANDARD DICTIONARY
-                if isinstance(value, (list, dict)):
+                elif isinstance(value, (list, dict)):
                     self._parse(value, key)
                 else:
                     if last:
@@ -125,13 +175,12 @@ class Base(object):
         # LIST
         elif isinstance(content, list):
             if len(content) == 1:
-
                 self._parse(content[0], last)
             elif len(content) > 1:
                 for num, value in enumerate(content):
 
                     # BING EXCEPTION
-                    if not last in ['geocodePoints']:
+                    if last not in ['geocodePoints']:
                         key = '{0}-{1}'.format(last, num)
                     else:
                         key = last
@@ -139,6 +188,10 @@ class Base(object):
                         self._parse(value, key)
                     else:
                         self.parse[key] = value
+
+        # STRING
+        else:
+            self.parse[last] = content
 
     def _test(self):
         if self.status_description:
@@ -165,6 +218,13 @@ class Base(object):
         except:
             return 0.0
 
+    def _get_json_int(self, item):
+        result = self.parse.get(item)
+        try:
+            return int(result)
+        except:
+            return 0
+
     def _get_bbox(self, south, west, north, east):
         # South Latitude, West Longitude, North Latitude, East Longitude
         self.south = south
@@ -181,146 +241,9 @@ class Base(object):
             return bbox
         return str('')
 
-    """
-    def load(self, json, last=''):
-        # DICTIONARY
-        if isinstance(json, dict):
-            for keys, values in json.items():
-                # Canada Post
-                if keys == 'Items':
-                    for key, value in values[0].items():
-                        if value:
-                            self.json[key] = value
-
-                # MAXMIND
-                if 'geoname_id' in json:
-                    names = json.get('names')
-                    self.json[last] = names['en']
-
-
-                # NOKIA
-                if keys in 'AdditionalData':
-                    for item in values:
-                        key = item.get('key')
-                        value = item.get('value')
-                        self.json[key] = value
-
-                # GOOGLE
-                if keys == 'results':
-                    if values:
-                        self.load(values[0], keys)
-
-                elif keys == 'address_components':
-                    for item in values:
-                        short_name = item.get('short_name')
-                        long_name = item.get('long_name')
-                        all_types = item.get('types')
-                        for types in all_types:
-                            self.json[types] = short_name
-                            self.json[types + '-long_name'] = long_name
-
-                elif keys == 'types':
-                    for item in values:
-                        name = 'types_{0}'.format(item)
-                        self.json[name] = True
-
-                # LIST
-                elif isinstance(values, list):
-                    if len(values) == 1:
-                        self.load(values[0], keys)
-                    elif len(values) > 1:
-                        for count, value in enumerate(values):
-                            name = '{0}-{1}'.format(keys, count)
-                            self.load(value, name)
-
-                # DICTIONARY
-                elif isinstance(values, dict):
-                    self.load(values, keys)
-                else:
-                    if last:
-                        name = '{0}-{1}'.format(last, keys)
-                    else:
-                        name = keys
-                    self.json[name] = values
-        # LIST
-        elif isinstance(json, (list, tuple)):
-            if json:
-                self.load(json[0], last)
-        # OTHER Formats
-        else:
-            self.json[last] = json
-
-    def safe_postal(self, item):
-        # Full postal code - K1E 1S9
-        expression = r"[A-Z]{1}[0-9]{1}[A-Z]{1}[ ]?[0-9]{1}[A-Z]{1}[0-9]{1}"
-        # Partial postal code - K1E
-        expression += r"([A-Z]{1}[0-9]{1}[A-Z]{1})?"
-        pattern = re.compile(expression)
-        if item:
-            match = pattern.search(item)
-
-            # Canada Pattern
-            if match:
-                return match.group()
-            else:
-                # United States Pattern
-                pattern = re.compile(r'[0-9]{5}([0-9]{4})?')
-                match = pattern.search(item)
-                if match:
-                    return match.group()
-        return None
-
-    def safe_format(self, item):
-        item = self.json.get(item)
-        if item:
-            item = item.encode('utf-8')
-        return item
-
-    def safe_coord(self, item):
-        item = self.json.get(item)
-        if item:
-            try:
-                return float(item)
-            except:
-                return None
-        else:
-            return None
-
-    def safe_bbox(self, south, west, north, east):
-        # South Latitude, West Longitude, North Latitude, East Longitude
-        try:
-            self.south = float(south)
-            self.west = float(west)
-            self.north = float(north)
-            self.east = float(east)
-        except:
-            self.south = None
-            self.west = None
-            self.north = None
-            self.east = None
-
-        if bool(self.south and self.east and self.north and self.west):
-            self.southwest = {'lat': self.south, 'lng': self.west}
-            self.southeast = {'lat': self.south, 'lng': self.east}
-            self.northeast = {'lat': self.north, 'lng': self.east}
-            self.northwest = {'lat': self.north, 'lng': self.west}
-            bbox = {'southwest': self.southwest, 'northeast': self.northeast}
-            return bbox
-        return None
-
-    def debug(self):
-        pass
-
-
-    REMOVE THIS SOON
     @property
     def ok(self):
-        return bool(self.lng and self.lat)
-
-    @property
-    def status(self):
-        if self.lng:
-            return 'OK'
+        if bool(self.lng and self.lat):
+            return True
         else:
-            return 'ERROR - No Geometry'
-"""
+            return False

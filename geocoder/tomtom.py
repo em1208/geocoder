@@ -9,11 +9,12 @@ class Tomtom(Base):
     provider = 'TomTom'
     api = 'Geocoding API'
     url = 'https://api.tomtom.com/lbs/geocoding/geocode'
-    api_references = ['[{0}](http://developer.tomtom.com/products/geocoding_api)'.format(api)]
-    description = 'The Geocoding API gives developers access to TomTom’s first class geocoding service. \n'
-    description += 'Developers may call this service through either a single or batch geocoding request.\n'
-    description += 'This service supports global coverage, with house number level matching in over 50 countries,\n'
-    description += 'and address point matching where available.'
+    _description = 'The Geocoding API gives developers access to TomTom’s first class geocoding service. \n'
+    _description += 'Developers may call this service through either a single or batch geocoding request.\n'
+    _description += 'This service supports global coverage, with house number level matching in over 50 countries,\n'
+    _description += 'and address point matching where available.'
+    _api_reference = ['[{0}](http://developer.tomtom.com/products/geocoding_api)'.format(api)]
+    _api_parameter  = [':param ``key``: (optional) use your own API Key from TomTom.']
 
     def __init__(self, location, key=tomtom_key):
         self.location = location

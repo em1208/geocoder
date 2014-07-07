@@ -6,7 +6,6 @@ from ip import Ip
 from osm import Osm
 from bing import Bing
 from nokia import Nokia
-from arcgis import Arcgis
 from tomtom import Tomtom
 from google import Google
 from reverse import Reverse
@@ -46,6 +45,10 @@ def geolytica(location):
         * state
         * status
         * street_number
+
+    ## Parameters
+
+        * :param location: Your search location you want geocoded.
 
     ## References
 
@@ -89,6 +92,11 @@ def bing(location, key=bing_key):
         * state
         * status
         * status_description
+
+    ## Parameters
+
+        * :param location: Your search location you want geocoded.
+        * :param key: (optional) use your own API Key from Bing.
 
     ## References
 
@@ -135,6 +143,11 @@ def nokia(location, app_id=app_id, app_code=app_code):
         * status
         * street_number
 
+    ## Parameters
+
+        * :param location: Your search location you want geocoded.
+        * :param app_code: (optional) use your own Application Code from Nokia.
+
     ## References
 
         * [GitHub Repo](https://github.com/DenisCarriere/geocoder)
@@ -178,6 +191,11 @@ def tomtom(location, key=tomtom_key):
         * status
         * street_number
 
+    ## Parameters
+
+        * :param location: Your search location you want geocoded.
+        * :param key: (optional) use your own API Key from TomTom.
+
     ## References
 
         * [GitHub Repo](https://github.com/DenisCarriere/geocoder)
@@ -218,6 +236,10 @@ def mapquest(location):
         * quality
         * state
         * status
+
+    ## Parameters
+
+        * :param location: Your search location you want geocoded.
 
     ## References
 
@@ -263,6 +285,10 @@ def osm(location):
         * street_number
         * suburb
 
+    ## Parameters
+
+        * :param location: Your search location you want geocoded.
+
     ## References
 
         * [GitHub Repo](https://github.com/DenisCarriere/geocoder)
@@ -272,187 +298,337 @@ def osm(location):
     """
     return Osm(location)
 
-def google(location, short_name=True, timeout=5.0, proxies='', client='', secret='', api_key=''):
+def google(location, short_name=True):
     """
-    Retrieves geocoding data from Google's geocoding API V3
+    # Google
 
-        >>> g = geocoder.google('1600 Amphitheatre Pkwy, Mountain View, CA')
-        >>> g.latlng
-        (37.784173, -122.401557)
-        >>> g.country
-        'United States'
+    Geocoding is the process of converting addresses (like "1600 Amphitheatre Parkway,
+    Mountain View, CA") into geographic coordinates (like latitude 37.423021 and
+    longitude -122.083739), which you can use to place markers or position the map.
+    Using Geocoder you can retrieve Google's geocoded data from Google Geocoding API.
+
+    ## Python Example
+
+        >>> import geocoder
+        >>> g = geocoder.google(<address>)
+        >>> g.lat, g.lng
+        45.413140 -75.656703
         ...
 
-    Official Docs
-    -------------
-    https://developers.google.com/maps/documentation/geocoding/
+    ## Geocoder Attributes
+
+        * accuracy
+        * address
+        * bbox
+        * country
+        * county
+        * lat
+        * lng
+        * locality
+        * location
+        * neighborhood
+        * postal
+        * provider
+        * quality
+        * route
+        * state
+        * status
+        * street_number
+        * sublocality
+
+    ## Parameters
+
+        * :param location: Your search location you want geocoded.
+        * :param short_name: (optional) if ``False`` will retrieve the results with Long names.
+
+    ## References
+
+        * [GitHub Repo](https://github.com/DenisCarriere/geocoder)
+        * [GitHub Wiki](https://github.com/DenisCarriere/geocoder/wiki)
+        * [Google Geocoding API](https://developers.google.com/maps/documentation/geocoding/)
+
     """
-    provider = Google(location, short_name=short_name, client=client, secret=secret, api_key=api_key)
-    return Geocoder(provider, proxies=proxies, timeout=timeout)
+    return Google(location, short_name=short_name)
 
-
-def get(location, provider='google', proxies='', short_name=True, timeout=5.0):
+def ip(location):
     """
-    Retrieves geocoding data from Google's geocoding API V3
+    # IP Address
 
-        >>> g = geocoder.search('123 Address', provider='google')
-        >>> g.latlng
-        (37.784173, -122.401557)
-        >>> g.country
-        'United States'
+    MaxMind's GeoIP2 products enable you to identify the location,
+    organization, connection speed, and user type of your Internet
+    visitors. The GeoIP2 databases are among the most popular and
+    accurate IP geolocation databases available. Using Geocoder you
+    can retrieve IP Address's geocoded data from MaxMind's GeoIP2.
+
+    ## Python Example
+
+        >>> import geocoder
+        >>> g = geocoder.ip(<IP Address>)
+        >>> g.lat, g.lng
+        45.413140 -75.656703
         ...
+
+    ## Geocoder Attributes
+
+        * address
+        * city
+        * continent
+        * country
+        * domain
+        * ip
+        * isp
+        * lat
+        * lng
+        * location
+        * postal
+        * provider
+        * state
+        * status
+
+    ## Parameters
+
+        * :param location: Your search IP Address you want geocoded.
+        * :param location: (optional) if left blank will return your current IP address's location.
+
+    ## References
+
+        * [GitHub Repo](https://github.com/DenisCarriere/geocoder)
+        * [GitHub Wiki](https://github.com/DenisCarriere/geocoder/wiki)
+        * [MaxMind's GeoIP2](https://www.maxmind.com/en/geolocation_landing)
+
     """
-    provider = utils.get_provider(location, provider=provider, short_name=short_name)
-    return Geocoder(provider, proxies=proxies, timeout=timeout)
+    return Ip(location)
 
-def ip(location, proxies='', timeout=5.0):
+def timezone(location, timestamp=''):
     """
-    Geocodes an IP address using MaxMind's services.
+    # TimeZone
 
-        >>> g = geocoder.ip('74.125.226.99')
-        >>> g.latlng
-        (37.4192, -122.0574)
-        >>> g.address
-        'Mountain View, California United States'
-        ...
+    The Time Zone API provides time offset data for locations on the surface of the earth.
+    Requesting the time zone information for a specific Latitude/Longitude pair will
+    return the name of that time zone, the time offset from UTC, and the Daylight Savings offset.
+    Using Geocoder you can retrieve TimeZone's geocoded data from Google Time Zone API.
 
-    Official Docs
-    -------------
-    http://www.maxmind.com/en/geolocation_landing
-    """
-    provider = Ip(location)
-    return Geocoder(provider, proxies=proxies, timeout=timeout)
+    ## Python Example
 
-
-def timezone(latlng, timestamp='', proxies='', timeout=5.0):
-    """
-    Timezone tool will retrieve the zone & offset of a desired location
-    using Google's Time Zone API.
-
-    The UTC (Coordinated Universal Time) and the DST (Daylight Savings Time)
-    results are in seconds.
-
-        >>> g = geocoder.timezone("Ottawa")
+        >>> import geocoder
+        >>> g = geocoder.timezone('<address or [lat,lng]>')
         >>> g.timezone
-        Eastern Daylight Time
-        >>> g.timezone_id
-        America/Toronto
-        >>> g.utc
-        -18000
-        >>> g.dst
-        3600
+        'Eastern Daylight Time'
         ...
 
-    Official Docs
-    -------------
-    https://developers.google.com/maps/documentation/timezone/
-    """
-    provider = Timezone(latlng)
-    return Geocoder(provider, proxies=proxies, timeout=timeout)
+    ## Geocoder Attributes
 
-def elevation(latlng, proxies='', timeout=5.0):
-    """
-    Elevation tool will return the Mean elevation above Sea Level in meters based
-    on Lat & Lng inputs or an address using Google's elevation API.
+        * dst
+        * lat
+        * lng
+        * location
+        * provider
+        * status
+        * timestamp
+        * timezone
+        * timezone_id
+        * utc
 
-        >>> latlng = (37.4192, -122.0574)
-        >>> g = geocoder.elevation(latlng)
-        OR
-        >>> g = geocoder.elevation("Ottawa")
+    ## Parameters
+
+        * :param ``location``: Your search location you want geocoded.
+        * :param ``timestamp``: (optional) specifies the desired time as seconds
+
+    ## References
+
+        * [GitHub Repo](https://github.com/DenisCarriere/geocoder)
+        * [GitHub Wiki](https://github.com/DenisCarriere/geocoder/wiki)
+        * [Google Time Zone API](https://developers.google.com/maps/documentation/timezone/)
+
+    """
+    return Timezone(location)
+
+def elevation(location):
+    """
+    # Elevation
+
+    The Elevation API provides elevation data for all locations on the surface of the
+    earth, including depth locations on the ocean floor (which return negative values).
+    In those cases where Google does not possess exact elevation measurements at the
+    precise location you request, the service will interpolate and return an averaged
+    value using the four nearest locations.
+
+    Using Geocoder you can retrieve Elevation's geocoded data from Google Elevevation API.
+
+    ## Python Example
+
+        >>> import geocoder
+        >>> g = geocoder.elevation('<address or [lat,lng]>')
         >>> g.meters
-        '71.8'
+        48.5
         ...
 
-    Official Docs
-    -------------
-    https://developers.google.com/maps/documentation/elevation/
+    ## Geocoder Attributes
+
+        * address
+        * elevation
+        * feet
+        * lat
+        * lng
+        * location
+        * meters
+        * provider
+        * resolution
+        * status
+
+    ## Parameters
+
+        * :param ``location``: Your search location you want geocoded.
+        * :param ``location``: (input) can be specified as [lat, lng].
+
+    ## References
+
+        * [GitHub Repo](https://github.com/DenisCarriere/geocoder)
+        * [GitHub Wiki](https://github.com/DenisCarriere/geocoder/wiki)
+        * [Google Elevevation API](https://developers.google.com/maps/documentation/elevation/)
+
     """
-    provider = Elevation(latlng)
-    return Geocoder(provider, proxies=proxies, timeout=timeout)
+    return Elevation(location)
 
-
-def reverse(latlng, short_name=True, proxies='', timeout=5.0):
+def reverse(location, short_name=True):
     """
-    Reverse geocodes a location based on Lat & Lng inputs
-    using Google's reverse geocoding API V3.
+    # Reverse
 
-        >>> latlng = (37.4192, -122.0574)
-        >>> g = geocoder.reverse(latlng)
+    The term geocoding generally refers to translating a human-readable address into
+    a location on a map. The process of doing the opposite, translating a location
+    on the map into a human-readable address, is known as reverse geocoding.
+    Using Geocoder you can retrieve Reverse's geocoded data from Google Geocoding API.
+
+    ## Python Example
+
+        >>> import geocoder
+        >>> g = geocoder.reverse(['lat','lng'])
         >>> g.address
-        'Sevryns Road, Mountain View, CA 94043, USA'
-        >>> g.postal
-        '94043'
+        '453 Booth Street, Ottawa'
         ...
 
-    Official Docs
-    -------------
-    https://developers.google.com/maps/documentation/geocoding/
+    ## Geocoder Attributes
+
+        * accuracy
+        * address
+        * bbox
+        * country
+        * county
+        * lat
+        * lng
+        * locality
+        * location
+        * neighborhood
+        * postal
+        * provider
+        * quality
+        * route
+        * state
+        * status
+        * street_number
+        * sublocality
+
+    ## Parameters
+
+        * :param ``location``: Your search location you want geocoded.
+        * :param ``short_name``: (optional) if ``False`` will retrieve the results with Long names.
+
+    ## References
+
+        * [GitHub Repo](https://github.com/DenisCarriere/geocoder)
+        * [GitHub Wiki](https://github.com/DenisCarriere/geocoder/wiki)
+        * [Google Geocoding API](https://developers.google.com/maps/documentation/geocoding/)
+
     """
-    provider = Reverse(latlng, short_name=short_name)
-    return Geocoder(provider, proxies=proxies, timeout=timeout)
+    return Reverse(location)
 
-
-
-def canadapost(location, country='CA', api_key=canadapost_key, proxies='', timeout=5.0):
+def canadapost(location, country='CA', key=''):
     """
-    Retrieves geocoding data from Canada Post's data using Address Complete API.
+    # CanadaPost
 
-        >>> g = geocoder.canadapost('453 Booth Street, Ottawa ON')
+    The next generation of address finders, AddressComplete uses intelligent, fast
+    searching to improve data accuracy and relevancy. Simply start typing a business
+    name, address or Postal Code and AddressComplete will suggest results as you go.
+    Using Geocoder you can retrieve CanadaPost's geocoded data from Addres Complete API.
+
+    ## Python Example
+
+        >>> import geocoder
+        >>> g = geocoder.canadapost('<address>')
         >>> g.postal
         'K1R 7K9'
         ...
 
-    USA address simply add the country field to the search request.
-        >>> g = geocoder.canadapost('843 Burg St, Granville, OH', country='USA')
-        >>> g.postal
-        '43023-1079'
+    ## Geocoder Attributes
+
+        * address
+        * country
+        * key
+        * locality
+        * location
+        * ok
+        * postal
+        * provider
+        * quality
+        * route
+        * state
+        * status
+        * street_number
+
+    ## Parameters
+
+        * :param ``location``: Your search location you want geocoded.
+        * :param ``key``: (optional) use your own API Key from CanadaPost Address Complete.
+
+    ## References
+
+        * [GitHub Repo](https://github.com/DenisCarriere/geocoder)
+        * [GitHub Wiki](https://github.com/DenisCarriere/geocoder/wiki)
+        * [Addres Complete API](https://www.canadapost.ca/pca/)
+
+    """
+    return Canadapost(location, country=country, key=key)
+
+def geonames(location, username='addxy'):
+    """
+    # GeoNames
+
+    GeoNames is mainly using REST webservices. Find nearby postal codes / reverse geocoding
+    This service comes in two flavors.You can either pass the lat/long or a postalcode/placename.
+
+    Using Geocoder you can retrieve GeoNames's geocoded data from GeoNames REST Web Services.
+
+    ## Python Example
+
+        >>> import geocoder
+        >>> g = geocoder.geonames('<address>')
+        >>> g.lat, g.lng
+        45.413140 -75.656703
         ...
 
-    Official Docs
-    -------------
-    https://www.canadapost.ca/pca
+    ## Geocoder Attributes
+
+        * address
+        * country
+        * lat
+        * lng
+        * location
+        * population
+        * provider
+        * quality
+        * state
+        * status
+
+    ## Parameters
+
+        * :param ``location``: Your search location you want geocoded.
+        * :param ``username``: (required) needs to be passed with each request.
+
+    ## References
+
+        * [GitHub Repo](https://github.com/DenisCarriere/geocoder)
+        * [GitHub Wiki](https://github.com/DenisCarriere/geocoder/wiki)
+        * [GeoNames REST Web Services](http://www.geonames.org/export/web-services.html)
+
     """
-    provider = Canadapost(location, country=country, api_key=api_key)
-    return Geocoder(provider, proxies=proxies, timeout=timeout)
-
-
-
-
-def geonames(location, username=username, proxies='', timeout=5.0):
-    """
-    Retrieves geocoding data from Geonames's Web Service API.
-
-        >>> username = 'XXXXX'
-        >>> g = geocoder.geonames('Springfield, Virginia', username=username)
-        >>> g.latlng
-        (38.78928, -77.1872)
-        >>> g.country
-        'United States'
-        >>> g.population
-        30484
-        ...
-
-    Official Docs
-    -------------
-    http://www.geonames.org/export/web-services.html
-    """
-    provider = Geonames(location, username=username)
-    return Geocoder(provider, proxies=proxies, timeout=timeout)
-
-
-def population(location, username=username, proxies='', timeout=5.0):
-    """
-    Retrieves the population data from Geonames's Web Service API.
-
-        >>> username = 'XXXXX'
-        >>> pop = geocoder.population('Springfield, Virginia')
-        >>> pop
-        30484
-        ...
-
-    Official Docs
-    -------------
-    http://www.geonames.org/export/web-services.html
-    """
-    g = geonames(location, username=username, proxies=proxies, timeout=timeout)
-    return g.pop
+    return Geonames(location, username=username)

@@ -2,144 +2,129 @@
 # coding: utf8
 
 from base import Base
-import hashlib
-import urllib
-import hmac
-import base64
-import urlparse
 
 
 class Google(Base):
-    name = 'Google'
+    provider = 'Google'
+    api = 'Google Geocoding API'
     url = 'https://maps.googleapis.com/maps/api/geocode/json'
+    _description = 'Geocoding is the process of converting addresses (like "1600 Amphitheatre Parkway, \n'
+    _description += 'Mountain View, CA") into geographic coordinates (like latitude 37.423021 and \n'
+    _description += 'longitude -122.083739), which you can use to place markers or position the map.'
+    _api_reference = ['[{0}](https://developers.google.com/maps/documentation/geocoding/)'.format(api)]
+    _api_parameter = [':param ``short_name``: (optional) if ``False`` will retrieve the results with Long names.']
 
-    def __init__(self, location, short_name=True, client='', secret='', api_key=''):
+    def __init__(self, location, short_name=True):
         self.location = location
         self.short_name = short_name
         self.json = dict()
+        self.parse = dict()
         self.params = dict()
         self.params['sensor'] = 'false'
         self.params['address'] = location
 
-        # New Encryption for Authentication Google Maps for Business
-        if bool(client and secret):
-            self.params['client'] = client
-            self.params['signature'] = self.get_signature(self.url, self.params, secret)
-
-        # Using old Authentication Google Maps V3
-        elif api_key:
-            self.params['key'] = api_key
-
-    def get_signature(self, url, params, secret):
-        # Convert the URL string to a URL
-        params = urllib.urlencode(params)
-        url = urlparse.urlparse(url + '?' + params)
-
-        # Signature Key
-        urlToSign = url.path + "?" + url.query
-
-        # Decode the private key into its binary format
-        decodedKey = base64.urlsafe_b64decode(secret)
-
-        # Create a signature using the private key and the URL-encoded
-        # string using HMAC SHA1. This signature will be binary.
-        signature = hmac.new(decodedKey, urlToSign, hashlib.sha1)
-
-        # Encode the binary signature into base64 for use within a URL
-        encodedSignature = base64.urlsafe_b64encode(signature.digest())
-        return encodedSignature
+        # Initialize
+        self._connect()
+        self._parse(self.content)
+        self._test()
+        self._json()
 
     @property
     def lat(self):
-        return self.safe_coord('location-lat')
+        return self._get_json_float('location-lat')
 
     @property
     def lng(self):
-        return self.safe_coord('location-lng')
+        return self._get_json_float('location-lng')
 
     @property
-    def status(self):
-        return self.safe_format('status')
+    def status_description(self):
+        return self._get_json_str('status')
 
     @property
     def quality(self):
-        return self.safe_format('geometry-location_type')
+        return self._get_json_str('types')
+
+    @property
+    def accuracy(self):
+        return self._get_json_str('geometry-location_type')
 
     @property
     def bbox(self):
-        south = self.json.get('southwest-lat')
-        west = self.json.get('southwest-lng')
-        north = self.json.get('northeast-lat')
-        east = self.json.get('northeast-lng')
-        return self.safe_bbox(south, west, north, east)
+        south = self._get_json_float('southwest-lat')
+        west = self._get_json_float('southwest-lng')
+        north = self._get_json_float('northeast-lat')
+        east = self._get_json_float('northeast-lng')
+        return self._get_bbox(south, west, north, east)
 
     @property
     def address(self):
-        return self.safe_format('results-formatted_address')
+        return self._get_json_str('formatted_address')
 
     @property
     def postal(self):
         if self.short_name:
-            return self.safe_format('postal_code')
+            return self._get_json_str('postal_code')
         else:
-            return self.safe_format('postal_code-long_name')
+            return self._get_json_str('postal_code-long_name')
 
     @property
     def street_number(self):
         if self.short_name:
-            return self.safe_format('street_number')
+            return self._get_json_str('street_number')
         else:
-            return self.safe_format('street_number-long_name')
+            return self._get_json_str('street_number-long_name')
 
     @property
     def route(self):
         if self.short_name:
-            return self.safe_format('route')
+            return self._get_json_str('route')
         else:
-            return self.safe_format('route-long_name')
+            return self._get_json_str('route-long_name')
 
     @property
     def neighborhood(self):
         if self.short_name:
-            return self.safe_format('neighborhood')
+            return self._get_json_str('neighborhood')
         else:
-            return self.safe_format('neighborhood-long_name')
+            return self._get_json_str('neighborhood-long_name')
 
     @property
     def sublocality(self):
         if self.short_name:
-            return self.safe_format('sublocality')
+            return self._get_json_str('sublocality')
         else:
-            return self.safe_format('sublocality-long_name')
+            return self._get_json_str('sublocality-long_name')
 
     @property
     def locality(self):
         if self.short_name:
-            return self.safe_format('locality')
+            return self._get_json_str('locality')
         else:
-            return self.safe_format('locality-long_name')
+            return self._get_json_str('locality-long_name')
 
     @property
     def county(self):
         if self.short_name:
-            return self.safe_format('administrative_area_level_2')
+            return self._get_json_str('administrative_area_level_2')
         else:
-            return self.safe_format('administrative_area_level_2-long_name')
+            return self._get_json_str('administrative_area_level_2-long_name')
 
     @property
     def state(self):
         if self.short_name:
-            return self.safe_format('administrative_area_level_1')
+            return self._get_json_str('administrative_area_level_1')
         else:
-            return self.safe_format('administrative_area_level_1-long_name')
+            return self._get_json_str('administrative_area_level_1-long_name')
 
     @property
     def country(self):
         if self.short_name:
-            return self.safe_format('country')
+            return self._get_json_str('country')
         else:
-            return self.safe_format('country-long_name')
+            return self._get_json_str('country-long_name')
 
 if __name__ == '__main__':
-    g = Google("Orleans, Ottawa")
-    print g.url
+    g = Google('453 Booth Street, Ottawa ON')
+    g.help()
+    g.debug()

@@ -8,11 +8,12 @@ class Mapquest(Base):
     provider = 'MapQuest'
     api = 'Geocoding Service'
     url = 'http://www.mapquest.ca/_svc/searchio'
-    api_references = ['[{0}](http://www.mapquestapi.com/geocoding/)'.format(api)]
-    description = 'The geocoding service enables you to take an address and get the \n'
-    description += 'associated latitude and longitude. You can also use any latitude \n'
-    description += 'and longitude pair and get the associated address. Three types of \n'
-    description += 'geocoding are offered: address, reverse, and batch.'
+    _description = 'The geocoding service enables you to take an address and get the \n'
+    _description += 'associated latitude and longitude. You can also use any latitude \n'
+    _description += 'and longitude pair and get the associated address. Three types of \n'
+    _description += 'geocoding are offered: address, reverse, and batch.'
+    _api_reference = ['[{0}](http://www.mapquestapi.com/geocoding/)'.format(api)]
+    _api_parameter  = []
 
     def __init__(self, location):
         self.location = location

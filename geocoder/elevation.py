@@ -5,18 +5,35 @@ from base import Base
 from location import Location
 
 class Elevation(Base):
-    name = 'Elevation Google'
-    url = 'http://maps.googleapis.com/maps/api/elevation/json'
+    provider = 'Elevation'
+    api = 'Google Elevevation API'
+    url = 'https://maps.googleapis.com/maps/api/elevation/json'
 
-    def __init__(self, latlng):
-        self.location = latlng
+    _description = 'The Elevation API provides elevation data for all locations on the surface of the\n'
+    _description += 'earth, including depth locations on the ocean floor (which return negative values).\n'
+    _description += 'In those cases where Google does not possess exact elevation measurements at the\n'
+    _description += 'precise location you request, the service will interpolate and return an averaged\n'
+    _description += 'value using the four nearest locations.\n'
+    _api_reference = ['[{0}](https://developers.google.com/maps/documentation/elevation/)'.format(api)]
+    _api_parameter = [':param ``location``: (input) can be specified as [lat, lng].']
+    _example = ['>>> g = geocoder.elevation(\'<address or [lat,lng]>\')',
+                '>>> g.meters',
+                '48.5']
+
+    def __init__(self, location):
+        self.location = location
+        g = Location(location)
+        self.lat, self.lng = g.lat, g.lng
         self.json = dict()
+        self.parse = dict()
         self.params = dict()
-        self.lat, self.lng = Location(latlng).latlng
-        self.latlng = '{0},{1}'.format(self.lat, self.lng)
+        self.params['locations'] = '{0},{1}'.format(self.lat, self.lng)
 
-        # Parameters for URL request
-        self.params['locations'] = self.latlng
+        # Initialize
+        self._connect()
+        self._parse(self.content)
+        self._test()
+        self._json()
 
     @property
     def address(self):
@@ -32,17 +49,13 @@ class Elevation(Base):
 
     @property
     def elevation(self):
-        return self.safe_format('results-elevation')
+        return self._get_json_float('results-elevation')
 
     @property
     def resolution(self):
-        return round(self.safe_format('results-resolution'), 1)
+        return round(self._get_json_float('results-resolution'), 1)
 
 if __name__ == '__main__':
-    from api import Geocoder
-    latlng = (45.4215296, -75.69719309999999)
-    provider = Elevation(latlng)
-    g = Geocoder(provider)
-    print g.resolution
-    print g.elevation
-    print g.json
+    g = Elevation([45.5375801, -75.2465979])
+    g.help()
+    g.debug()

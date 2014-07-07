@@ -5,12 +5,18 @@ from base import Base
 
 
 class Geonames(Base):
-    name = 'GeoNames'
+    provider = 'GeoNames'
+    api = 'GeoNames REST Web Services'
     url = 'http://api.geonames.org/searchJSON'
+    _description = 'GeoNames is mainly using REST webservices. Find nearby postal codes / reverse geocoding\n'
+    _description += 'This service comes in two flavors.You can either pass the lat/long or a postalcode/placename.\n'
+    _api_reference = ['[{0}](http://www.geonames.org/export/web-services.html)'.format(api)]
+    _api_parameter = [':param ``username``: (required) needs to be passed with each request.']
 
     def __init__(self, location, username='addxy'):
         self.location = location
         self.json = dict()
+        self.parse = dict()
         self.params = dict()
         self.params['q'] = location
         self.params['fuzzy'] = 0.8
@@ -19,58 +25,45 @@ class Geonames(Base):
         if not username:
             self.help_username()
 
+        # Initialize
+        self._connect()
+        self._parse(self.content)
+        self._test()
+        self._json()
+
     @property
     def lat(self):
-        return self.safe_coord('geonames-lat')
+        return self._get_json_float('lat')
 
     @property
     def lng(self):
-        return self.safe_coord('geonames-lng')
+        return self._get_json_float('lng')
 
     @property
     def address(self):
-        return self.safe_format('geonames-name')
+        return self._get_json_str('name')
 
     @property
-    def status(self):
-        if self.lng:
-            return 'OK'
-        else:
-            msg = self.safe_format('status-message')
-            if msg:
-                return msg
-            else:
-                return 'ERROR - No Geometry'
+    def status_description(self):
+        return self._get_json_str('status-message')
 
     @property
     def quality(self):
-        return self.safe_format('geonames-fcodeName')
+        return self._get_json_str('fcodeName')
 
     @property
     def state(self):
-        return self.safe_format('geonames-adminName1')
+        return self._get_json_str('adminName1')
 
     @property
     def country(self):
-        return self.safe_format('geonames-countryName')
+        return self._get_json_str('countryName')
 
     @property
     def population(self):
-        return self.json.get('geonames-population')
-
-    def help_username(self):
-        print '<ERROR>'
-        print 'Please provide a <username> paramater when using Geonames'
-        print '    >>> import geocoder'
-        print '    >>> username = "XXXX"'
-        print '    >>> g = geocoder.geonames(<location>, username=username)'
-        print ''
-        print 'How to get a Username?'
-        print '----------------------'
-        print 'http://www.geonames.org/login'
-        print 'Then, login into your account and enable the free webservices:'
-        print 'http://www.geonames.org/enablefreewebservice'
+        return self._get_json_int('population')
 
 if __name__ =='__main__':
-    geonames = Geonames('Ottawa')
-    print geonames.bbox
+    g = Geonames('Ottawa, Ontario')
+    g.help()
+    g.debug()

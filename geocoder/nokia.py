@@ -9,9 +9,11 @@ class Nokia(Base):
     provider = 'Nokia'
     api = 'HERE Geocoding REST API'
     url = 'http://geocoder.api.here.com/6.2/geocode.json'
-    api_references = ['[{0}](https://developer.here.com/rest-apis/documentation/geocoder)'.format(api)]
-    description = 'Send a request to the geocode endpoint to find an address using a combination of\n'
-    description += 'country, state, county, city, postal code, district, street and house number.'
+    _description = 'Send a request to the geocode endpoint to find an address using a combination of\n'
+    _description += 'country, state, county, city, postal code, district, street and house number.'
+    _api_reference = ['[{0}](https://developer.here.com/rest-apis/documentation/geocoder)'.format(api)]
+    _api_parameter  = [':param app_id: (optional) use your own Application ID from Nokia.']
+    _api_parameter  = [':param app_code: (optional) use your own Application Code from Nokia.']
 
     def __init__(self, location, app_id=app_id, app_code=app_code):
         self.location = location
@@ -92,3 +94,4 @@ class Nokia(Base):
 if __name__ == '__main__':
     g = Nokia('Kingston Ontario')
     g.help()
+    g.debug()

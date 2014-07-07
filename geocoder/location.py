@@ -16,14 +16,9 @@ class Location(object):
 
         # Functions
         self.lat, self.lng = self.check_input(location)
-        self.other_format()
 
     def __repr__(self):
         return '<Location [{0}]>'.format(self.name)
-
-    def other_format(self):
-        if bool(self.lat and self.lng):
-            self.latlng = self.lat, self.lng
 
     def convert_float(self, number):
         try:
@@ -37,7 +32,8 @@ class Location(object):
 
         # Checking for a String
         if isinstance(location, str):
-            lat, lng = Geocoder(Google(location)).latlng
+            g = Google(location)
+            lat, lng = g.lat, g.lng
 
         # Checking for List of Tuple
         if isinstance(location, (list, tuple)):
@@ -71,10 +67,5 @@ class Location(object):
                 return lat, lng
 
 if __name__ == '__main__':
-    c = {'lat':45.4215296, 'lng':-75.69719309999999}
-    b = (45.4215296, -75.69719309999999)
-    a = Location(c)
-    print a.latlng
-    print a.name
-    print a
+    g = ''
 

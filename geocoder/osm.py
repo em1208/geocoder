@@ -8,9 +8,10 @@ class Osm(Base):
     provider = 'OSM'
     api = 'Nominatim'
     url = 'http://nominatim.openstreetmap.org/search'
-    api_references = ['[{0}](http://wiki.openstreetmap.org/wiki/Nominatim)'.format(api)]
-    description = 'Nominatim (from the Latin, \'by name\') is a tool to search OSM data by name \n'
-    description += 'and address and to generate synthetic addresses of OSM points (reverse geocoding).'
+    _description = 'Nominatim (from the Latin, \'by name\') is a tool to search OSM data by name \n'
+    _description += 'and address and to generate synthetic addresses of OSM points (reverse geocoding).'
+    _api_reference = ['[{0}](http://wiki.openstreetmap.org/wiki/Nominatim)'.format(api)]
+    _api_parameter  = []
 
     def __init__(self, location):
         self.location = location

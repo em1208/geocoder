@@ -8,8 +8,9 @@ class Geolytica(Base):
     provider = 'Geolytica'
     api = 'Geocoder.ca'
     url = 'http://geocoder.ca'
-    api_references = ['[{0}](http://geocoder.ca/?api=1)'.format(api)]
-    description = 'Geocoder.ca - A Canadian and US location geocoder.'
+    _description = 'Geocoder.ca - A Canadian and US location geocoder.'
+    _api_reference = ['[{0}](http://geocoder.ca/?api=1)'.format(api)]
+    _api_parameter = []
 
     def __init__(self, location):
         self.location = location
@@ -21,9 +22,16 @@ class Geolytica(Base):
 
         # Initialize
         self._connect()
-        self._parse(xmltodict.parse(self.content))
+        self._content_xml_to_json()
+        self._parse(self.content)
         self._test()
         self._json()
+
+    def _content_xml_to_json(self):
+        try:
+            self.content = xmltodict.parse(self.content)
+        except:
+            self.status = 'ERROR - XML Corrupt'
 
     @property
     def lat(self):
