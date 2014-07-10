@@ -28,56 +28,66 @@ class Canadapost(Base):
         self.json = dict()
         self.parse = dict()
         self.params = dict()
-        self.params['Key'] = self._retrieve_api_key()
-        self.params['Id'] = self._retrieve_id()
+        self.params['Key'] = self._retrieve_key()
+        if self.key:
+            self.params['Id'] = self._retrieve_id()
 
         # Initialize
-        self._connect()
-        self._parse(self.content)
-        self._test()
-        self._json()
+        if bool(self.key and self.id):
+            self._connect()
+            self._parse(self.content)
+            self._test()
+            self._json()
 
-    def _retrieve_api_key(self):
-        if self.api_key:
-            return self.api_key
+    def __repr__(self):
+        return "<[{0}] {1} [{2} - {3}]>".format(self.status, self.provider, self.postal, self.address)
+
+    def _retrieve_key(self):
+        if self.key:
+            return self.key
         else:
             url = 'http://www.canadapost.ca/cpo/mc/personal/postalcode/fpc.jsf'
             try:
-                r = requests.get(url)
+                r = requests.get(url, timeout=self._timeout)
+                content = r.content
             except:
+                content = str('')
                 self.status = 'ERROR - URL Connection'
 
             expression = r'key=(....-....-....-....)'
             pattern = re.compile(expression)
-            match = pattern.search(r.content)
+            match = pattern.search(content)
             if match:
-                key = match.group(1)
-                self.api_key = key
-                return key
+                self.key = match.group(1)
+                return self.key
             else:
                 self.status = 'ERROR - No API Key'
 
     def _retrieve_id(self):
         params = dict()
-        params['Key'] = self.api_key
+        params['Key'] = self.key
         params['SearchTerm'] = self.location
         params['Country'] = self._country
 
         url = 'https://ws1.postescanada-canadapost.ca/AddressComplete'
         url += '/Interactive/Find/v2.00/json3ex.ws'
-        r = requests.get(url, params=params)
-        json = r.json()
+        try:
+            r = requests.get(url, params=params, timeout=self._timeout)
+            json = r.json()
+        except:
+            json = dict()
+            self.status = 'ERROR - URL Connection'
 
-        items = json['Items']
-
-        if items:
-            items = items[0]
-            if items['Description']:
-                self.status = 'ERROR - {0}'.format(items['Description'])
+        if 'Items' in json:
+            items = json['Items'][0]
+            description = items.get('Description')
+            if 'Error' in items:
+                self.status = 'ERROR - {0}'.format(items.get('Description'))
+            elif description:
+                self.status = 'ERROR - Too many results, {0}'.format(items.get('Description'))
             elif 'Id' in items:
-                return items['Id']
-        else:
-            self.status = 'ERROR - No results found'
+                self.id = items['Id']
+                return self.id
 
     @property
     def ok(self):
@@ -85,10 +95,8 @@ class Canadapost(Base):
 
     @property
     def status_description(self):
-        if self.postal:
+        if self.ok:
             return 'OK'
-        else:
-            return self.status
 
     @property
     def quality(self):
@@ -123,6 +131,5 @@ class Canadapost(Base):
         return self._get_json_str('CountryName')
 
 if __name__ == '__main__':
-    g = Canadapost(location="453 Booth Street, Ottawa")
-    g.help()
-    g.debug()
+    g = Canadapost("453 Booth Street, Ottawa")
+    print g

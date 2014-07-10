@@ -3,7 +3,6 @@
 
 from __future__ import print_function
 import requests
-import json
 
 
 class Base(object):
@@ -12,8 +11,9 @@ class Base(object):
                        '[GitHub Wiki](https://github.com/DenisCarriere/geocoder/wiki)']
     _exclude = ['parse', 'json', 'url', 'attributes', 'help', 'debug', 'short_name',
                 'api', 'description', 'content', 'params', 'status_code', 'headers',
-                'status_description', 'api_key', 'ok']
+                'status_description', 'api_key', 'ok', 'key', 'id']
     _example = []
+    _timeout = 5.0
     attributes = []
     headers = {}
 
@@ -62,7 +62,7 @@ class Base(object):
             for line in self._example:
                 print(line)
         else:
-            print('>>> g = geocoder.{0}(\'<address>\')'.format(self.provider.lower()))
+            print('>>> g = geocoder.{0}(\'<address>\') # pip install geocoder'.format(self.provider.lower()))
             print('>>> g.lat, g.lng')
             print('45.413140 -75.656703')
         print('...')
@@ -97,7 +97,7 @@ class Base(object):
         self.status_code = 404
         self.status = 'Connecting...'
         try:
-            r = requests.get(self.url, params=self.params, headers=self.headers, timeout=5.0)
+            r = requests.get(self.url, params=self.params, headers=self.headers, timeout=self._timeout)
             self.status_code = r.status_code
             self.url = r.url
             self.status = 'OK'

@@ -35,9 +35,12 @@ class Elevation(Base):
         self._test()
         self._json()
 
+    def __repr__(self):
+        return "<[{0}] {1} [{2}]>".format(self.status, self.provider, self.meters)
+
     @property
-    def address(self):
-        return '{0}m'.format(self.meters)
+    def ok(self):
+        return bool(self.elevation)
 
     @property
     def meters(self):
@@ -49,13 +52,12 @@ class Elevation(Base):
 
     @property
     def elevation(self):
-        return self._get_json_float('results-elevation')
+        return self._get_json_float('elevation')
 
     @property
     def resolution(self):
-        return round(self._get_json_float('results-resolution'), 1)
+        return round(self._get_json_float('resolution'), 1)
 
 if __name__ == '__main__':
-    g = Elevation([45.5375801, -75.2465979])
-    g.help()
-    g.debug()
+    g = Elevation('Ottawa, ON')
+    print g

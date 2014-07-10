@@ -40,10 +40,6 @@ class Timezone(Base):
     def __repr__(self):
         return "<[{0}] {1} [{2}]>".format(self.status, self.provider, self.timezone)
 
-    def _get_lat_lng(self):
-        g = Google(self.location)
-        return g.lat, g.lng
-
     def _get_timestamp(self):
         if self.timestamp:
             return self.timestamp

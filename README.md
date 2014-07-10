@@ -6,9 +6,10 @@ Every task is made easy with tons of ``help`` & ``debug`` commands!
 
 ```python
 >>> import geocoder # pip install geocoder
->>> g = geocoder.google(<address>)
+>>> g = geocoder.google('<address>')
 >>> g.lat, g.lng
 45.413140 -75.656703
+...
 ```
 
 ![Providers](https://pbs.twimg.com/media/Bqi8kThCUAAboo0.png)
