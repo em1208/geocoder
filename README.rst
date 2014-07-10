@@ -48,6 +48,8 @@ limited restrictions.
 
 -  `Google`_
 
+-  `ArcGIS`_
+
 -  `TomTom`_
 
 -  `Geonames`_
@@ -113,6 +115,7 @@ A big thanks to all the people that help contribute:
 .. _OSM: https://github.com/DenisCarriere/geocoder/wiki/OSM
 .. _Bing: https://github.com/DenisCarriere/geocoder/wiki/Bing
 .. _Nokia: https://github.com/DenisCarriere/geocoder/wiki/Nokia
+.. _ArcGIS: https://github.com/DenisCarriere/geocoder/wiki/ArcGIS
 .. _Google: https://github.com/DenisCarriere/geocoder/wiki/Google
 .. _TomTom: https://github.com/DenisCarriere/geocoder/wiki/TomTom
 .. _Geonames: https://github.com/DenisCarriere/geocoder/wiki/Geonames

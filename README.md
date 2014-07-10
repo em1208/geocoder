@@ -38,6 +38,8 @@ Here is a list of providers that are available for use with **FREE** or limited 
 
 - **[Google](https://github.com/DenisCarriere/geocoder/wiki/Google)**
 
+- **[ArcGIS](https://github.com/DenisCarriere/geocoder/wiki/ArcGIS)**
+
 - **[TomTom](https://github.com/DenisCarriere/geocoder/wiki/TomTom)**
 
 - **[Geonames](https://github.com/DenisCarriere/geocoder/wiki/Geonames)**

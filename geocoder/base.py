@@ -57,12 +57,12 @@ class Base(object):
         print('## Python Example')
         print('')
         print('```python')
-        print('>>> import geocoder')
+        print('>>> import geocoder # pip install geocoder')
         if self._example:
             for line in self._example:
                 print(line)
         else:
-            print('>>> g = geocoder.{0}(\'<address>\') # pip install geocoder'.format(self.provider.lower()))
+            print('>>> g = geocoder.{0}(\'<address>\')'.format(self.provider.lower()))
             print('>>> g.lat, g.lng')
             print('45.413140 -75.656703')
         print('...')

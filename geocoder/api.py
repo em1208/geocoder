@@ -8,6 +8,7 @@ from bing import Bing
 from nokia import Nokia
 from tomtom import Tomtom
 from google import Google
+from arcgis import Arcgis
 from reverse import Reverse
 from geonames import Geonames
 from mapquest import Mapquest
@@ -58,6 +59,49 @@ def geolytica(location):
 
     """
     return Geolytica(location)
+
+def arcgis(location):
+    """
+    # ArcGIS
+
+    The World Geocoding Service finds addresses and places in all supported countries
+    from a single endpoint. The service can find point locations of addresses,
+    business names, and so on.  The output points can be visualized on a map,
+    inserted as stops for a route, or loaded as input for a spatial analysis.
+    an address, retrieving imagery metadata, or creating a route.
+    Using Geocoder you can retrieve ArcGIS's geocoded data from ArcGIS REST API.
+
+    ## Python Example
+
+        >>> import geocoder
+        >>> g = geocoder.arcgis('<address>') # pip install geocoder
+        >>> g.lat, g.lng
+        45.413140 -75.656703
+        ...
+
+    ## Geocoder Attributes
+
+        * address
+        * bbox
+        * lat
+        * lng
+        * location
+        * provider
+        * quality
+        * status
+
+    ## Parameters
+
+        * :param ``location``: Your search location you want geocoded.
+
+    ## References
+
+        * [GitHub Repo](https://github.com/DenisCarriere/geocoder)
+        * [GitHub Wiki](https://github.com/DenisCarriere/geocoder/wiki)
+        * [ArcGIS REST API](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-find.htm)
+
+    """
+    return Arcgis(location)
 
 def bing(location, key=bing_key):
     """
