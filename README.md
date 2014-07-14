@@ -1,6 +1,6 @@
 # [Geocoder](https://github.com/DenisCarriere/geocoder) [![version](https://badge.fury.io/py/geocoder.png)](http://badge.fury.io/py/geocoder) [![build](https://travis-ci.org/DenisCarriere/geocoder.png?branch=master)](https://travis-ci.org/DenisCarriere/geocoder)
 
-### A pure Python Geocoding module made easy.
+### A complete Python Geocoding module made easy.
 
 Every task is made easy with tons of ``help`` & ``debug`` commands!
 
@@ -35,6 +35,8 @@ Here is a list of providers that are available for use with **FREE** or limited 
 - **[Bing](https://github.com/DenisCarriere/geocoder/wiki/Bing)**
 
 - **[Nokia](https://github.com/DenisCarriere/geocoder/wiki/Nokia)**
+
+- **[Yahoo](https://github.com/DenisCarriere/geocoder/wiki/Yahoo)**
 
 - **[Google](https://github.com/DenisCarriere/geocoder/wiki/Google)**
 

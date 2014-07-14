@@ -1,8 +1,8 @@
 `Geocoder`_ |version| |build|
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A pure Python Geocoding module made easy.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A complete Python Geocoding module made easy.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Every task is made easy with tons of ``help`` & ``debug`` commands!
 
@@ -45,6 +45,8 @@ limited restrictions.
 -  `Bing`_
 
 -  `Nokia`_
+
+-  `Yahoo`_
 
 -  `Google`_
 
@@ -114,6 +116,7 @@ A big thanks to all the people that help contribute:
 .. _Wiki: https://github.com/DenisCarriere/geocoder/wiki/
 .. _OSM: https://github.com/DenisCarriere/geocoder/wiki/OSM
 .. _Bing: https://github.com/DenisCarriere/geocoder/wiki/Bing
+.. _Yahoo: https://github.com/DenisCarriere/geocoder/wiki/Yahoo
 .. _Nokia: https://github.com/DenisCarriere/geocoder/wiki/Nokia
 .. _ArcGIS: https://github.com/DenisCarriere/geocoder/wiki/ArcGIS
 .. _Google: https://github.com/DenisCarriere/geocoder/wiki/Google

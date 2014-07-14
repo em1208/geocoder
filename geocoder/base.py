@@ -131,10 +131,18 @@ class Base(object):
                     if value:
                         self._parse(value[0])
 
+                # YAHOO EXCEPTION
+                # Only return the first result
+                elif key == 'Result':
+                    if value:
+                        # Value is a Dictionary
+                        self._parse(value)
+
                 # GOOGLE EXCEPTION 1 (For Reverse Geocoding)
                 # Only return the first result
                 elif key == 'results':
                     if value:
+                        # Value is a List
                         self._parse(value[0])
 
                 # GOOGLE EXCEPTION 2
