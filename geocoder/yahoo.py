@@ -55,7 +55,11 @@ class Yahoo(Base):
 
     @property
     def postal(self):
-        return self._get_json_str('postal')
+        postal = self._get_json_str('postal')
+        if postal:
+            return self._get_json_str('postal')
+        else:
+            return self._get_json_str('uzip')
 
     @property
     def street_number(self):
