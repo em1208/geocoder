@@ -40,7 +40,10 @@ class Yahoo(Base):
     def address(self):
         line1 = self._get_json_str('line1')
         line2 = self._get_json_str('line2')
-        return ', '.join([line1, line2])
+        if line1:
+            return ', '.join([line1, line2])
+        else:
+            return line2
 
     @property
     def lat(self):
