@@ -203,7 +203,12 @@ class Base(object):
 
     def _test(self):
         if self.status_description:
-            self.status = self.status_description
+            if not self.address:
+                self.status = 'ERROR - No results found'
+            elif not bool(self.lng and self.lat):
+                self.status = 'ERROR - No Geometry'
+            else:
+                self.status = self.status_description
         elif not self.address:
             self.status = 'ERROR - No results found'
         elif not bool(self.lng and self.lat):
