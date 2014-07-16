@@ -260,3 +260,10 @@ class Base(object):
             return True
         else:
             return False
+
+    @property
+    def wkt(self):
+        if self.ok:
+            return 'POINT({x} {y})'.format(x=self.lng, y=self.lat)
+        else:
+            return str('')
