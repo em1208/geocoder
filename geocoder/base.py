@@ -263,7 +263,13 @@ class Base(object):
 
     @property
     def wkt(self):
-        if self.ok:
-            return 'POINT({x} {y})'.format(x=self.lng, y=self.lat)
-        else:
-            return str('')
+        schema = 'POINT({x} {y})'
+        return schema.format(x=self.lng, y=self.lat)
+
+    @property
+    def wkt_bbox(self):
+        schema = 'POLYGON(({east} {north}, {east} {south}, {west} {south}, {west} {north}, {east} {north}))'
+        if self.bbox:
+            return schema.format(north=self.north, east=self.east, south=self.south, west=self.west)
+
+            
