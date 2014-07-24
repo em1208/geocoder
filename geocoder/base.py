@@ -13,7 +13,7 @@ class Base(object):
                 'api', 'description', 'content', 'params', 'status_code', 'headers',
                 'status_description', 'api_key', 'ok', 'key', 'id']
     _example = []
-    _timeout = 5.0
+    _timeout = None
     attributes = []
     headers = {}
 
@@ -202,19 +202,17 @@ class Base(object):
             self.parse[last] = content
 
     def _test(self):
-        if self.status_description:
+        if self.status_code == 200:
             if not self.address:
                 self.status = 'ERROR - No results found'
             elif not bool(self.lng and self.lat):
                 self.status = 'ERROR - No Geometry'
-            else:
+            elif self.status_description:
                 self.status = self.status_description
-        elif not self.address:
-            self.status = 'ERROR - No results found'
-        elif not bool(self.lng and self.lat):
-            self.status = 'ERROR - No Geometry'
-        else:
-            self.status = 'OK'
+            else:
+                self.status = 'OK'
+        elif self.status_code == 404:
+            self.status = 'ERROR - URL Connection'
 
 
     def _get_json_str(self, item):
@@ -263,13 +261,13 @@ class Base(object):
 
     @property
     def wkt(self):
-        schema = 'POINT({x} {y})'
-        return schema.format(x=self.lng, y=self.lat)
+        wkt = dict()
+        if bool(self.lng and self.lat):
+            schema = 'POINT({x} {y})'
+            wkt['point'] = schema.format(x=self.lng, y=self.lat)
 
-    @property
-    def wkt_bbox(self):
-        schema = 'POLYGON(({east} {north}, {east} {south}, {west} {south}, {west} {north}, {east} {north}))'
-        if self.bbox:
-            return schema.format(north=self.north, east=self.east, south=self.south, west=self.west)
+        if bool(self.east and self.west and self.north and self.south):
+            schema = 'POLYGON(({east} {north}, {east} {south}, {west} {south}, {west} {north}, {east} {north}))'
+            wkt['polygon'] = schema.format(north=self.north, east=self.east, south=self.south, west=self.west)
 
-            
+        return wkt

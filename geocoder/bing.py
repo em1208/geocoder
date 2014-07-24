@@ -84,6 +84,5 @@ class Bing(Base):
         return self._get_json_str('address-countryRegion')
 
 if __name__ == '__main__':
-    g = Bing('453 Booth street, Ottawa, ON')
-    g.help()
-    g.debug()
+    g = Bing('453 Booth Street, Ottawa ON')
+    print g.json
