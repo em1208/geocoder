@@ -1,8 +1,8 @@
 #!/usr/bin/python
 # coding: utf8
 
-from base import Base
-from keys import bing_key
+from .base import Base
+from .keys import bing_key
 
 
 class Bing(Base):
@@ -85,4 +85,5 @@ class Bing(Base):
 
 if __name__ == '__main__':
     g = Bing('453 Booth Street, Ottawa ON')
-    print g.json
+    g.help()
+    g.debug()

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # coding: utf8
 
-from google import Google
+from .google import Google
 
 
 class Location(object):
@@ -24,7 +24,6 @@ class Location(object):
         try:
             return float(number)
         except ValueError:
-            print '<ERROR - Input not a number>'
             return None
 
     def check_input(self, location):
@@ -67,5 +66,5 @@ class Location(object):
                 return lat, lng
 
 if __name__ == '__main__':
-    g = ''
+    pass
 

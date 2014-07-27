@@ -208,7 +208,7 @@ class Base(object):
             elif not bool(self.lng and self.lat):
                 self.status = 'ERROR - No Geometry'
             elif self.status_description:
-                self.status = self.status_description
+                self.status = self.status_description.decode()
             else:
                 self.status = 'OK'
         elif self.status_code == 404:

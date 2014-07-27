@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # coding: utf8
 
-from base import Base
+from .base import Base
 
 
 class Google(Base):
@@ -125,6 +125,6 @@ class Google(Base):
             return self._get_json_str('country-long_name')
 
 if __name__ == '__main__':
-    g = Google('453 Booth Street, Ottawa ON')
+    g = Google('Orleans, Ottawa ON')
     g.help()
     g.debug()

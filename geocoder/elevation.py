@@ -1,8 +1,8 @@
 #!/usr/bin/python
 # coding: utf8
 
-from base import Base
-from location import Location
+from .base import Base
+from .location import Location
 
 class Elevation(Base):
     provider = 'Elevation'
@@ -60,4 +60,5 @@ class Elevation(Base):
 
 if __name__ == '__main__':
     g = Elevation('Ottawa, ON')
-    print g
+    g.help()
+    g.debug()

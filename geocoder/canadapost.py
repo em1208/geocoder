@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # coding: utf8
 
-from base import Base
+from .base import Base
 import re
 import requests
 
@@ -49,14 +49,14 @@ class Canadapost(Base):
             url = 'http://www.canadapost.ca/cpo/mc/personal/postalcode/fpc.jsf'
             try:
                 r = requests.get(url, timeout=self._timeout)
-                content = r.content
+                text = r.text
             except:
-                content = str('')
+                text = str('')
                 self.status = 'ERROR - URL Connection'
 
             expression = r'key=(....-....-....-....)'
             pattern = re.compile(expression)
-            match = pattern.search(content)
+            match = pattern.search(text)
             if match:
                 self.key = match.group(1)
                 return self.key
@@ -132,4 +132,5 @@ class Canadapost(Base):
 
 if __name__ == '__main__':
     g = Canadapost("453 Booth Street, Ottawa")
-    print g
+    g.help()
+    g.debug()

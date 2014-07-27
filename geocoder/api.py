@@ -1,22 +1,22 @@
 #!/usr/bin/python
 # coding: utf8
 
-from keys import *
-from ip import Ip
-from osm import Osm
-from bing import Bing
-from nokia import Nokia
-from yahoo import Yahoo
-from tomtom import Tomtom
-from google import Google
-from arcgis import Arcgis
-from reverse import Reverse
-from geonames import Geonames
-from mapquest import Mapquest
-from timezone import Timezone
-from elevation import Elevation
-from geolytica import Geolytica
-from canadapost import Canadapost
+from .keys import *
+from .ip import Ip
+from .osm import Osm
+from .bing import Bing
+from .nokia import Nokia
+from .yahoo import Yahoo
+from .tomtom import Tomtom
+from .google import Google
+from .arcgis import Arcgis
+from .reverse import Reverse
+from .geonames import Geonames
+from .mapquest import Mapquest
+from .timezone import Timezone
+from .elevation import Elevation
+from .geolytica import Geolytica
+from .canadapost import Canadapost
 
 
 def yahoo(location):
