@@ -4,7 +4,7 @@
 from .base import Base
 
 class Yahoo(Base):
-    provider = 'Yahoo'
+    provider = 'yahoo'
     api = 'Yahoo BOSS Geo Services'
     url = 'https://sgws2.maps.yahoo.com/FindLocation'
     _description = 'Yahoo PlaceFinder is a geocoding Web service that helps developers make\n'

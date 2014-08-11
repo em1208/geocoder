@@ -6,7 +6,7 @@ from .keys import bing_key
 
 
 class Bing(Base):
-    provider = 'Bing'
+    provider = 'bing'
     api = 'Bing Maps REST Services'
     url = 'http://dev.virtualearth.net/REST/v1/Locations'
     _description = 'The Bing™ Maps REST Services Application Programming Interface (API)\n'

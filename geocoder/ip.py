@@ -5,7 +5,7 @@ from .base import Base
 
 
 class Ip(Base):
-    provider = 'IP'
+    provider = 'ip'
     api = 'MaxMind\'s GeoIP2'
     _description = 'MaxMind\'s GeoIP2 products enable you to identify the location, \n'
     _description += 'organization, connection speed, and user type of your Internet \n'

@@ -5,7 +5,7 @@ from .base import Base
 
 
 class Google(Base):
-    provider = 'Google'
+    provider = 'google'
     api = 'Google Geocoding API'
     url = 'https://maps.googleapis.com/maps/api/geocode/json'
     _description = 'Geocoding is the process of converting addresses (like "1600 Amphitheatre Parkway, \n'

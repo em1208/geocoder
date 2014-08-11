@@ -6,7 +6,7 @@ from .location import Location
 import time
 
 class Timezone(Base):
-    provider = 'TimeZone'
+    provider = 'timezone'
     api = 'Google Time Zone API'
     url = 'https://maps.googleapis.com/maps/api/timezone/json'
 

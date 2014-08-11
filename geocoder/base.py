@@ -22,9 +22,6 @@ class Base(object):
     def __repr__(self):
         return "<[{0}] {1} [{2}]>".format(self.status, self.provider, self.address)
 
-    def __getattr__(self, item):
-        return str('')
-
     def debug(self):
         print('# Debug')
         print('## Connection')
@@ -51,7 +48,7 @@ class Base(object):
             print(self.content)
 
     def help(self):
-        print('# {0}'.format(self.provider))
+        print('# {0}'.format(self.provider.title()))
         print('')
         print(self._description)
         print('Using Geocoder you can retrieve {0}\'s geocoded data from {1}.'.format(self.provider, self.api))
@@ -202,9 +199,7 @@ class Base(object):
 
     @property
     def status(self):
-        if self.elevation:
-            return 'OK'
-        elif self.ok:
+        if self.ok:
             return 'OK'
         elif self.error:
             return self.error
@@ -243,20 +238,15 @@ class Base(object):
         self.north = north
         self.east = east
 
-        self.southwest = [west, south]
-        self.southeast = [east, south]
-        self.northeast = [east, north]
-        self.northwest = [west, north]
-
         if bool(south and east and north and west):
             bbox = dict()
             bbox['type'] = 'Polygon'
             bbox['coordinates'] = [
-                self.southwest,
-                self.southeast,
-                self.northeast,
-                self.northwest,
-                self.southwest
+                [west, south],
+                [east, south],
+                [east, north],
+                [west, north],
+                [west, south]
             ]
             return bbox
         return str('')
@@ -275,7 +265,7 @@ class Base(object):
             geometry['type'] = 'Point'
             geometry['coordinates'] = [self.lng, self.lat]
             return geometry
-        return str('')
+        return dict()
 
     @property
     def wkt(self):

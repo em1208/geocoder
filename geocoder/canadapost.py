@@ -1,13 +1,13 @@
 #!/usr/bin/python
 # coding: utf8
 
-from .base import Base
+from base import Base
 import re
 import requests
 
 
 class Canadapost(Base):
-    provider = 'CanadaPost'
+    provider = 'canadapost'
     api = 'Addres Complete API'
     url = 'https://ws1.postescanada-canadapost.ca/AddressComplete'
     url += '/Interactive/RetrieveFormatted/v2.00/json3ex.ws'
@@ -87,6 +87,22 @@ class Canadapost(Base):
             elif 'Id' in items:
                 self.id = items['Id']
                 return self.id
+
+    @property
+    def lng(self):
+        return 0.0
+
+    @property
+    def lat(self):
+        return 0.0
+
+    @property
+    def wkt(self):
+        return str('')
+
+    @property
+    def geometry(self):
+        return dict()
 
     @property
     def ok(self):

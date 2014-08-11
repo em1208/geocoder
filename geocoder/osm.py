@@ -5,7 +5,7 @@ from base import Base
 
 
 class Osm(Base):
-    provider = 'OSM'
+    provider = 'osm'
     api = 'Nominatim'
     url = 'http://nominatim.openstreetmap.org/search'
     _description = 'Nominatim (from the Latin, \'by name\') is a tool to search OSM data by name \n'

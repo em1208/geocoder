@@ -5,7 +5,7 @@ from .base import Base
 
 
 class Arcgis(Base):
-    provider = 'ArcGIS'
+    provider = 'arcgis'
     api = 'ArcGIS REST API'
     url = 'http://geocode.arcgis.com/arcgis/rest/'
     url += 'services/World/GeocodeServer/find'

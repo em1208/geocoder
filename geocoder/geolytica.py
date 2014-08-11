@@ -5,7 +5,7 @@ from base import Base
 import xmltodict
 
 class Geolytica(Base):
-    provider = 'Geolytica'
+    provider = 'geolytica'
     api = 'Geocoder.ca'
     url = 'http://geocoder.ca'
     _description = 'Geocoder.ca - A Canadian and US location geocoder.'

@@ -5,7 +5,7 @@ from .base import Base
 
 
 class Mapquest(Base):
-    provider = 'MapQuest'
+    provider = 'mapquest'
     api = 'Geocoding Service'
     url = 'http://www.mapquest.ca/_svc/searchio'
     _description = 'The geocoding service enables you to take an address and get the \n'

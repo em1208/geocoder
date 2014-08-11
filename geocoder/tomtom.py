@@ -6,7 +6,7 @@ from .keys import tomtom_key
 
 class Tomtom(Base):
 
-    provider = 'TomTom'
+    provider = 'tomtom'
     api = 'Geocoding API'
     url = 'https://api.tomtom.com/lbs/geocoding/geocode'
     _description = 'The Geocoding API gives developers access to TomTom’s first class geocoding service. \n'

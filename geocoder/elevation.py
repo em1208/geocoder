@@ -5,7 +5,7 @@ from .base import Base
 from .location import Location
 
 class Elevation(Base):
-    provider = 'Elevation'
+    provider = 'elevation'
     api = 'Google Elevevation API'
     url = 'https://maps.googleapis.com/maps/api/elevation/json'
 
@@ -36,6 +36,13 @@ class Elevation(Base):
 
     def __repr__(self):
         return "<[{0}] {1} [{2}]>".format(self.status, self.provider, self.meters)
+
+    @property
+    def status(self):
+        if self.elevation:
+            return 'OK'
+        else:
+            return 'ERROR - No Elevation found'
 
     @property
     def ok(self):

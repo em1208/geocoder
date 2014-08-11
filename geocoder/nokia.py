@@ -6,7 +6,7 @@ from .keys import app_id, app_code
 
 
 class Nokia(Base):
-    provider = 'Nokia'
+    provider = 'nokia'
     api = 'HERE Geocoding REST API'
     url = 'http://geocoder.api.here.com/6.2/geocode.json'
     _description = 'Send a request to the geocode endpoint to find an address using a combination of\n'
