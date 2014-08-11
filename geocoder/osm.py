@@ -92,4 +92,5 @@ class Osm(Base):
 
 if __name__ == '__main__':
     g = Osm('553')
-    print g
+    g.help()
+    g.debug()
