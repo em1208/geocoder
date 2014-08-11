@@ -3,6 +3,7 @@
 
 from __future__ import print_function
 import requests
+import sys
 
 
 class Base(object):
@@ -11,11 +12,12 @@ class Base(object):
                        '[GitHub Wiki](https://github.com/DenisCarriere/geocoder/wiki)']
     _exclude = ['parse', 'json', 'url', 'attributes', 'help', 'debug', 'short_name',
                 'api', 'description', 'content', 'params', 'status_code', 'headers',
-                'status_description', 'api_key', 'ok', 'key', 'id']
+                'status_description', 'api_key', 'ok', 'key', 'id', 'x', 'y']
     _example = []
     _timeout = None
     attributes = []
     headers = {}
+    error = ''
 
     def __repr__(self):
         return "<[{0}] {1} [{2}]>".format(self.status, self.provider, self.address)
@@ -95,24 +97,21 @@ class Base(object):
 
     def _connect(self):
         self.status_code = 404
-        self.status = 'Connecting...'
         try:
             r = requests.get(self.url, params=self.params, headers=self.headers, timeout=self._timeout)
             self.status_code = r.status_code
             self.url = r.url
-            self.status = 'OK'
         except KeyboardInterrupt:
-            self.status = 'ERROR - User Quit'
             sys.exit()
         except:
-            self.status = 'ERROR - URL Connection'
+            self.error = 'ERROR - URL Connection'
 
         # Open JSON content from Request connection
-        if self.status == 'OK':
+        if self.status_code == 200:
             try:
                 self.content = r.json()
             except:
-                self.status = 'ERROR - JSON Corrupted'
+                self.error = 'ERROR - JSON Corrupted'
                 self.content = r.content
 
     def _parse(self, content, last=''):
@@ -201,19 +200,20 @@ class Base(object):
         else:
             self.parse[last] = content
 
-    def _test(self):
-        if self.status_code == 200:
-            if not self.address:
-                self.status = 'ERROR - No results found'
-            elif not bool(self.lng and self.lat):
-                self.status = 'ERROR - No Geometry'
-            elif self.status_description:
-                self.status = self.status_description.decode()
-            else:
-                self.status = 'OK'
+    @property
+    def status(self):
+        if self.elevation:
+            return 'OK'
+        elif self.ok:
+            return 'OK'
+        elif self.error:
+            return self.error
         elif self.status_code == 404:
-            self.status = 'ERROR - URL Connection'
-
+            return 'ERROR - URL Connection'
+        elif not self.address:
+            return 'ERROR - No results found'
+        elif not bool(self.lng and self.lat):
+            return 'ERROR - No Geometry'
 
     def _get_json_str(self, item):
         result = self.parse.get(item)
@@ -243,12 +243,21 @@ class Base(object):
         self.north = north
         self.east = east
 
+        self.southwest = [west, south]
+        self.southeast = [east, south]
+        self.northeast = [east, north]
+        self.northwest = [west, north]
+
         if bool(south and east and north and west):
-            self.southwest = {'lat': south, 'lng': west}
-            self.southeast = {'lat': south, 'lng': east}
-            self.northeast = {'lat': north, 'lng': east}
-            self.northwest = {'lat': north, 'lng': west}
-            bbox = {'southwest': self.southwest, 'northeast': self.northeast}
+            bbox = dict()
+            bbox['type'] = 'Polygon'
+            bbox['coordinates'] = [
+                self.southwest,
+                self.southeast,
+                self.northeast,
+                self.northwest,
+                self.southwest
+            ]
             return bbox
         return str('')
 
@@ -260,14 +269,25 @@ class Base(object):
             return False
 
     @property
+    def geometry(self):
+        if self.ok:
+            geometry = dict()
+            geometry['type'] = 'Point'
+            geometry['coordinates'] = [self.lng, self.lat]
+            return geometry
+        return str('')
+
+    @property
     def wkt(self):
-        wkt = dict()
-        if bool(self.lng and self.lat):
-            schema = 'POINT({x} {y})'
-            wkt['point'] = schema.format(x=self.lng, y=self.lat)
+        if self.ok:
+            return 'POINT({x} {y})'.format(x=self.lng, y=self.lat)
+        return str('')
 
-        if bool(self.east and self.west and self.north and self.south):
-            schema = 'POLYGON(({east} {north}, {east} {south}, {west} {south}, {west} {north}, {east} {north}))'
-            wkt['polygon'] = schema.format(north=self.north, east=self.east, south=self.south, west=self.west)
 
-        return wkt
+    @property
+    def y(self):
+        return self.lat
+
+    @property
+    def x(self):
+        return self.lng

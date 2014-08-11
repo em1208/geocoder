@@ -29,7 +29,6 @@ class Arcgis(Base):
         # Initialize
         self._connect()
         self._parse(self.content)
-        self._test()
         self._json()
 
     @property

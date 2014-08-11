@@ -36,7 +36,6 @@ class Canadapost(Base):
         if bool(self.key and self.id):
             self._connect()
             self._parse(self.content)
-            self._test()
             self._json()
 
     def __repr__(self):

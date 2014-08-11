@@ -34,7 +34,6 @@ class Timezone(Base):
         # Initialize
         self._connect()
         self._parse(self.content)
-        self._test()
         self._json()
 
     def __repr__(self):

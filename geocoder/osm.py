@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # coding: utf8
 
-from .base import Base
+from base import Base
 
 
 class Osm(Base):
@@ -23,15 +23,9 @@ class Osm(Base):
         self.params['addressdetails'] = 1
         self.params['q'] = location
 
-        # To prevent getting blocked, must have User-Agent and Referer
-        self.headers = dict()
-        #self.headers['User-Agent'] = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/31.0'
-        #self.headers['Referer'] = 'http://www.openstreetmap.org/search?query={0}'.format(location)
-
         # Initialize
         self._connect()
         self._parse(self.content)
-        self._test()
         self._json()
 
     @property
@@ -97,6 +91,5 @@ class Osm(Base):
         return self._get_json_str('address-country')
 
 if __name__ == '__main__':
-    g = Osm('453 Booth Street, Ottawa')
-    g.help()
-    g.debug()
+    g = Osm('553')
+    print g

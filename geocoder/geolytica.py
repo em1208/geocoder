@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # coding: utf8
 
-from .base import Base
+from base import Base
 import xmltodict
 
 class Geolytica(Base):
@@ -24,7 +24,6 @@ class Geolytica(Base):
         self._connect()
         self._content_xml_to_json()
         self._parse(self.content)
-        self._test()
         self._json()
 
     def _content_xml_to_json(self):
