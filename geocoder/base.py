@@ -252,6 +252,17 @@ class Base(object):
         return str('')
 
     @property
+    def osm(self):
+        osm = dict()
+        if self.street_number:
+            osm['addr:housenumber'] = self.street_number
+        if self.postal:
+            osm['addr:postcode'] = self.postal
+        if self.route:
+            osm['addr:street'] = self.route
+        return osm
+        
+    @property
     def ok(self):
         if bool(self.lng and self.lat):
             return True
