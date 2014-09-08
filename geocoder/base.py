@@ -240,14 +240,8 @@ class Base(object):
 
         if bool(south and east and north and west):
             bbox = dict()
-            bbox['type'] = 'Polygon'
-            bbox['coordinates'] = [
-                [west, south],
-                [east, south],
-                [east, north],
-                [west, north],
-                [west, south]
-            ]
+            bbox['northeast'] = [north, east]
+            bbox['southwest'] = [south, west]
             return bbox
         return str('')
 
