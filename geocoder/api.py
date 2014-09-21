@@ -17,6 +17,7 @@ from .timezone import Timezone
 from .elevation import Elevation
 from .geolytica import Geolytica
 from .canadapost import Canadapost
+from .bing_reverse import BingReverse
 
 
 def yahoo(location):
@@ -152,7 +153,7 @@ def arcgis(location):
     """
     return Arcgis(location)
 
-def bing(location, key=bing_key):
+def bing(location, reverse=False, key=bing_key):
     """
     # Bing
 
@@ -198,7 +199,10 @@ def bing(location, key=bing_key):
         * [Bing Maps REST Services](http://msdn.microsoft.com/en-us/library/ff701714.aspx)
 
     """
-    return Bing(location, key=key)
+    if reverse:
+        return BingReverse(location, key=key)
+    else:
+        return Bing(location, key=key)
 
 def nokia(location, app_id=app_id, app_code=app_code):
     """
@@ -391,7 +395,7 @@ def osm(location):
     """
     return Osm(location)
 
-def google(location, short_name=True):
+def google(location, reverse=False, short_name=True):
     """
     # Google
 
@@ -441,7 +445,10 @@ def google(location, short_name=True):
         * [Google Geocoding API](https://developers.google.com/maps/documentation/geocoding/)
 
     """
-    return Google(location, short_name=short_name)
+    if reverse:
+        return Reverse(location, short_name=short_name)
+    else:
+        return Google(location, short_name=short_name)
 
 def ip(location):
     """
