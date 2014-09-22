@@ -246,17 +246,6 @@ class Base(object):
         return str('')
 
     @property
-    def osm(self):
-        osm = dict()
-        if hasattr(self, 'street_number'):
-            osm['addr:housenumber'] = self.street_number
-        if hasattr(self, 'postal'):
-            osm['addr:postcode'] = self.postal
-        if hasattr(self, 'route'):
-            osm['addr:street'] = self.route
-        return osm
-
-    @property
     def ok(self):
         if bool(self.lng and self.lat):
             return True
