@@ -31,7 +31,17 @@ Still in early development, this is an easy application to speed up your geocodi
 
 ```bash
 $ geocode 'Ottawa, Ontario'
-{'status': 'OK', 'locality': 'Ottawa', 'country': 'Canada', 'provider': 'bing', 'state': 'ON', 'location': u'Ottawa, Ontario', 'address': 'Ottawa, ON', 'lat': 45.389198303222656, 'lng': -75.68800354003906, 'quality': 'PopulatedPlace', 'accuracy': 'Rooftop'}
+{'status': 'OK', 
+'locality': 'Ottawa',
+'country': 'Canada',
+'provider': 'bing',
+'state': 'ON',
+'location': u'Ottawa, Ontario',
+'address': 'Ottawa, ON',
+'lat': 45.389198303222656,
+'lng': -75.68800354003906,
+'quality': 'PopulatedPlace',
+'accuracy': 'Rooftop'}
 ```
 
 **CSV file input > output**
