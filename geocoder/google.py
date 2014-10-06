@@ -68,6 +68,13 @@ class Google(Base):
             return self._get_json_str('postal_code-long_name')
 
     @property
+    def subpremise(self):
+        if self.short_name:
+            return self._get_json_str('subpremise')
+        else:
+            return self._get_json_str('subpremise-long_name')
+
+    @property
     def street_number(self):
         if self.short_name:
             return self._get_json_str('street_number')
