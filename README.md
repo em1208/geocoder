@@ -30,7 +30,7 @@ Still in early development, this is an easy application to speed up your geocodi
 **Single Input to JSON**
 
 ```bash
-$ geocode 'Ottawa, Ontario'
+$ geocode "Ottawa, Ontario"
 {'status': 'OK', 
 'locality': 'Ottawa',
 'country': 'Canada',
