@@ -25,35 +25,39 @@ $ pip install geocoder
 
 ## Command Line Interface
 
-Still in early development, this is an easy application to speed up your geocoding needs.
+The command line tool allows you to geocode a number of strings, either
+passed via STDIN, or contained in a referenced file.
 
-**Single Input to JSON**
+Suppose I have a file with two strings, `textfile.txt`.
 
-```bash
-$ geocode "Ottawa, Ontario"
-{'status': 'OK', 
-'locality': 'Ottawa',
-'country': 'Canada',
-'provider': 'bing',
-'state': 'ON',
-'location': u'Ottawa, Ontario',
-'address': 'Ottawa, ON',
-'lat': 45.389198303222656,
-'lng': -75.68800354003906,
-'quality': 'PopulatedPlace',
-'accuracy': 'Rooftop'}
+```
+$ cat textfile.txt
+Ottawa, Ontario
+Boston, Massachusets
 ```
 
-**CSV file input > output**
+```bash
+$ geocode `textfile.txt`
+{"status": "OK", "locality": "Ottawa", ...}
+{"status": "OK", "locality": "Boston", ...}
+```
 
-The first row of the CSV will be geocoded, all other attributes will be kept.
+The output is, by default, sent to stdout, so it can be conveniently parsed
+by json parsing tools like `jq`.
+
+```bash
+$ geocode `textfile.txt` | jq [.lat,.lng,.country] -c
+{"status": "OK", "locality": "Ottawa", ...}
+{"status": "OK", "locality": "Boston", ...}
+```
 
 ```bash
 $ geocode --input 'items.csv' --output 'results.csv'
+[45.389198303222656,-75.68800354003906,"Canada"]
+[42.35866165161133,-71.0567398071289,"United States"]
 ```
 
 For more development requests for the CLI, please provide your input in the [Github Issues Page](https://github.com/DenisCarriere/geocoder/issues).
-
 
 ### Visit the [Wiki](https://github.com/DenisCarriere/geocoder/wiki/)
 
