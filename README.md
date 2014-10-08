@@ -25,16 +25,27 @@ $ pip install geocoder
 
 ## Command Line Interface
 
-The command line tool allows you to geocode a number of strings, either
-passed via STDIN, or contained in a referenced file.
+The command line tool allows you to geocode one or many strings, either
+passed as an argument, passed via STDIN, or contained in a referenced file.
 
-Suppose I have a file with two strings, `textfile.txt`.
+```bash
+$ geocode "Ottawa"
+{
+  "accuracy": "Rooftop",
+  "quality": "PopulatedPlace",
+  "lng": -75.68800354003906,
+  "status": "OK",
+  "locality": "Ottawa",
+  "country": "Canada",
+  "provider": "bing",
+  "state": "ON",
+  "location": "Ottawa",
+  "address": "Ottawa, ON",
+  "lat": 45.389198303222656
+}
+```
 
-```
-$ cat textfile.txt
-Ottawa, Ontario
-Boston, Massachusets
-```
+Now, suppose you have a file with two lines, which you want to geocode.
 
 ```bash
 $ geocode `textfile.txt`
