@@ -47,12 +47,6 @@ by json parsing tools like `jq`.
 
 ```bash
 $ geocode `textfile.txt` | jq [.lat,.lng,.country] -c
-{"status": "OK", "locality": "Ottawa", ...}
-{"status": "OK", "locality": "Boston", ...}
-```
-
-```bash
-$ geocode --input 'items.csv' --output 'results.csv'
 [45.389198303222656,-75.68800354003906,"Canada"]
 [42.35866165161133,-71.0567398071289,"United States"]
 ```
