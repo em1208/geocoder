@@ -117,44 +117,44 @@ Please look at the following pages on the wiki for more information about a cert
 ### Providers
 Here is a list of providers that are available for use with **FREE** or limited restrictions.
 
-- **[OSM](https://github.com/DenisCarriere/geocoder/wiki/OSM)**
+- [OSM](https://github.com/DenisCarriere/geocoder/wiki/OSM)
 
-- **[Bing](https://github.com/DenisCarriere/geocoder/wiki/Bing)**
+- [Bing](https://github.com/DenisCarriere/geocoder/wiki/Bing)
 
-- **[Nokia](https://github.com/DenisCarriere/geocoder/wiki/Nokia)**
+- [Nokia](https://github.com/DenisCarriere/geocoder/wiki/Nokia)
 
-- **[Yahoo](https://github.com/DenisCarriere/geocoder/wiki/Yahoo)**
+- [Yahoo](https://github.com/DenisCarriere/geocoder/wiki/Yahoo)
 
-- **[Google](https://github.com/DenisCarriere/geocoder/wiki/Google)**
+- [Google](https://github.com/DenisCarriere/geocoder/wiki/Google)
 
-- **[ArcGIS](https://github.com/DenisCarriere/geocoder/wiki/ArcGIS)**
+- [ArcGIS](https://github.com/DenisCarriere/geocoder/wiki/ArcGIS)
 
-- **[TomTom](https://github.com/DenisCarriere/geocoder/wiki/TomTom)**
+- [TomTom](https://github.com/DenisCarriere/geocoder/wiki/TomTom)
 
-- **[Geonames](https://github.com/DenisCarriere/geocoder/wiki/Geonames)**
+- [Geonames](https://github.com/DenisCarriere/geocoder/wiki/Geonames)
 
-- **[MapQuest](https://github.com/DenisCarriere/geocoder/wiki/MapQuest)**
+- [MapQuest](https://github.com/DenisCarriere/geocoder/wiki/MapQuest)
 
-- **[Geocoder.ca](https://github.com/DenisCarriere/geocoder/wiki/Geocoder.ca)**
+- [Geocoder.ca](https://github.com/DenisCarriere/geocoder/wiki/Geocoder.ca)
 
 ### Extras
 
 The fun extra stuff I added to enjoy some cool features the web has to offer.
 
-- **[Reverse Geocoding](https://github.com/DenisCarriere/geocoder/wiki/Reverse)**
+- [Reverse Geocoding](https://github.com/DenisCarriere/geocoder/wiki/Reverse)
 
-- **[IP Address](https://github.com/DenisCarriere/geocoder/wiki/IP Address)**
+- [IP Address](https://github.com/DenisCarriere/geocoder/wiki/IP Address)
 
-- **[Elevation (Meters)](https://github.com/DenisCarriere/geocoder/wiki/Elevation)**
+- [Elevation (Meters)](https://github.com/DenisCarriere/geocoder/wiki/Elevation)
 
-- **[Time Zone](https://github.com/DenisCarriere/geocoder/wiki/TimeZone)**
+- [Time Zone](https://github.com/DenisCarriere/geocoder/wiki/TimeZone)
 
-- **[CanadaPost](https://github.com/DenisCarriere/geocoder/wiki/CanadaPost)**
+- [CanadaPost](https://github.com/DenisCarriere/geocoder/wiki/CanadaPost)
 
 
 ### Topic not available?
 
-If you cannot find a topic you are looking for, please feel free to ask me [@DenisCarriere](https://github.com/DenisCarriere) or post them on the [Github Issues Page](https://github.com/DenisCarriere/geocoder/issues).
+If you cannot find a topic you are looking for, please feel free to ask me @[DenisCarriere](https://github.com/DenisCarriere) or post them on the [Github Issues Page](https://github.com/DenisCarriere/geocoder/issues).
 
 ## Support
 
@@ -172,6 +172,6 @@ Speak up on Twitter [@DenisCarriere](https://twitter.com/DenisCarriere) and tell
 
 A big thanks to all the people that help contribute: 
 
-* [@flebel](https://github.com/flebel)
-* [@patrickyan](https://github.com/patrickyan)
-* [@themiurgo](https://github.com/themiurgo)
+* @[flebel](https://github.com/flebel)
+* @[patrickyan](https://github.com/patrickyan)
+* @[themiurgo](https://github.com/themiurgo)
