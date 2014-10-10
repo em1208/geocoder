@@ -14,7 +14,7 @@ class Base(object):
                 'api', 'description', 'content', 'params', 'status_code', 'headers',
                 'status_description', 'api_key', 'ok', 'key', 'id', 'x', 'y', 'latlng', 'bbox', 'geometry']
     _example = []
-    _timeout = None
+    _timeout = 5.0
     attributes = []
     headers = {}
     error = ''
@@ -93,6 +93,7 @@ class Base(object):
                     self.json[key] = value
 
     def _connect(self):
+        self.content = None
         self.status_code = 404
         try:
             r = requests.get(self.url, params=self.params, headers=self.headers, timeout=self._timeout)
