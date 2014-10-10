@@ -108,6 +108,13 @@ $ geocode `textfile.txt` | jq [.lat,.lng,.country] -c
 [42.35866165161133,-71.0567398071289,"United States"]
 ```
 
+Parsing a batch geocode to CSV can also be done with `jq`. Build your headers first then run the `geocode` application.
+
+```bash
+$ echo 'lat,lng,locality' > test.csv
+$ geocode cities.txt | jq [.lat,.lng,.locality] -c | jq -r '@csv' >> test.csv
+```
+
 For more development requests for the CLI, please provide your input in the [Github Issues Page](https://github.com/DenisCarriere/geocoder/issues).
 
 ### Visit the [Wiki](https://github.com/DenisCarriere/geocoder/wiki/)
