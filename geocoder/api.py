@@ -20,16 +20,16 @@ from .bing_reverse import BingReverse
 from .google_reverse import GoogleReverse
 
 
-def geocode(location, provider='google', reverse=False):
+def get(location, provider='google', reverse=False):
     """
-    # Geocode
+    # Get
 
-    The Geocode function is a simple way to input the Geocoding provider as a variable.
+    The Get function is a simple way to input the Geocoding provider as a variable.
 
     ## Python Example
 
         >>> import geocoder # pip install geocoder
-        >>> g = geocoder.geocode('<address>', provider='bing')
+        >>> g = geocoder.get('<address>', provider='bing')
         >>> g.lat, g.lng
         45.413140 -75.656703
         ...
