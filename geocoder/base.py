@@ -12,7 +12,8 @@ class Base(object):
                        '[GitHub Wiki](https://github.com/DenisCarriere/geocoder/wiki)']
     _exclude = ['parse', 'json', 'url', 'attributes', 'help', 'debug', 'short_name',
                 'api', 'description', 'content', 'params', 'status_code', 'headers',
-                'status_description', 'api_key', 'ok', 'key', 'id', 'x', 'y', 'latlng', 'bbox', 'geometry']
+                'status_description', 'api_key', 'ok', 'key', 'id', 'x', 'y', 'latlng',
+                'bbox', 'geometry', 'wkt']
     _example = []
     _timeout = 5.0
     attributes = []
@@ -239,6 +240,12 @@ class Base(object):
         self.north = north
         self.east = east
 
+        # Bounding Box Corners
+        self.northeast = [north, east]
+        self.northwest = [north, west]
+        self.southwest = [south, west]
+        self.southeast = [south, east]
+
         if bool(south and east and north and west):
             bbox = dict()
             bbox['northeast'] = [north, east]
@@ -261,6 +268,12 @@ class Base(object):
             geometry['coordinates'] = [self.lng, self.lat]
             return geometry
         return dict()
+
+    @property
+    def wkt(self):
+        if self.ok:
+            return 'POINT({x} {y})'.format(x=self.x, y=self.y)
+        return '' 
 
     @property
     def latlng(self):

@@ -23,6 +23,49 @@ A place to get you started on how to use this module and set up your work statio
 $ pip install geocoder
 ```
 
+**Using iPython with Geocoder**
+```bash
+$ pip install ipython
+$ ipython
+```
+
+Using the **TAB** key after entering '.' you will see all the available **providers**.
+
+```python
+>>> import geocoder
+>>> g = geocoder.
+geocoder.api             geocoder.geolytica       geocoder.mapquest
+geocoder.arcgis          geocoder.geonames        geocoder.nokia
+geocoder.base            geocoder.get             geocoder.osm
+geocoder.bing            geocoder.google          geocoder.timezone
+geocoder.bing_reverse    geocoder.google_reverse  geocoder.tomtom
+geocoder.canadapost      geocoder.ip              geocoder.yahoo
+geocoder.cli             geocoder.keys            
+geocoder.elevation       geocoder.location        
+```
+
+Using the **TAB** key again, you can see all the available **attributes**.
+```
+>>> g = geocoder.google('Ottawa')
+>>> g.
+g.accuracy            g.latlng              g.south
+g.address             g.lng                 g.southeast
+g.api                 g.locality            g.southwest
+g.attributes          g.location            g.state
+g.bbox                g.neighborhood        g.status
+g.content             g.north               g.status_code
+g.country             g.northeast           g.status_description
+g.county              g.northwest           g.street_number
+g.debug               g.ok                  g.sublocality
+g.east                g.params              g.subpremise
+g.error               g.parse               g.url
+g.geometry            g.postal              g.west
+g.headers             g.provider            g.wkt
+g.help                g.quality             g.x
+g.json                g.route               g.y
+g.lat                 g.short_name          
+```
+
 ## Command Line Interface
 
 The command line tool allows you to geocode one or many strings, either
@@ -120,8 +163,12 @@ Please feel free to give any feedback on this module. If you find any bugs or an
 
 ### Twitter
 
-Speak up on Twitter [@Addxy](https://twitter.com/search?q=%40Addxy) and tell us how you use this Python Geocoder. New updates will be pushed to Twitter Hashtags [#geocoder](https://twitter.com/search?q=%23geocoder).
+Speak up on Twitter [@DenisCarriere](https://twitter.com/DenisCarriere) and tell me how you use this Python Geocoder. New updates will be pushed to Twitter Hashtags [#geocoder](https://twitter.com/search?q=%23geocoder).
 
 ### Thanks to
 
-A big thanks to all the people that help contribute: [@flebel](https://github.com/flebel) [@patrickyan](https://github.com/patrickyan)
+A big thanks to all the people that help contribute: 
+
+* [@flebel](https://github.com/flebel)
+* [@patrickyan](https://github.com/patrickyan)
+* [@themiurgo](https://github.com/themiurgo)
