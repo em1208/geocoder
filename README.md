@@ -38,9 +38,8 @@ geocoder.api             geocoder.geolytica       geocoder.mapquest
 geocoder.arcgis          geocoder.geonames        geocoder.nokia
 geocoder.base            geocoder.get             geocoder.osm
 geocoder.bing            geocoder.google          geocoder.timezone
-geocoder.bing_reverse    geocoder.google_reverse  geocoder.tomtom
 geocoder.canadapost      geocoder.ip              geocoder.yahoo
-geocoder.cli             geocoder.keys            
+geocoder.cli             geocoder.keys            geocoder.tomtom
 geocoder.elevation       geocoder.location 
 ...       
 ```
