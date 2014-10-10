@@ -16,8 +16,7 @@ from .timezone import Timezone
 from .elevation import Elevation
 from .geolytica import Geolytica
 from .canadapost import Canadapost
-from .bing_reverse import BingReverse
-from .google_reverse import GoogleReverse
+from .location import Location
 
 
 def get(location, provider='google', reverse=False):
@@ -82,6 +81,25 @@ def get(location, provider='google', reverse=False):
     options['canadapost'] = Canadapost
 
     return options[provider](location)
+
+def location(location):
+    """
+    # Location
+
+    This simple function will convert a list of LatLng coordinate or a single
+    string to a geocoded module.
+
+    ## Python Example
+
+        >>> import geocoder # pip install geocoder
+        >>> g = geocoder.location([44.1423, -75.2432])
+        >>> g.lat, g.lng
+        45.413140 -75.656703
+        ...
+
+    """
+    return Location(location)
+
 
 def yahoo(location):
     """
@@ -229,7 +247,7 @@ def bing(location, reverse=False, key=bing_key):
     ## Python Example
 
         >>> import geocoder
-        >>> g = geocoder.bing(<address>)
+        >>> g = geocoder.bing(<address>, reverse=<True/False>, key=<Bing Key>)
         >>> g.lat, g.lng
         45.413140 -75.656703
         ...
@@ -263,6 +281,8 @@ def bing(location, reverse=False, key=bing_key):
 
     """
     if reverse:
+        from .bing_reverse import BingReverse
+
         return BingReverse(location, key=key)
     else:
         return Bing(location, key=key)
@@ -470,7 +490,7 @@ def google(location, reverse=False, short_name=True):
     ## Python Example
 
         >>> import geocoder
-        >>> g = geocoder.google(<address>)
+        >>> g = geocoder.google(<address>, reverse=<True/False>, short_name=<True/False>)
         >>> g.lat, g.lng
         45.413140 -75.656703
         ...
@@ -509,6 +529,8 @@ def google(location, reverse=False, short_name=True):
 
     """
     if reverse:
+        from .google_reverse import GoogleReverse
+
         return GoogleReverse(location, short_name=short_name)
     else:
         return Google(location, short_name=short_name)

@@ -29,6 +29,7 @@ class Geolytica(Base):
     def _content_xml_to_json(self):
         try:
             self.content = xmltodict.parse(self.content)
+            self._error = None
         except:
             self.status = 'ERROR - XML Corrupt'
 

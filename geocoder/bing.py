@@ -30,9 +30,10 @@ class Bing(Base):
         self._parse(self.content)
         self._json()
 
-    @property
-    def status_description(self):
-        return self._get_json_str('statusDescription')
+        # Bing catch errors
+        status = self._get_json_str('statusDescription')
+        if not status == 'OK':
+            self._error = status
 
     @property
     def lat(self):

@@ -11,14 +11,15 @@ class Base(object):
     _base_reference = ['[GitHub Repo](https://github.com/DenisCarriere/geocoder)',
                        '[GitHub Wiki](https://github.com/DenisCarriere/geocoder/wiki)']
     _exclude = ['parse', 'json', 'url', 'attributes', 'help', 'debug', 'short_name',
-                'api', 'description', 'content', 'params', 'status_code', 'headers',
-                'status_description', 'api_key', 'ok', 'key', 'id', 'x', 'y', 'latlng',
+                'api', 'content', 'params', 'status_code',
+                'api_key', 'ok', 'key', 'id', 'x', 'y', 'latlng',
                 'bbox', 'geometry', 'wkt']
     _example = []
     _timeout = 5.0
-    attributes = []
-    headers = {}
-    error = ''
+    _error = None
+    _headers = {}
+    _attributes = []
+    
 
     def __repr__(self):
         return "<[{0}] {1} [{2}]>".format(self.status, self.provider, self.address)
@@ -70,7 +71,7 @@ class Base(object):
         print('')
         print('## Geocoder Attributes')
         print('')
-        for attribute in self.attributes:
+        for attribute in self._attributes:
             print('* {0}'.format(attribute))
         print('')
         print('## Parameters')
@@ -88,7 +89,7 @@ class Base(object):
     def _json(self):
         for key in dir(self):
             if bool(not key.startswith('_') and key not in self._exclude):
-                self.attributes.append(key)
+                self._attributes.append(key)
                 value = getattr(self, key)
                 if value:
                     self.json[key] = value
@@ -97,7 +98,7 @@ class Base(object):
         self.content = None
         self.status_code = 404
         try:
-            r = requests.get(self.url, params=self.params, headers=self.headers, timeout=self._timeout)
+            r = requests.get(self.url, params=self.params, headers=self._headers, timeout=self._timeout)
             self.status_code = r.status_code
             self.url = r.url
         except KeyboardInterrupt:
@@ -203,8 +204,8 @@ class Base(object):
     def status(self):
         if self.ok:
             return 'OK'
-        elif self.error:
-            return self.error
+        elif self._error:
+            return self._error
         elif self.status_code == 404:
             return 'ERROR - URL Connection'
         elif not self.address:

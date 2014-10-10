@@ -29,6 +29,11 @@ class Google(Base):
         self._json()
         self.bbox
 
+        # Google catch errors
+        status = self._get_json_str('status')
+        if not status == 'OK':
+            self._error = status
+
     @property
     def lat(self):
         return self._get_json_float('location-lat')
@@ -36,10 +41,6 @@ class Google(Base):
     @property
     def lng(self):
         return self._get_json_float('location-lng')
-
-    @property
-    def status_description(self):
-        return self._get_json_str('status')
 
     @property
     def quality(self):
