@@ -41,11 +41,13 @@ geocoder.bing            geocoder.google          geocoder.timezone
 geocoder.bing_reverse    geocoder.google_reverse  geocoder.tomtom
 geocoder.canadapost      geocoder.ip              geocoder.yahoo
 geocoder.cli             geocoder.keys            
-geocoder.elevation       geocoder.location        
+geocoder.elevation       geocoder.location 
+...       
 ```
 
 Using the **TAB** key again, you can see all the available **attributes**.
-```
+
+```python
 >>> g = geocoder.google('Ottawa')
 >>> g.
 g.accuracy            g.latlng              g.south
@@ -63,7 +65,8 @@ g.geometry            g.postal              g.west
 g.headers             g.provider            g.wkt
 g.help                g.quality             g.x
 g.json                g.route               g.y
-g.lat                 g.short_name          
+g.lat                 g.short_name
+...    
 ```
 
 ## Command Line Interface
