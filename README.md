@@ -116,6 +116,27 @@ $ geocode cities.txt | jq [.lat,.lng,.locality] -c | jq -r '@csv' >> test.csv
 
 For more development requests for the CLI, please provide your input in the [Github Issues Page](https://github.com/DenisCarriere/geocoder/issues).
 
+
+## Reverse Geocoding
+
+The term geocoding generally refers to translating a human-readable address into
+a location on a map. The process of doing the opposite, translating a location
+on the map into a human-readable address, is known as reverse geocoding.
+Using Geocoder you can retrieve Reverse's geocoded data from Google Geocoding API.
+
+### Python Example
+
+At the moment the two providers that have the functionality of Reverse geocoding are **Google** & **Bing**. Simply include the `reverse=True` parameter.
+
+```python
+>>> import geocoder
+>>> g = geocoder.bing(['lat','lng'], reverse=True)
+>>> g.address
+'453 Booth Street, Ottawa'
+...
+```
+
+
 ### Visit the [Wiki](https://github.com/DenisCarriere/geocoder/wiki/)
 
 Please look at the following pages on the wiki for more information about a certain topic.
