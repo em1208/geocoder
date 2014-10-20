@@ -77,7 +77,7 @@ class Google(Base):
             return self._get_json_str('subpremise-long_name')
 
     @property
-    def street_number(self):
+    def housenumber(self):
         if self.short_name:
             return self._get_json_str('street_number')
         else:
@@ -105,7 +105,7 @@ class Google(Base):
             return self._get_json_str('sublocality-long_name')
 
     @property
-    def locality(self):
+    def city(self):
         if self.short_name:
             return self._get_json_str('locality')
         else:

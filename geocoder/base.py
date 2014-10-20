@@ -13,7 +13,7 @@ class Base(object):
     _exclude = ['parse', 'json', 'url', 'attributes', 'help', 'debug', 'short_name',
                 'api', 'content', 'params', 'status_code',
                 'api_key', 'ok', 'key', 'id', 'x', 'y', 'latlng',
-                'bbox', 'geometry', 'wkt']
+                'bbox', 'geometry', 'wkt','locality', 'province','street_number']
     _example = []
     _timeout = 5.0
     _error = None
@@ -101,6 +101,7 @@ class Base(object):
             r = requests.get(self.url, params=self.params, headers=self._headers, timeout=self._timeout)
             self.status_code = r.status_code
             self.url = r.url
+            self.content = r.json()
         except KeyboardInterrupt:
             sys.exit()
         except:
@@ -287,3 +288,15 @@ class Base(object):
     @property
     def x(self):
         return self.lng
+
+    @property
+    def locality(self):
+        return self.city
+
+    @property
+    def province(self):
+        return self.state
+
+    @property
+    def street_number(self):
+        return self.housenumber

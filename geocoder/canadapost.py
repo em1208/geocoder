@@ -137,7 +137,7 @@ class Canadapost(Base):
         return self._get_json_str('PostalCode')
 
     @property
-    def street_number(self):
+    def housenumber(self):
         return self._get_json_str('BuildingNumber')
 
     @property
@@ -145,7 +145,7 @@ class Canadapost(Base):
         return self._get_json_str('Street')
 
     @property
-    def locality(self):
+    def city(self):
         return self._get_json_str('City')
 
     @property

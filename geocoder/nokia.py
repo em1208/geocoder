@@ -43,7 +43,7 @@ class Nokia(Base):
         return self._get_json_str('Address-Label')
 
     @property
-    def street_number(self):
+    def housenumber(self):
         return self._get_json_str('Address-HouseNumber')
 
     @property
@@ -75,7 +75,7 @@ class Nokia(Base):
         return self._get_json_str('Address-District')
 
     @property
-    def locality(self):
+    def city(self):
         return self._get_json_str('Address-City')
 
     @property

@@ -32,6 +32,10 @@ def test_timezone():
     g = geocoder.timezone(location)
     assert g.ok
 
+def test_opencage():
+    g = geocoder.opencage(location)
+    assert g.ok
+
 """
 UNSTABLE Providers
 

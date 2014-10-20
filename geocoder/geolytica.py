@@ -46,7 +46,7 @@ class Geolytica(Base):
         return self._get_json_str('geodata-postal')
 
     @property
-    def street_number(self):
+    def housenumber(self):
         return self._get_json_str('standard-stnumber')
 
     @property
@@ -54,7 +54,7 @@ class Geolytica(Base):
         return self._get_json_str('standard-staddress')
 
     @property
-    def locality(self):
+    def city(self):
         return self._get_json_str('standard-city')
 
     @property

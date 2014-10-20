@@ -72,7 +72,7 @@ class Bing(Base):
         return self._get_bbox(south, west, north, east)
 
     @property
-    def locality(self):
+    def city(self):
         return self._get_json_str('address-locality')
 
     @property

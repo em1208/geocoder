@@ -144,6 +144,8 @@ Please look at the following pages on the wiki for more information about a cert
 ### Providers
 Here is a list of providers that are available for use with **FREE** or limited restrictions.
 
+- [OpenCage](https://github.com/DenisCarriere/geocoder/wiki/OpenCage) **New**
+
 - [OSM](https://github.com/DenisCarriere/geocoder/wiki/OSM)
 
 - [Bing](https://github.com/DenisCarriere/geocoder/wiki/Bing)

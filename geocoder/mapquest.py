@@ -52,7 +52,7 @@ class Mapquest(Base):
         return self._get_json_str('address-postalCode')
 
     @property
-    def locality(self):
+    def city(self):
         return self._get_json_str('address-locality')
 
     @property

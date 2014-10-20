@@ -63,7 +63,7 @@ class Osm(Base):
         return self._get_json_str('display_name')
 
     @property
-    def street_number(self):
+    def housenumber(self):
         return self._get_json_str('address-house_number')
 
     @property
@@ -79,7 +79,7 @@ class Osm(Base):
         return self._get_json_str('address-suburb')
 
     @property
-    def locality(self):
+    def city(self):
         return self._get_json_str('address-city')
 
     @property

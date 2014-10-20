@@ -40,7 +40,7 @@ class Tomtom(Base):
         return self._get_json_float('geoResult-longitude')
 
     @property
-    def street_number(self):
+    def housenumber(self):
         return self._get_json_str('geoResult-houseNumber')
 
     @property
@@ -60,7 +60,7 @@ class Tomtom(Base):
         return self._get_json_str('geoResult-postcode')
 
     @property
-    def locality(self):
+    def city(self):
         return self._get_json_str('geoResult-city')
 
     @property
@@ -70,11 +70,6 @@ class Tomtom(Base):
     @property
     def country(self):
         return self._get_json_str('geoResult-country')
-
-    @property
-    def quality(self):
-        return self._get_json_str('geoResult-type')
-
 
 if __name__ == '__main__':
     g = Tomtom('453 Booth Street, Ottawa')

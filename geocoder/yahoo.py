@@ -61,7 +61,7 @@ class Yahoo(Base):
             return self._get_json_str('uzip')
 
     @property
-    def street_number(self):
+    def housenumber(self):
         return self._get_json_str('house')
 
     @property
@@ -73,7 +73,7 @@ class Yahoo(Base):
         return self._get_json_str('neighborhood')
 
     @property
-    def locality(self):
+    def city(self):
         return self._get_json_str('city')
 
     @property
