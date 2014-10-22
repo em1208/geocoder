@@ -29,6 +29,7 @@ class Bing(Base):
         self._connect()
         self._parse(self.content)
         self._json()
+        self.bbox
 
         # Bing catch errors
         status = self._get_json_str('statusDescription')

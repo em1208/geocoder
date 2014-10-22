@@ -30,6 +30,7 @@ class OpenCage(Base):
         self._connect()
         self._parse(self.content)
         self._json()
+        self.bbox
 
         # OpenCage catch errors
         status = self.content.get('status')

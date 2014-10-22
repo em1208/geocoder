@@ -30,6 +30,7 @@ class Arcgis(Base):
         self._connect()
         self._parse(self.content)
         self._json()
+        self.bbox
 
     @property
     def lat(self):
