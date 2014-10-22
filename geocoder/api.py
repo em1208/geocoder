@@ -65,21 +65,22 @@ def get(location, provider='google', reverse=False):
 
     """
     provider = provider.lower().strip()
-    options = dict()
-    options['ip'] = Ip
-    options['osm'] = Osm
-    options['bing'] = Bing
-    options['nokia'] = Nokia
-    options['yahoo'] = Yahoo
-    options['google'] = Google
-    options['tomtom'] = Tomtom
-    options['arcgis'] = Arcgis
-    options['geonames'] = Geonames
-    options['mapquest'] = Mapquest
-    options['timezone'] = Timezone
-    options['elevation'] = Elevation
-    options['geolytica'] = Geolytica
-    options['canadapost'] = Canadapost
+    options = {
+	'ip': Ip,
+	'osm': Osm,
+	'bing': Bing,
+	'nokia': Nokia,
+	'yahoo': Yahoo,
+	'google': Google,
+	'tomtom': Tomtom,
+	'arcgis': Arcgis,
+	'geonames': Geonames,
+	'mapquest': Mapquest,
+	'timezone': Timezone,
+	'elevation': Elevation,
+	'geolytica': Geolytica,
+	'canadapost': Canadapost,
+    }
 
     return options[provider](location)
 
@@ -819,5 +820,4 @@ def geonames(location, username='addxy'):
 
     """
     return Geonames(location, username=username)
-
 
