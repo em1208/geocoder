@@ -96,6 +96,8 @@ class Base(object):
                 value = getattr(self, key)
                 if value:
                     self.json[key] = value
+        # Create BBOX variables
+        self.bbox
 
     def _connect(self):
         self.content = None
