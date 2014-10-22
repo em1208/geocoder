@@ -13,13 +13,16 @@ class Base(object):
     _exclude = ['parse', 'json', 'url', 'attributes', 'help', 'debug', 'short_name',
                 'api', 'content', 'params', 'status_code',
                 'api_key', 'ok', 'key', 'id', 'x', 'y', 'latlng',
-                'bbox', 'geometry', 'wkt','locality', 'province','street_number']
+                'bbox', 'geometry', 'wkt','locality', 'province','street_number', 'rate_limited_get']
     _example = []
     _timeout = 5.0
     _error = None
     _headers = {}
     _attributes = []
-    
+
+    @staticmethod
+    def rate_limited_get(*args, **kwargs):
+        return requests.get(*args, **kwargs)
 
     def __repr__(self):
         return "<[{0}] {1} [{2}]>".format(self.status, self.provider, self.address)
@@ -98,7 +101,7 @@ class Base(object):
         self.content = None
         self.status_code = 404
         try:
-            r = requests.get(self.url, params=self.params, headers=self._headers, timeout=self._timeout)
+            r = self.rate_limited_get(self.url, params=self.params, headers=self._headers, timeout=self._timeout)
             self.status_code = r.status_code
             self.url = r.url
             self.content = r.json()

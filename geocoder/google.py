@@ -2,6 +2,8 @@
 # coding: utf8
 
 from .base import Base
+from .ratelim import rate_limited
+import requests
 
 
 class Google(Base):
@@ -33,6 +35,12 @@ class Google(Base):
         status = self._get_json_str('status')
         if not status == 'OK':
             self._error = status
+
+    @staticmethod
+    @rate_limited(2500, 60*60*24)
+    @rate_limited(5, 1)
+    def rate_limited_get(*args, **kwargs):
+        return requests.get(*args, **kwargs)
 
     @property
     def lat(self):
