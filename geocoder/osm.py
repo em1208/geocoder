@@ -40,6 +40,14 @@ class Osm(Base):
     def quality(self):
         return self._get_json_str('type')
 
+    @property
+    def osm_type(self):
+        return self._get_json_str('osm_type')
+
+    @property
+    def osm_id(self):
+        return self._get_json_str('osm_id')
+
     """
     >>>>>>>>>>>>>>>>>>>>>>>>>>>
     TO-DO
